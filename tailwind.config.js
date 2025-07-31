@@ -9,28 +9,40 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          50: '#f0f9f0',
+          100: '#dcf2dc',
+          200: '#bce4bc',
+          300: '#8cd08c',
+          400: '#5bb85b',
+          500: '#249100', // Main brand color
+          600: '#1f7a00',
+          700: '#1a6200',
+          800: '#154a00',
+          900: '#0f3300',
+        },
+        neutral: {
+          50: '#fdfcfb',
+          100: '#f9f7f6',
+          200: '#f3f0ee',
+          300: '#ebe6e3', // Light neutral
+          400: '#d4ccc8',
+          500: '#907c6d', // Main neutral
+          600: '#7a6a5d',
+          700: '#5f5248',
+          800: '#4a3f38',
+          900: '#3d332e',
         },
         success: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
+          50: '#f0f9f0',
+          100: '#dcf2dc',
+          200: '#bce4bc',
+          300: '#8cd08c',
+          400: '#5bb85b',
+          500: '#249100',
+          600: '#1f7a00',
+          700: '#1a6200',
+          800: '#154a00',
+          900: '#0f3300',
         },
         warning: {
           50: '#fffbeb',
@@ -61,6 +73,7 @@ export default {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
         'bounce-in': 'bounceIn 0.6s ease-out',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         fadeIn: {
@@ -77,6 +90,9 @@ export default {
           '70%': { transform: 'scale(0.9)' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
+      },
+      fontFamily: {
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
       },
     },
   },

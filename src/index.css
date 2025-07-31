@@ -8,7 +8,7 @@
   }
   
   body {
-    @apply bg-gray-50 dark:bg-gray-900 transition-colors duration-200;
+    @apply bg-neutral-50 dark:bg-neutral-900 transition-colors duration-200;
   }
 }
 
@@ -22,7 +22,7 @@
   }
   
   .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600;
+    @apply bg-neutral-200 text-neutral-800 hover:bg-neutral-300 focus:ring-neutral-500 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600;
   }
   
   .btn-success {
@@ -34,15 +34,15 @@
   }
   
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-white;
+    @apply w-full px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-neutral-800 dark:border-neutral-600 dark:text-white;
   }
   
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 transition-all duration-200 hover:shadow-xl;
+    @apply bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-neutral-200 dark:border-neutral-700 p-6 transition-all duration-200 hover:shadow-xl;
   }
   
   .result-item {
-    @apply flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0;
+    @apply flex justify-between items-center py-3 border-b border-neutral-200 dark:border-neutral-700 last:border-b-0;
   }
   
   .result-value {
@@ -58,7 +58,7 @@
   }
   
   .result-value.neutral {
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-neutral-500 dark:text-neutral-400;
   }
 }
 
