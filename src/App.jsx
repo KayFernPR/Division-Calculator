@@ -95,20 +95,33 @@ function App() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 flex items-center ${
                   activeTab === tab.id
                     ? 'bg-primary-600 text-white shadow-lg'
                     : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'
                 }`}
               >
-                <span className="mr-2 flex items-center">
-                  {tab.iconSrc ? (
-                    <img src={tab.iconSrc} alt="icon" className="w-5 h-5" onError={(e) => { const triedPng = e.currentTarget.getAttribute('data-fallback') === 'png'; if (!triedPng) { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/calculator.png'; } else { e.currentTarget.style.display='none'; } }} />
+                <span className="mr-2 flex items-center justify-center w-5 h-5">
+                  {tab.id === 'calculator' ? (
+                    <div className="calculator-icon flex-shrink-0" style={{width: '20px', height: '24px', fontSize: '3px'}}>
+                      <div className="calc-screen" style={{height: '6px', fontSize: '4px'}}>0</div>
+                      <div className="calc-buttons" style={{height: '16px'}}>
+                        <div className="calc-btn" style={{fontSize: '2px'}}>7</div>
+                        <div className="calc-btn" style={{fontSize: '2px'}}>8</div>
+                        <div className="calc-btn" style={{fontSize: '2px'}}>9</div>
+                        <div className="calc-btn" style={{fontSize: '2px'}}>+</div>
+                        <div className="calc-btn" style={{fontSize: '2px'}}>-</div>
+                        <div className="calc-btn clear" style={{fontSize: '2px'}}>C</div>
+                        <div className="calc-btn" style={{fontSize: '2px'}}>×</div>
+                        <div className="calc-btn" style={{fontSize: '2px'}}>÷</div>
+                        <div className="calc-btn equals" style={{fontSize: '2px'}}>=</div>
+                      </div>
+                    </div>
                   ) : (
-                    <span>{tab.icon}</span>
+                    <span className="text-lg">{tab.icon}</span>
                   )}
                 </span>
-                {tab.label}
+                <span>{tab.label}</span>
               </button>
             ))}
           </div>

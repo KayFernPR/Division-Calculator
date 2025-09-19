@@ -418,7 +418,7 @@ const Calculator = ({ onAddJob }) => {
   return (
     <div className="space-y-6">
       {/* Calculator Form */}
-      <div className="card">
+      <div className="card border-2 border-[#63D43E]">
         <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-6 font-header flex items-center gap-3">
           <div className="calculator-icon flex-shrink-0">
             <div className="calc-screen">0</div>

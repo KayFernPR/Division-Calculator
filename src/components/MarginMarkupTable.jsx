@@ -92,11 +92,11 @@ const MarginMarkupTable = () => {
         <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
           💡 Quick Reference
         </h3>
-        <div className="flex gap-6 overflow-x-auto pb-2 text-sm">
+        <div className="grid grid-cols-7 gap-4 text-sm">
           {[20, 25, 30, 35, 40, 45, 50].map((markup) => {
             const marginFromMarkup = calculateMarginFromMarkup(markup)
             return (
-              <div className="text-center min-w-[120px]" key={markup}>
+              <div className="text-center" key={markup}>
                 <div className="font-mono font-bold text-primary-600 dark:text-primary-400">{formatPercentage(marginFromMarkup)}</div>
                 <div className="text-neutral-600 dark:text-neutral-400">Margin</div>
                 <div className="font-mono text-neutral-700 dark:text-neutral-300">{formatPercentage(markup)}</div>
@@ -109,13 +109,13 @@ const MarginMarkupTable = () => {
 
       {/* Formula Explanation */}
       <div className="mt-4 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
-        <h4 className="font-semibold text-primary-800 dark:text-primary-200 mb-2">
+        <h4 className="font-semibold text-black dark:text-white mb-2">
           📐 Formula
         </h4>
-        <p className="text-sm text-primary-700 dark:text-primary-300">
+        <p className="text-sm text-black dark:text-white">
           <strong>Mark-up = (Margin / (1 - Margin)) × 100</strong>
         </p>
-        <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">
+        <p className="text-xs text-black dark:text-white mt-1">
           This table helps you quickly convert between margin and markup percentages for pricing decisions.
         </p>
       </div>
