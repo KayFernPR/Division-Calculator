@@ -3,14 +3,12 @@ import Calculator from './components/Calculator'
 import JobHistory from './components/JobHistory'
 import MarginMarkupTable from './components/MarginMarkupTable'
 import ProfitChart from './components/ProfitChart'
-import Results from './components/Results'
 import ThemeToggle from './components/ThemeToggle'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
   const [jobs, setJobs] = useState([])
   const [activeTab, setActiveTab] = useState('calculator')
-  const [calculatorResults, setCalculatorResults] = useState({})
 
   // Load dark mode preference from localStorage
   useEffect(() => {
@@ -134,9 +132,8 @@ function App() {
           {/* Calculator Tab */}
           {activeTab === 'calculator' && (
             <div className="grid lg:grid-cols-2 gap-8">
-              <Calculator onAddJob={addJob} onResultsChange={setCalculatorResults} />
+              <Calculator onAddJob={addJob} />
               <div className="space-y-6">
-                <Results results={calculatorResults} />
                 <div className="card bg-primary-50 dark:bg-primary-900/20">
                   <h3 className="text-lg font-semibold text-primary-800 dark:text-primary-200 mb-3 font-subheader">
                     💡 Quick Tips
