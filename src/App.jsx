@@ -3,12 +3,14 @@ import Calculator from './components/Calculator'
 import JobHistory from './components/JobHistory'
 import MarginMarkupTable from './components/MarginMarkupTable'
 import ProfitChart from './components/ProfitChart'
+import Results from './components/Results'
 import ThemeToggle from './components/ThemeToggle'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
   const [jobs, setJobs] = useState([])
   const [activeTab, setActiveTab] = useState('calculator')
+  const [calculatorResults, setCalculatorResults] = useState({})
 
   // Load dark mode preference from localStorage
   useEffect(() => {
@@ -78,12 +80,12 @@ function App() {
           <div className="flex justify-between items-center mb-6">
             <img src="/logo.svg" alt="Brand Logo" className="h-12 w-12"
                  onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
-            <h1 className="text-4xl font-bold text-neutral-800 dark:text-neutral-200 font-header text-center flex-1">
+            <h1 className="text-4xl font-bold font-header text-center flex-1" style={{color: '#1F1F1F'}}>
               Restoration Profitability Calculator
             </h1>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           </div>
-          <p className="text-lg text-neutral-600 dark:text-neutral-300 text-center">
+          <p className="text-lg text-center" style={{color: '#1F1F1F'}}>
             Calculate job profitability, track margins, and visualize trends for restoration contractors
           </p>
         </header>
@@ -103,18 +105,18 @@ function App() {
               >
                 <span className="mr-2 flex items-center justify-center w-5 h-5">
                   {tab.id === 'calculator' ? (
-                    <div className="calculator-icon flex-shrink-0" style={{width: '20px', height: '24px', fontSize: '3px'}}>
-                      <div className="calc-screen" style={{height: '6px', fontSize: '4px'}}>0</div>
-                      <div className="calc-buttons" style={{height: '16px'}}>
-                        <div className="calc-btn" style={{fontSize: '2px'}}>7</div>
-                        <div className="calc-btn" style={{fontSize: '2px'}}>8</div>
-                        <div className="calc-btn" style={{fontSize: '2px'}}>9</div>
-                        <div className="calc-btn" style={{fontSize: '2px'}}>+</div>
-                        <div className="calc-btn" style={{fontSize: '2px'}}>-</div>
-                        <div className="calc-btn clear" style={{fontSize: '2px'}}>C</div>
-                        <div className="calc-btn" style={{fontSize: '2px'}}>×</div>
-                        <div className="calc-btn" style={{fontSize: '2px'}}>÷</div>
-                        <div className="calc-btn equals" style={{fontSize: '2px'}}>=</div>
+                    <div className="calculator-icon flex-shrink-0" style={{width: '20px', height: '20px', fontSize: '2px'}}>
+                      <div className="calc-screen" style={{height: '4px', fontSize: '3px'}}>0</div>
+                      <div className="calc-buttons" style={{height: '14px'}}>
+                        <div className="calc-btn" style={{fontSize: '1px'}}>7</div>
+                        <div className="calc-btn" style={{fontSize: '1px'}}>8</div>
+                        <div className="calc-btn" style={{fontSize: '1px'}}>9</div>
+                        <div className="calc-btn" style={{fontSize: '1px'}}>+</div>
+                        <div className="calc-btn" style={{fontSize: '1px'}}>-</div>
+                        <div className="calc-btn clear" style={{fontSize: '1px'}}>C</div>
+                        <div className="calc-btn" style={{fontSize: '1px'}}>×</div>
+                        <div className="calc-btn" style={{fontSize: '1px'}}>÷</div>
+                        <div className="calc-btn equals" style={{fontSize: '1px'}}>=</div>
                       </div>
                     </div>
                   ) : (
@@ -132,8 +134,9 @@ function App() {
           {/* Calculator Tab */}
           {activeTab === 'calculator' && (
             <div className="grid lg:grid-cols-2 gap-8">
-              <Calculator onAddJob={addJob} />
+              <Calculator onAddJob={addJob} onResultsChange={setCalculatorResults} />
               <div className="space-y-6">
+                <Results results={calculatorResults} />
                 <div className="card bg-primary-50 dark:bg-primary-900/20">
                   <h3 className="text-lg font-semibold text-primary-800 dark:text-primary-200 mb-3 font-subheader">
                     💡 Quick Tips

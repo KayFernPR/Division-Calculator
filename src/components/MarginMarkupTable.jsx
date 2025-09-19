@@ -35,7 +35,7 @@ const MarginMarkupTable = () => {
 
   return (
     <div className="card">
-      <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-6">
+      <h2 className="text-2xl font-bold mb-6" style={{color: '#1F1F1F'}}>
         📊 Margin vs. Markup Reference
       </h2>
       
@@ -89,7 +89,7 @@ const MarginMarkupTable = () => {
 
       {/* Quick Reference */}
       <div className="mt-6 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-        <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
+        <h3 className="text-lg font-semibold mb-3" style={{color: '#1F1F1F'}}>
           💡 Quick Reference
         </h3>
         <div className="grid grid-cols-7 gap-4 text-sm">
@@ -109,13 +109,13 @@ const MarginMarkupTable = () => {
 
       {/* Formula Explanation */}
       <div className="mt-4 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
-        <h4 className="font-semibold text-black dark:text-white mb-2">
+        <h4 className="font-semibold mb-2" style={{color: '#1F1F1F'}}>
           📐 Formula
         </h4>
-        <p className="text-sm text-black dark:text-white">
+        <p className="text-sm" style={{color: '#1F1F1F'}}>
           <strong>Mark-up = (Margin / (1 - Margin)) × 100</strong>
         </p>
-        <p className="text-xs text-black dark:text-white mt-1">
+        <p className="text-xs mt-1" style={{color: '#1F1F1F'}}>
           This table helps you quickly convert between margin and markup percentages for pricing decisions.
         </p>
       </div>
