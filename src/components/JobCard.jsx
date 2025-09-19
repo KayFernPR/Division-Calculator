@@ -109,7 +109,7 @@ const JobCard = ({ job, onDelete, formatDate }) => {
         </head>
         <body>
           <div class="header">
-            <h1>🏗️ Restoration Job Profitability Report</h1>
+            <h1>Restoration Job Profitability Report</h1>
             <h2>${job.jobName}</h2>
             <p>Generated on ${formatDate(job.timestamp)}</p>
           </div>
@@ -144,6 +144,10 @@ const JobCard = ({ job, onDelete, formatDate }) => {
           
           <div class="results">
             <h3>Profitability Results</h3>
+            <div class="result-row">
+              <span class="label">Status:</span>
+              <span class="value status-${job.profitabilityStatus}">${getStatusText(job.profitabilityStatus)}</span>
+            </div>
             <div class="result-row">
               <span class="label">Actual Margin:</span>
               <span class="value status-${job.profitabilityStatus}">${formatPercentage(job.actualMargin)}</span>
@@ -240,7 +244,6 @@ const JobCard = ({ job, onDelete, formatDate }) => {
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Status:</span>
           <div className="flex items-center gap-2">
-            <span className="text-xl">{getStatusIcon(job.profitabilityStatus)}</span>
             <span className={`text-sm font-bold ${getStatusColor(job.profitabilityStatus)}`}>
               {getStatusText(job.profitabilityStatus)}
             </span>
