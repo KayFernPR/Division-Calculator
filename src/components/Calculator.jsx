@@ -423,6 +423,9 @@ const Calculator = ({ onAddJob }) => {
           <div className="calculator-icon flex-shrink-0">
             <div className="calc-screen">0</div>
             <div className="calc-buttons">
+              <div className="calc-btn">7</div>
+              <div className="calc-btn">8</div>
+              <div className="calc-btn">9</div>
               <div className="calc-btn">+</div>
               <div className="calc-btn">-</div>
               <div className="calc-btn clear">C</div>
