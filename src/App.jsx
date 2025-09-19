@@ -76,7 +76,7 @@ function App() {
         {/* Header */}
         <header className="mb-8">
           <div className="flex justify-between items-start mb-4">
-            <img src="/logo.svg" alt="Brand Logo" className="h-20 w-auto"
+            <img src="/logo.svg" alt="Brand Logo" className="h-16 w-auto"
                  onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           </div>

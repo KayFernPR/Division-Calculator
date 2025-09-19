@@ -720,7 +720,7 @@ const Calculator = ({ onAddJob }) => {
 
         {/* Results - Right */}
         <div className="card">
-        <h3 className="text-xl font-bold mb-4 font-title" style={{color: '#1F1F1F'}}>
+        <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
           📈 Results
         </h3>
         
