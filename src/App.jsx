@@ -140,11 +140,11 @@ function App() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">⚠️</span>
-                      <span>Warning! — You're Below target but your break-even and overhead are covered</span>
+                      <span>Warning! — You're below target, but your break-even and overhead are covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">🧊</span>
-                      <span>On Thin Ice — You're below break-even but your overhead is covered</span>
+                      <span>On Thin Ice — You're below target and break-even, but your overhead is covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">⛔</span>
