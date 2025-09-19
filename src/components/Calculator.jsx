@@ -82,7 +82,7 @@ const Calculator = ({ onAddJob }) => {
     const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
 
     // Gross Profit Dollars (before overhead)
-    const grossProfit = Math.max(retailPrice - jobCost, retailPrice >= 0 && jobCost >= 0 ? retailPrice - jobCost : 0)
+    const grossProfit = retailPrice - jobCost
 
     // Net Profit Dollars (after overhead)
     const netProfit = grossProfit - overheadCostDollars
@@ -95,19 +95,20 @@ const Calculator = ({ onAddJob }) => {
     const requiredPriceForGrossMargin = jobCost > 0 && targetGrossMargin < 100 ? 
       jobCost / (1 - targetGrossMargin / 100) : 0
 
-    // Use the higher of the two required prices
-    const requiredPrice = Math.max(requiredPriceForNetMargin, requiredPriceForGrossMargin)
+    // Use the net margin required price as primary (since it includes overhead)
+    // Fall back to gross margin if net margin calculation isn't valid
+    const requiredPrice = (requiredPriceForNetMargin > 0 && targetNetMargin > 0) ? requiredPriceForNetMargin : requiredPriceForGrossMargin
 
     // Required Markup = ((Required Price - Job Cost) / Job Cost) × 100
     const requiredMarkup = jobCost > 0 ? ((requiredPrice - jobCost) / jobCost) * 100 : 0
 
     // Profit Shortfall = Required Price - Retail Price (only if below target)
-    const profitShortfall = actualNetMargin < targetNetMargin ? requiredPrice - retailPrice : 0
+    const profitShortfall = (actualNetMargin < targetNetMargin && requiredPrice > retailPrice) ? requiredPrice - retailPrice : 0
 
-    // Revenue needed at 10% margin = Shortfall ÷ 0.10
+    // Additional revenue needed to cover shortfall at 10% margin
     const revenueNeeded10Percent = profitShortfall > 0 ? profitShortfall / 0.10 : 0
 
-    // Revenue needed at current margin = Shortfall ÷ (Actual Net Margin ÷ 100)
+    // Additional revenue needed to cover shortfall at current margin
     const revenueNeededCurrent = profitShortfall > 0 && actualNetMargin > 0 ? profitShortfall / (actualNetMargin / 100) : 0
 
     // Determine profitability status based on NET margin and overhead coverage
