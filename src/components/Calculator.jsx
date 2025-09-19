@@ -111,20 +111,24 @@ const Calculator = ({ onAddJob }) => {
     const revenueNeededCurrent = profitShortfall > 0 && actualNetMargin > 0 ? profitShortfall / (actualNetMargin / 100) : 0
 
     // Determine profitability status based on NET margin and overhead coverage
-    // Jackpot! (green): above target net margin, above break-even, and overhead is covered
-    // Warning! (yellow): below target net margin but above break-even and overhead is covered
-    // On Thin Ice (orange): below target net margin, below break-even, but overhead is covered
-    // No Bueno (red): below everything (not covering overhead or negative margin)
+    // Only calculate status if we have meaningful data (retail price > 0)
     let profitabilityStatus = 'neutral'
     const coversOverhead = overheadCostDollars <= 0 || netProfit >= 0
-    if (actualNetMargin >= targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
-      profitabilityStatus = 'jackpot'
-    } else if (actualNetMargin < targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
-      profitabilityStatus = 'warning'
-    } else if (actualNetMargin < targetNetMargin && actualNetMargin < breakEvenPercent && coversOverhead) {
-      profitabilityStatus = 'thin'
-    } else {
-      profitabilityStatus = 'no-bueno'
+    
+    if (retailPrice > 0) {
+      // Jackpot! (green): above target net margin, above break-even, and overhead is covered
+      // Warning! (yellow): below target net margin but above break-even and overhead is covered
+      // On Thin Ice (orange): below target net margin, below break-even, but overhead is covered
+      // No Bueno (red): below everything (not covering overhead or negative margin)
+      if (actualNetMargin >= targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
+        profitabilityStatus = 'jackpot'
+      } else if (actualNetMargin < targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
+        profitabilityStatus = 'warning'
+      } else if (actualNetMargin < targetNetMargin && actualNetMargin < breakEvenPercent && coversOverhead) {
+        profitabilityStatus = 'thin'
+      } else {
+        profitabilityStatus = 'no-bueno'
+      }
     }
 
     setResults({
