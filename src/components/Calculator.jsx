@@ -471,31 +471,6 @@ const Calculator = ({ onAddJob }) => {
 
   return (
     <div className="space-y-6">
-      {/* Company Logo */}
-      <div className="flex justify-center mb-6">
-        <div className="flex items-center gap-4">
-          <img 
-            src="/logo.svg" 
-            alt="Company Logo" 
-            className="h-16 w-auto"
-            onError={(e) => {
-              e.target.src = '/logo.png'
-              e.target.onerror = () => {
-                e.target.style.display = 'none'
-              }
-            }}
-          />
-          <div className="text-center">
-            <h1 className="text-2xl font-bold font-header" style={{color: '#1F1F1F'}}>
-              Restoration Profitability Calculator
-            </h1>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 font-body">
-              Professional Job Costing & Profit Analysis
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Top Section: Quick Tips and Status Indicators */}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Quick Tips - Top Left */}
