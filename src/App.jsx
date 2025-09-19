@@ -74,16 +74,16 @@ function App() {
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-200">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <header className="text-center mb-8">
+        <header className="mb-8">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-4xl font-bold text-neutral-800 dark:text-neutral-200 flex items-center gap-3 font-header">
-              <img src="/logo.svg" alt="Brand Logo" className="h-10 w-10"
-                   onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
+            <img src="/logo.svg" alt="Brand Logo" className="h-12 w-12"
+                 onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
+            <h1 className="text-4xl font-bold text-neutral-800 dark:text-neutral-200 font-header text-center flex-1">
               Restoration Profitability Calculator
             </h1>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           </div>
-          <p className="text-lg text-neutral-600 dark:text-neutral-300">
+          <p className="text-lg text-neutral-600 dark:text-neutral-300 text-center">
             Calculate job profitability, track margins, and visualize trends for restoration contractors
           </p>
         </header>
