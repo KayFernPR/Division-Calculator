@@ -382,10 +382,12 @@ const Calculator = ({ onAddJob }) => {
           
           <div class="results">
             <h3>Profitability Results</h3>
+            ${results.profitabilityStatus !== 'neutral' ? `
             <div class="result-row">
               <span class="label">Profitability Status:</span>
               <span class="value status-${results.profitabilityStatus}">${getStatusText(results.profitabilityStatus)}</span>
             </div>
+            ` : ''}
             <div class="result-row">
               <span class="label">Actual Gross Margin:</span>
               <span class="value">${formatPercentage(results.actualMargin)}</span>
@@ -713,44 +715,46 @@ const Calculator = ({ onAddJob }) => {
         </h3>
         
         <div className="space-y-3">
-          {/* Profitability Status */}
-          <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 font-medium" style={{color: '#1F1F1F'}}>
-                <span>Profitability Status:</span>
-                <div className="relative group select-none" ref={statusHelpRef}>
-                  <button
-                    type="button"
-                    onClick={() => setShowStatusHelp(prev => !prev)}
-                    aria-expanded={showStatusHelp}
-                    aria-controls="status-help-tooltip"
-                    className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 text-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    title="How status is determined"
-                  >
-                    i
-                  </button>
-                  <div
-                    id="status-help-tooltip"
-                    className={`absolute z-10 ${showStatusHelp ? 'block' : 'hidden'} md:group-hover:block top-6 left-0 w-72 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700`}
-                  >
-                    <p className="mb-1"><strong>Break-even %</strong>: Your company threshold entered above. If actual net margin is below this, you are below company break-even.</p>
-                    <p className="mb-1"><strong>Overhead coverage</strong>: Net Profit ($) must be ≥ 0 (after subtracting overhead cost from gross profit).</p>
-                    <p className="mt-1"><strong>Statuses</strong>: Jackpot (above target net margin, above break-even, and covers overhead), Warning (below target net margin but above break-even and covers overhead), On Thin Ice (below target net margin, below break-even, but covers overhead), No Bueno (below everything - not covering overhead or negative margin).</p>
+          {/* Profitability Status - Only show when calculations have been performed */}
+          {results.profitabilityStatus !== 'neutral' && (
+            <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 font-medium" style={{color: '#1F1F1F'}}>
+                  <span>Profitability Status:</span>
+                  <div className="relative group select-none" ref={statusHelpRef}>
+                    <button
+                      type="button"
+                      onClick={() => setShowStatusHelp(prev => !prev)}
+                      aria-expanded={showStatusHelp}
+                      aria-controls="status-help-tooltip"
+                      className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 text-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      title="How status is determined"
+                    >
+                      i
+                    </button>
+                    <div
+                      id="status-help-tooltip"
+                      className={`absolute z-10 ${showStatusHelp ? 'block' : 'hidden'} md:group-hover:block top-6 left-0 w-72 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700`}
+                    >
+                      <p className="mb-1"><strong>Break-even %</strong>: Your company threshold entered above. If actual net margin is below this, you are below company break-even.</p>
+                      <p className="mb-1"><strong>Overhead coverage</strong>: Net Profit ($) must be ≥ 0 (after subtracting overhead cost from gross profit).</p>
+                      <p className="mt-1"><strong>Statuses</strong>: Jackpot (above target net margin, above break-even, and covers overhead), Warning (below target net margin but above break-even and covers overhead), On Thin Ice (below target net margin, below break-even, but covers overhead), No Bueno (below everything - not covering overhead or negative margin).</p>
+                    </div>
                   </div>
                 </div>
+                <div className="flex items-center gap-2">
+                  <span className={`font-bold ${getStatusColor(results.profitabilityStatus)}`}>
+                    {getStatusText(results.profitabilityStatus)}
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className={`font-bold ${getStatusColor(results.profitabilityStatus)}`}>
-                  {getStatusText(results.profitabilityStatus)}
-                </span>
-              </div>
+              {results.profitabilityStatus === 'thin' && !results.coversOverhead && (
+                <p className="mt-2 text-sm text-orange-700 dark:text-orange-300">
+                  Overhead not covered by current gross profit.
+                </p>
+              )}
             </div>
-            {results.profitabilityStatus === 'thin' && !results.coversOverhead && (
-              <p className="mt-2 text-sm text-orange-700 dark:text-orange-300">
-                Overhead not covered by current gross profit.
-              </p>
-            )}
-          </div>
+          )}
           
           <div className="result-item">
             <span style={{color: '#1F1F1F'}}>Actual Gross Margin:</span>
