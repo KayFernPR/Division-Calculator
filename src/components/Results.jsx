@@ -5,7 +5,7 @@ const Results = ({ results = {} }) => {
   const statusHelpRef = useRef(null)
 
   // Don't render if no results yet
-  if (!results || Object.keys(results).length === 0) {
+  if (!results || Object.keys(results).length === 0 || !results.profitabilityStatus) {
     return (
       <div className="card">
         <h3 className="text-xl font-bold mb-4 font-title" style={{color: '#1F1F1F'}}>
@@ -131,13 +131,13 @@ const Results = ({ results = {} }) => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-2xl">{getStatusIcon(results.profitabilityStatus)}</span>
-              <span className={`font-bold ${getStatusColor(results.profitabilityStatus)}`}>
-                {getStatusText(results.profitabilityStatus)}
+              <span className="text-2xl">{getStatusIcon(results.profitabilityStatus || 'neutral')}</span>
+              <span className={`font-bold ${getStatusColor(results.profitabilityStatus || 'neutral')}`}>
+                {getStatusText(results.profitabilityStatus || 'neutral')}
               </span>
             </div>
           </div>
-          {results.profitabilityStatus === 'thin' && !results.coversOverhead && (
+          {results.profitabilityStatus === 'thin' && results.coversOverhead === false && (
             <p className="mt-2 text-sm text-orange-700 dark:text-orange-300">
               Overhead not covered by current gross profit.
             </p>
@@ -146,45 +146,45 @@ const Results = ({ results = {} }) => {
         
         <div className="result-item">
           <span className="text-neutral-700 dark:text-neutral-300">Actual Margin:</span>
-          <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
-            {formatPercentage(results.actualMargin)}
+          <span className={`result-value ${getStatusColor(results.profitabilityStatus || 'neutral')}`}>
+            {formatPercentage(results.actualMargin || 0)}
           </span>
         </div>
         
         <div className="result-item">
           <span className="text-neutral-700 dark:text-neutral-300">Actual Markup:</span>
           <span className="result-value">
-            {formatPercentage(results.actualMarkup)}
+            {formatPercentage(results.actualMarkup || 0)}
           </span>
         </div>
 
         <div className="result-item">
           <span className="text-neutral-700 dark:text-neutral-300">Gross Profit ($):</span>
           <span className="result-value">
-            {formatCurrency(results.grossProfit)}
+            {formatCurrency(results.grossProfit || 0)}
           </span>
         </div>
         
         <div className="result-item">
           <span className="text-neutral-700 dark:text-neutral-300">Required Price:</span>
           <span className="result-value">
-            {formatCurrency(results.requiredPrice)}
+            {formatCurrency(results.requiredPrice || 0)}
           </span>
         </div>
         
         <div className="result-item">
           <span className="text-neutral-700 dark:text-neutral-300">Required Markup:</span>
           <span className="result-value">
-            {formatPercentage(results.requiredMarkup)}
+            {formatPercentage(results.requiredMarkup || 0)}
           </span>
         </div>
         
-        {results.profitShortfall > 0 && (
+        {(results.profitShortfall || 0) > 0 && (
           <>
             <div className="result-item">
               <span className="text-neutral-700 dark:text-neutral-300">Profit Shortfall:</span>
               <span className="result-value text-danger-600 dark:text-danger-400">
-                {formatCurrency(results.profitShortfall)}
+                {formatCurrency(results.profitShortfall || 0)}
               </span>
             </div>
             
@@ -194,13 +194,13 @@ const Results = ({ results = {} }) => {
                 <div className="flex justify-between">
                   <span className="text-warning-700 dark:text-warning-300">Revenue needed at 10% margin:</span>
                   <span className="font-mono font-semibold text-warning-800 dark:text-warning-200">
-                    {formatCurrency(results.revenueNeeded10Percent)}
+                    {formatCurrency(results.revenueNeeded10Percent || 0)}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-warning-700 dark:text-warning-300">Revenue needed at current margin:</span>
                   <span className="font-mono font-semibold text-warning-800 dark:text-warning-200">
-                    {formatCurrency(results.revenueNeededCurrent)}
+                    {formatCurrency(results.revenueNeededCurrent || 0)}
                   </span>
                 </div>
               </div>
