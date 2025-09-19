@@ -103,9 +103,9 @@ function App() {
               >
                 <span className="mr-2 flex items-center justify-center w-5 h-5">
                   {tab.id === 'calculator' ? (
-                    <div className="calculator-icon flex-shrink-0" style={{width: '12px', height: '12px', fontSize: '1px'}}>
-                      <div className="calc-screen" style={{height: '2px', fontSize: '1px'}}>0</div>
-                      <div className="calc-buttons" style={{height: '8px'}}>
+                    <div className="calculator-icon flex-shrink-0" style={{width: '8px', height: '8px', fontSize: '1px'}}>
+                      <div className="calc-screen" style={{height: '1px', fontSize: '1px'}}>0</div>
+                      <div className="calc-buttons" style={{height: '5px'}}>
                         <div className="calc-btn" style={{fontSize: '1px'}}>7</div>
                         <div className="calc-btn" style={{fontSize: '1px'}}>8</div>
                         <div className="calc-btn" style={{fontSize: '1px'}}>9</div>
