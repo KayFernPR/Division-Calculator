@@ -64,7 +64,7 @@ function App() {
   }
 
   const tabs = [
-    { id: 'calculator', label: 'Calculator', icon: '🧮', iconSrc: '/calculator.svg' },
+    { id: 'calculator', label: 'Calculator', icon: '🔢' },
     { id: 'history', label: 'History', icon: '📋' },
     { id: 'chart', label: 'Charts', icon: '📈' },
     { id: 'reference', label: 'Reference', icon: '📊' }
@@ -102,24 +102,7 @@ function App() {
                 }`}
               >
                 <span className="mr-2 flex items-center justify-center w-5 h-5">
-                  {tab.id === 'calculator' ? (
-                    <div className="calculator-icon flex-shrink-0" style={{width: '5px', height: '5px', fontSize: '1px'}}>
-                      <div className="calc-screen" style={{height: '1px', fontSize: '1px'}}>0</div>
-                      <div className="calc-buttons" style={{height: '3px'}}>
-                        <div className="calc-btn" style={{fontSize: '1px'}}>7</div>
-                        <div className="calc-btn" style={{fontSize: '1px'}}>8</div>
-                        <div className="calc-btn" style={{fontSize: '1px'}}>9</div>
-                        <div className="calc-btn" style={{fontSize: '1px'}}>+</div>
-                        <div className="calc-btn" style={{fontSize: '1px'}}>-</div>
-                        <div className="calc-btn clear" style={{fontSize: '1px'}}>C</div>
-                        <div className="calc-btn" style={{fontSize: '1px'}}>×</div>
-                        <div className="calc-btn" style={{fontSize: '1px'}}>÷</div>
-                        <div className="calc-btn equals" style={{fontSize: '1px'}}>=</div>
-                      </div>
-                    </div>
-                  ) : (
-                    <span className="text-lg">{tab.icon}</span>
-                  )}
+                  <span className="text-lg">{tab.icon}</span>
                 </span>
                 <span style={{color: '#1F1F1F'}}>{tab.label}</span>
               </button>
