@@ -89,17 +89,17 @@ const Calculator = ({ onAddJob }) => {
     const revenueNeededCurrent = profitShortfall > 0 && actualMargin > 0 ? profitShortfall / (actualMargin / 100) : 0
 
     // Determine profitability status
-    // Jackpot! (green): at/above target and gross profit covers overhead
-    // Warning! (yellow): below target but at/above break-even and covers overhead
-    // On Thin Ice (orange): below break-even OR does not cover overhead, but non-negative margin
-    // No Bueno - Game Over (red): negative margin
+    // Jackpot! (green): above target, above break-even, and overhead is covered
+    // Warning! (yellow): below target but above break-even and overhead is covered
+    // On Thin Ice (orange): below target, below break-even, but overhead is covered
+    // No Bueno (red): below everything (not covering overhead or negative margin)
     let profitabilityStatus = 'neutral'
     const coversOverhead = overheadCost <= 0 || grossProfit >= overheadCost
-    if (actualMargin >= targetMargin && coversOverhead) {
+    if (actualMargin >= targetMargin && actualMargin >= breakEvenPercent && coversOverhead) {
       profitabilityStatus = 'jackpot'
-    } else if (actualMargin >= breakEvenPercent && coversOverhead) {
+    } else if (actualMargin < targetMargin && actualMargin >= breakEvenPercent && coversOverhead) {
       profitabilityStatus = 'warning'
-    } else if (actualMargin >= 0) {
+    } else if (actualMargin < targetMargin && actualMargin < breakEvenPercent && coversOverhead) {
       profitabilityStatus = 'thin'
     } else {
       profitabilityStatus = 'no-bueno'
@@ -627,7 +627,7 @@ const Calculator = ({ onAddJob }) => {
                   >
                     <p className="mb-1"><strong>Break-even %</strong>: Your company threshold entered above. If actual margin is below this, you are below company break-even.</p>
                     <p className="mb-1"><strong>Overhead coverage</strong>: Gross Profit ($) must be ≥ Overhead Cost ($) entered above.</p>
-                    <p className="mt-1"><strong>Statuses</strong>: Jackpot (≥ target and covers overhead), Warning (below target but ≥ break-even and covers overhead), On Thin Ice (margin ≥ 0 but below break-even or overhead not covered), No Bueno (negative margin).</p>
+                    <p className="mt-1"><strong>Statuses</strong>: Jackpot (above target, above break-even, and covers overhead), Warning (below target but above break-even and covers overhead), On Thin Ice (below target, below break-even, but covers overhead), No Bueno (below everything - not covering overhead or negative margin).</p>
                   </div>
                 </div>
               </div>
