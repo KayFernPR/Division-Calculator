@@ -420,8 +420,17 @@ const Calculator = ({ onAddJob }) => {
       {/* Calculator Form */}
       <div className="card">
         <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-6 font-header flex items-center gap-3">
-          <img src="/calculator.svg" alt="Calculator" className="h-8 w-8"
-               onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/calculator.png'; } else { e.currentTarget.innerHTML = '🧮'; e.currentTarget.style.display = 'inline'; } }} />
+          <div className="calculator-icon">
+            <div className="calc-screen">0</div>
+            <div className="calc-buttons">
+              <div className="calc-btn">+</div>
+              <div className="calc-btn">-</div>
+              <div className="calc-btn clear">C</div>
+              <div className="calc-btn">×</div>
+              <div className="calc-btn">÷</div>
+              <div className="calc-btn equals">=</div>
+            </div>
+          </div>
           Job Calculator
         </h2>
         

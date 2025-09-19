@@ -90,12 +90,12 @@ function App() {
 
         {/* Tab Navigation */}
         <div className="mb-8">
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="flex gap-2 justify-center overflow-x-auto pb-2">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                   activeTab === tab.id
                     ? 'bg-primary-600 text-white shadow-lg'
                     : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'
@@ -136,7 +136,7 @@ function App() {
                 
                 <div className="card bg-neutral-50 dark:bg-neutral-800">
                   <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3 font-subheader">
-                    📊 Status Indicators
+                    🚨 Status Indicators
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
