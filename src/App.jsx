@@ -75,18 +75,15 @@ function App() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <header className="mb-8">
-          <div className="flex justify-start mb-4">
-            <img src="/logo.svg" alt="Brand Logo" className="h-24 w-auto"
+          <div className="flex justify-between items-start mb-4">
+            <img src="/logo.svg" alt="Brand Logo" className="h-20 w-auto"
                  onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
+            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           </div>
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex-1"></div>
-            <h1 className="text-4xl font-bold font-header text-center flex-1" style={{color: '#1F1F1F'}}>
+          <div className="flex justify-center mb-6">
+            <h1 className="text-4xl font-bold font-header text-center whitespace-nowrap" style={{color: '#1F1F1F'}}>
               Restoration Profitability Calculator
             </h1>
-            <div className="flex-1 flex justify-end">
-              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-            </div>
           </div>
           <p className="text-lg text-center" style={{color: '#1F1F1F'}}>
             Calculate job profitability, track margins, and visualize trends for restoration contractors
