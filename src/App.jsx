@@ -64,7 +64,7 @@ function App() {
   }
 
   const tabs = [
-    { id: 'calculator', label: 'Calculator', icon: '🧮' },
+    { id: 'calculator', label: 'Calculator', icon: '🧮', iconSrc: '/calculator.png' },
     { id: 'history', label: 'History', icon: '📋' },
     { id: 'chart', label: 'Charts', icon: '📈' },
     { id: 'reference', label: 'Reference', icon: '📊' }
@@ -77,7 +77,8 @@ function App() {
         <header className="text-center mb-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-neutral-800 dark:text-neutral-200 flex items-center gap-3 font-header">
-              <img src="/logo.png" alt="Brand Logo" className="h-10 w-10" />
+              <img src="/logo.png" alt="Brand Logo" className="h-10 w-10"
+                   onError={(e) => { e.currentTarget.style.display = 'none' }} />
               Restoration Profitability Calculator
             </h1>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -100,7 +101,13 @@ function App() {
                     : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'
                 }`}
               >
-                <span className="mr-2">{tab.icon}</span>
+                <span className="mr-2 flex items-center">
+                  {tab.iconSrc ? (
+                    <img src={tab.iconSrc} alt="icon" className="w-5 h-5" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+                  ) : (
+                    <span>{tab.icon}</span>
+                  )}
+                </span>
                 {tab.label}
               </button>
             ))}
@@ -133,16 +140,20 @@ function App() {
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl">✅</span>
-                      <span className="text-neutral-700 dark:text-neutral-300">On Target - Above target margin</span>
+                      <span className="text-2xl">🏆</span>
+                      <span className="text-neutral-700 dark:text-neutral-300">Jackpot! — At/above target and overhead covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">⚠️</span>
-                      <span className="text-neutral-700 dark:text-neutral-300">Warning - Below target but above break-even</span>
+                      <span className="text-neutral-700 dark:text-neutral-300">Warning! — Below target but ≥ break-even and overhead covered</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl">❌</span>
-                      <span className="text-neutral-700 dark:text-neutral-300">No Bueno - Below break-even</span>
+                      <span className="text-2xl">🧊</span>
+                      <span className="text-neutral-700 dark:text-neutral-300">On Thin Ice — Below break-even or overhead not covered (margin ≥ 0)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">⛔</span>
+                      <span className="text-neutral-700 dark:text-neutral-300">No Bueno — Negative margin</span>
                     </div>
                   </div>
                 </div>

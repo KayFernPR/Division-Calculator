@@ -92,11 +92,11 @@ const MarginMarkupTable = () => {
         <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
           💡 Quick Reference
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div className="flex gap-6 overflow-x-auto pb-2 text-sm">
           {[20, 25, 30, 35, 40, 45, 50].map((markup) => {
             const marginFromMarkup = calculateMarginFromMarkup(markup)
             return (
-              <div className="text-center" key={markup}>
+              <div className="text-center min-w-[120px]" key={markup}>
                 <div className="font-mono font-bold text-primary-600 dark:text-primary-400">{formatPercentage(marginFromMarkup)}</div>
                 <div className="text-neutral-600 dark:text-neutral-400">Margin</div>
                 <div className="font-mono text-neutral-700 dark:text-neutral-300">{formatPercentage(markup)}</div>
