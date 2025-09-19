@@ -114,46 +114,7 @@ function App() {
         <div className="space-y-8">
           {/* Calculator Tab */}
           {activeTab === 'calculator' && (
-            <div className="grid lg:grid-cols-2 gap-8">
-              <Calculator onAddJob={addJob} />
-              <div className="space-y-6">
-                <div className="card bg-primary-50 dark:bg-primary-900/20">
-                  <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
-                    💡 Quick Tips
-                  </h3>
-                  <ul className="text-sm space-y-2" style={{color: '#1F1F1F'}}>
-                    <li>• Set your company's break-even percentage first</li>
-                    <li>• Target margins should be above break-even</li>
-                    <li>• Use the reference table to convert margin to markup</li>
-                    <li>• Save jobs to track trends over time</li>
-                  </ul>
-                </div>
-                
-                <div className="card bg-neutral-50 dark:bg-neutral-800">
-                  <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
-                    🚨 Status Indicators
-                  </h3>
-                  <div className="space-y-2 text-sm" style={{color: '#1F1F1F'}}>
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">🏆</span>
-                      <span>Jackpot! — You're above target and your overhead is covered</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">⚠️</span>
-                      <span>Warning! — You're below target, but your break-even and overhead are covered</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">🧊</span>
-                      <span>On Thin Ice — You're below target and break-even, but your overhead is covered</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">⛔</span>
-                      <span>No Bueno — You're in the red</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Calculator onAddJob={addJob} />
           )}
 
           {/* History Tab */}

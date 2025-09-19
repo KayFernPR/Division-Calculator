@@ -459,8 +459,51 @@ const Calculator = ({ onAddJob }) => {
 
   return (
     <div className="space-y-6">
-      {/* Calculator Form */}
-      <div className="card border-2 border-[#63D43E]">
+      {/* Top Section: Quick Tips and Status Indicators */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Quick Tips - Top Left */}
+        <div className="card bg-primary-50 dark:bg-primary-900/20">
+          <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
+            💡 Quick Tips
+          </h3>
+          <ul className="text-sm space-y-2" style={{color: '#1F1F1F'}}>
+            <li>• Set your company's break-even percentage first</li>
+            <li>• Target margins should be above break-even</li>
+            <li>• Use the reference table to convert margin to markup</li>
+            <li>• Save jobs to track trends over time</li>
+          </ul>
+        </div>
+        
+        {/* Status Indicators - Top Right */}
+        <div className="card bg-neutral-50 dark:bg-neutral-800">
+          <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
+            🚨 Status Indicators
+          </h3>
+          <div className="space-y-2 text-sm" style={{color: '#1F1F1F'}}>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🏆</span>
+              <span>Jackpot! — You're above target and your overhead is covered</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">⚠️</span>
+              <span>Warning! — You're below target, but your break-even and overhead are covered</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🧊</span>
+              <span>On Thin Ice — You're below target and break-even, but your overhead is covered</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">⛔</span>
+              <span>No Bueno — You're in the red</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Section: Calculator and Results Side by Side */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Calculator Form - Left */}
+        <div className="card border-2 border-[#63D43E]">
         <h2 className="text-2xl font-bold mb-6 font-header flex items-center gap-3" style={{color: '#1F1F1F'}}>
           <div className="calculator-icon flex-shrink-0">
             <div className="calc-screen">0</div>
@@ -661,10 +704,10 @@ const Calculator = ({ onAddJob }) => {
             </button>
           </div>
         </form>
-      </div>
+        </div>
 
-      {/* Results */}
-      <div className="card">
+        {/* Results - Right */}
+        <div className="card">
         <h3 className="text-xl font-bold mb-4 font-title" style={{color: '#1F1F1F'}}>
           📈 Results
         </h3>
@@ -793,6 +836,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
             </>
           )}
+        </div>
         </div>
       </div>
     </div>
