@@ -636,7 +636,6 @@ const Calculator = ({ onAddJob }) => {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-2xl">{getStatusIcon(results.profitabilityStatus)}</span>
                 <span className={`font-bold ${getStatusColor(results.profitabilityStatus)}`}>
                   {getStatusText(results.profitabilityStatus)}
                 </span>
