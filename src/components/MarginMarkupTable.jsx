@@ -98,9 +98,9 @@ const MarginMarkupTable = () => {
             return (
               <div className="text-center" key={markup}>
                 <div className="font-mono font-bold text-primary-600 dark:text-primary-400">{formatPercentage(marginFromMarkup)}</div>
-                <div className="text-neutral-600 dark:text-neutral-400">Margin</div>
+                <div style={{color: '#666666'}}>Margin</div>
                 <div className="font-mono style={{color: '#1F1F1F'}}">{formatPercentage(markup)}</div>
-                <div className="text-neutral-600 dark:text-neutral-400">Mark-up</div>
+                <div style={{color: '#666666'}}>Mark-up</div>
               </div>
             )
           })}
