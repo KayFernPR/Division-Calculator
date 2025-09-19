@@ -1,8 +1,22 @@
 import { useState, useRef, useEffect } from 'react'
 
-const Results = ({ results }) => {
+const Results = ({ results = {} }) => {
   const [showStatusHelp, setShowStatusHelp] = useState(false)
   const statusHelpRef = useRef(null)
+
+  // Don't render if no results yet
+  if (!results || Object.keys(results).length === 0) {
+    return (
+      <div className="card">
+        <h3 className="text-xl font-bold mb-4 font-title" style={{color: '#1F1F1F'}}>
+          📈 Results
+        </h3>
+        <p className="text-neutral-500 dark:text-neutral-400 text-center py-8">
+          Enter job details to see results
+        </p>
+      </div>
+    )
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
