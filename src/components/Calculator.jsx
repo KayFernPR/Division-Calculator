@@ -7,14 +7,18 @@ const Calculator = ({ onAddJob }) => {
     retailPrice: '',
     jobCost: '',
     overheadCost: '',
+    targetNetMargin: '',
     targetMargin: '',
     insuranceCarrier: ''
   })
 
   const [results, setResults] = useState({
     actualMargin: 0,
+    actualNetMargin: 0,
     actualMarkup: 0,
     grossProfit: 0,
+    netProfit: 0,
+    overheadCostDollars: 0,
     requiredPrice: 0,
     requiredMarkup: 0,
     profitShortfall: 0,
@@ -60,55 +64,76 @@ const Calculator = ({ onAddJob }) => {
   const calculateResults = () => {
     const retailPrice = parseFloat(formData.retailPrice) || 0
     const jobCost = parseFloat(formData.jobCost) || 0
-    const targetMargin = parseFloat(formData.targetMargin) || 0
+    const targetGrossMargin = parseFloat(formData.targetMargin) || 0
+    const targetNetMargin = parseFloat(formData.targetNetMargin) || 0
     const breakEvenPercent = parseFloat(formData.breakEvenPercent) || 0
-    const overheadCost = parseFloat(formData.overheadCost) || 0
+    const overheadCostPercent = parseFloat(formData.overheadCost) || 0
 
-    // Actual Margin = ((Retail Price - Job Cost) / Retail Price) × 100
-    const actualMargin = retailPrice > 0 ? ((retailPrice - jobCost) / retailPrice) * 100 : 0
+    // Calculate actual overhead cost in dollars (percentage of retail price)
+    const overheadCostDollars = retailPrice * (overheadCostPercent / 100)
+
+    // Actual Gross Margin = ((Retail Price - Job Cost) / Retail Price) × 100
+    const actualGrossMargin = retailPrice > 0 ? ((retailPrice - jobCost) / retailPrice) * 100 : 0
+
+    // Actual Net Margin = ((Retail Price - Job Cost - Overhead) / Retail Price) × 100
+    const actualNetMargin = retailPrice > 0 ? ((retailPrice - jobCost - overheadCostDollars) / retailPrice) * 100 : 0
 
     // Actual Markup = ((Retail Price - Job Cost) / Job Cost) × 100
     const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
 
-    // Gross Profit Dollars
+    // Gross Profit Dollars (before overhead)
     const grossProfit = Math.max(retailPrice - jobCost, retailPrice >= 0 && jobCost >= 0 ? retailPrice - jobCost : 0)
 
-    // Required Retail Price to hit Target Margin = Job Cost / (1 - Target Margin)
-    const requiredPrice = jobCost > 0 && targetMargin < 100 ? jobCost / (1 - targetMargin / 100) : 0
+    // Net Profit Dollars (after overhead)
+    const netProfit = grossProfit - overheadCostDollars
+
+    // Required Retail Price to hit Target Net Margin = (Job Cost + Overhead) / (1 - Target Net Margin)
+    const requiredPriceForNetMargin = (jobCost + overheadCostDollars) > 0 && targetNetMargin < 100 ? 
+      (jobCost + overheadCostDollars) / (1 - targetNetMargin / 100) : 0
+
+    // Required Retail Price to hit Target Gross Margin = Job Cost / (1 - Target Gross Margin)
+    const requiredPriceForGrossMargin = jobCost > 0 && targetGrossMargin < 100 ? 
+      jobCost / (1 - targetGrossMargin / 100) : 0
+
+    // Use the higher of the two required prices
+    const requiredPrice = Math.max(requiredPriceForNetMargin, requiredPriceForGrossMargin)
 
     // Required Markup = ((Required Price - Job Cost) / Job Cost) × 100
     const requiredMarkup = jobCost > 0 ? ((requiredPrice - jobCost) / jobCost) * 100 : 0
 
     // Profit Shortfall = Required Price - Retail Price (only if below target)
-    const profitShortfall = actualMargin < targetMargin ? requiredPrice - retailPrice : 0
+    const profitShortfall = actualNetMargin < targetNetMargin ? requiredPrice - retailPrice : 0
 
     // Revenue needed at 10% margin = Shortfall ÷ 0.10
     const revenueNeeded10Percent = profitShortfall > 0 ? profitShortfall / 0.10 : 0
 
-    // Revenue needed at current margin = Shortfall ÷ (Actual Margin ÷ 100)
-    const revenueNeededCurrent = profitShortfall > 0 && actualMargin > 0 ? profitShortfall / (actualMargin / 100) : 0
+    // Revenue needed at current margin = Shortfall ÷ (Actual Net Margin ÷ 100)
+    const revenueNeededCurrent = profitShortfall > 0 && actualNetMargin > 0 ? profitShortfall / (actualNetMargin / 100) : 0
 
-    // Determine profitability status
-    // Jackpot! (green): above target, above break-even, and overhead is covered
-    // Warning! (yellow): below target but above break-even and overhead is covered
-    // On Thin Ice (orange): below target, below break-even, but overhead is covered
+    // Determine profitability status based on NET margin and overhead coverage
+    // Jackpot! (green): above target net margin, above break-even, and overhead is covered
+    // Warning! (yellow): below target net margin but above break-even and overhead is covered
+    // On Thin Ice (orange): below target net margin, below break-even, but overhead is covered
     // No Bueno (red): below everything (not covering overhead or negative margin)
     let profitabilityStatus = 'neutral'
-    const coversOverhead = overheadCost <= 0 || grossProfit >= overheadCost
-    if (actualMargin >= targetMargin && actualMargin >= breakEvenPercent && coversOverhead) {
+    const coversOverhead = overheadCostDollars <= 0 || netProfit >= 0
+    if (actualNetMargin >= targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
       profitabilityStatus = 'jackpot'
-    } else if (actualMargin < targetMargin && actualMargin >= breakEvenPercent && coversOverhead) {
+    } else if (actualNetMargin < targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
       profitabilityStatus = 'warning'
-    } else if (actualMargin < targetMargin && actualMargin < breakEvenPercent && coversOverhead) {
+    } else if (actualNetMargin < targetNetMargin && actualNetMargin < breakEvenPercent && coversOverhead) {
       profitabilityStatus = 'thin'
     } else {
       profitabilityStatus = 'no-bueno'
     }
 
     setResults({
-      actualMargin,
+      actualMargin: actualGrossMargin, // Keep for backward compatibility
+      actualNetMargin,
       actualMarkup,
       grossProfit,
+      netProfit,
+      overheadCostDollars,
       requiredPrice,
       requiredMarkup,
       profitShortfall,
@@ -138,8 +163,12 @@ const Calculator = ({ onAddJob }) => {
       newErrors.jobCost = 'Job cost cannot be negative'
     }
 
-    if (formData.overheadCost && parseFloat(formData.overheadCost) < 0) {
-      newErrors.overheadCost = 'Overhead cost cannot be negative'
+    if (!formData.overheadCost || parseFloat(formData.overheadCost) < 0) {
+      newErrors.overheadCost = 'Overhead cost percentage is required and must be 0 or greater'
+    }
+
+    if (!formData.targetNetMargin || parseFloat(formData.targetNetMargin) < 0 || parseFloat(formData.targetNetMargin) >= 100) {
+      newErrors.targetNetMargin = 'Target net profit margin is required and must be between 0 and 99.99'
     }
 
     const retailPrice = parseFloat(formData.retailPrice) || 0
@@ -166,6 +195,8 @@ const Calculator = ({ onAddJob }) => {
         breakEvenPercent: parseFloat(formData.breakEvenPercent),
         retailPrice: parseFloat(formData.retailPrice),
         jobCost: parseFloat(formData.jobCost),
+        overheadCost: parseFloat(formData.overheadCost),
+        targetNetMargin: parseFloat(formData.targetNetMargin),
         targetMargin: formData.targetMargin ? parseFloat(formData.targetMargin) : null,
         ...results
       })
@@ -177,6 +208,7 @@ const Calculator = ({ onAddJob }) => {
         retailPrice: '',
         jobCost: '',
         overheadCost: '',
+        targetNetMargin: '',
         targetMargin: '',
         insuranceCarrier: ''
       })
@@ -331,12 +363,16 @@ const Calculator = ({ onAddJob }) => {
               <span class="value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Target Margin:</span>
+              <span class="label">Target Net Margin:</span>
+              <span class="value">${formatPercentage(parseFloat(formData.targetNetMargin) || 0)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Target Gross Margin:</span>
               <span class="value">${formatPercentage(parseFloat(formData.targetMargin) || 0)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Overhead Cost:</span>
-              <span class="value">${formatCurrency(parseFloat(formData.overheadCost) || 0)}</span>
+              <span class="label">Overhead Cost (%):</span>
+              <span class="value">${formatPercentage(parseFloat(formData.overheadCost) || 0)}</span>
             </div>
             <div class="result-row">
               <span class="label">Break-Even %:</span>
@@ -351,8 +387,12 @@ const Calculator = ({ onAddJob }) => {
               <span class="value status-${results.profitabilityStatus}">${getStatusText(results.profitabilityStatus)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Actual Margin:</span>
-              <span class="value status-${results.profitabilityStatus}">${formatPercentage(results.actualMargin)}</span>
+              <span class="label">Actual Gross Margin:</span>
+              <span class="value">${formatPercentage(results.actualMargin)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Actual Net Margin:</span>
+              <span class="value status-${results.profitabilityStatus}">${formatPercentage(results.actualNetMargin)}</span>
             </div>
             <div class="result-row">
               <span class="label">Actual Markup:</span>
@@ -362,15 +402,13 @@ const Calculator = ({ onAddJob }) => {
               <span class="label">Gross Profit ($):</span>
               <span class="value">${formatCurrency(results.grossProfit)}</span>
             </div>
-            ${(!results.coversOverhead && results.actualMargin >= 0) ? `
             <div class="result-row">
-              <span class="label">Overhead Coverage:</span>
-              <span class="value status-thin">Overhead not covered</span>
+              <span class="label">Overhead Cost ($):</span>
+              <span class="value">${formatCurrency(results.overheadCostDollars)}</span>
             </div>
-            ` : ''}
             <div class="result-row">
-              <span class="label">Gross Profit ($):</span>
-              <span class="value">${formatCurrency(results.grossProfit)}</span>
+              <span class="label">Net Profit ($):</span>
+              <span class="value ${results.netProfit >= 0 ? 'status-jackpot' : 'status-no-bueno'}">${formatCurrency(results.netProfit)}</span>
             </div>
             <div class="result-row">
               <span class="label">Required Price:</span>
@@ -541,10 +579,10 @@ const Calculator = ({ onAddJob }) => {
             )}
           </div>
 
-          {/* Overhead Cost (Optional) */}
+          {/* Overhead Cost */}
           <div>
             <label htmlFor="overheadCost" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Overhead Cost ($) (Optional)
+              Overhead Cost (%) *
             </label>
             <input
               type="number"
@@ -554,15 +592,38 @@ const Calculator = ({ onAddJob }) => {
               onChange={handleInputChange}
               step="0.01"
               min="0"
+              max="100"
               className={`input-field ${errors.overheadCost ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="500.00"
+              placeholder="15.00"
             />
             {errors.overheadCost && (
               <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.overheadCost}</p>
             )}
           </div>
 
-          {/* Target Margin */}
+          {/* Target Net Profit Margin */}
+          <div>
+            <label htmlFor="targetNetMargin" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+              Target Net Profit Margin (%) *
+            </label>
+            <input
+              type="number"
+              id="targetNetMargin"
+              name="targetNetMargin"
+              value={formData.targetNetMargin}
+              onChange={handleInputChange}
+              step="0.01"
+              min="0"
+              max="99.99"
+              className={`input-field ${errors.targetNetMargin ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+              placeholder="30.00"
+            />
+            {errors.targetNetMargin && (
+              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.targetNetMargin}</p>
+            )}
+          </div>
+
+          {/* Target Gross Profit Margin */}
           <div>
             <label htmlFor="targetMargin" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Target Gross Profit Margin (%) *
@@ -629,9 +690,9 @@ const Calculator = ({ onAddJob }) => {
                     id="status-help-tooltip"
                     className={`absolute z-10 ${showStatusHelp ? 'block' : 'hidden'} md:group-hover:block top-6 left-0 w-72 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700`}
                   >
-                    <p className="mb-1"><strong>Break-even %</strong>: Your company threshold entered above. If actual margin is below this, you are below company break-even.</p>
-                    <p className="mb-1"><strong>Overhead coverage</strong>: Gross Profit ($) must be ≥ Overhead Cost ($) entered above.</p>
-                    <p className="mt-1"><strong>Statuses</strong>: Jackpot (above target, above break-even, and covers overhead), Warning (below target but above break-even and covers overhead), On Thin Ice (below target, below break-even, but covers overhead), No Bueno (below everything - not covering overhead or negative margin).</p>
+                    <p className="mb-1"><strong>Break-even %</strong>: Your company threshold entered above. If actual net margin is below this, you are below company break-even.</p>
+                    <p className="mb-1"><strong>Overhead coverage</strong>: Net Profit ($) must be ≥ 0 (after subtracting overhead cost from gross profit).</p>
+                    <p className="mt-1"><strong>Statuses</strong>: Jackpot (above target net margin, above break-even, and covers overhead), Warning (below target net margin but above break-even and covers overhead), On Thin Ice (below target net margin, below break-even, but covers overhead), No Bueno (below everything - not covering overhead or negative margin).</p>
                   </div>
                 </div>
               </div>
@@ -649,9 +710,16 @@ const Calculator = ({ onAddJob }) => {
           </div>
           
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Actual Margin:</span>
-            <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
+            <span style={{color: '#1F1F1F'}}>Actual Gross Margin:</span>
+            <span className="result-value">
               {formatPercentage(results.actualMargin)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Actual Net Margin:</span>
+            <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
+              {formatPercentage(results.actualNetMargin)}
             </span>
           </div>
           
@@ -666,6 +734,20 @@ const Calculator = ({ onAddJob }) => {
             <span style={{color: '#1F1F1F'}}>Gross Profit ($):</span>
             <span className="result-value">
               {formatCurrency(results.grossProfit)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Overhead Cost ($):</span>
+            <span className="result-value">
+              {formatCurrency(results.overheadCostDollars)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Net Profit ($):</span>
+            <span className={`result-value ${results.netProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+              {formatCurrency(results.netProfit)}
             </span>
           </div>
           
