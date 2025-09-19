@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Restoration contractor profitability calculator with job tracking and margin analysis",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "npm@10",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

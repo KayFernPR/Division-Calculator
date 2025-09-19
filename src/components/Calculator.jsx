@@ -613,7 +613,7 @@ const Calculator = ({ onAddJob }) => {
                   >
                     <p className="mb-1"><strong>Break-even %</strong>: Your company threshold entered above. If actual margin is below this, you are below company break-even.</p>
                     <p className="mb-1"><strong>Overhead coverage</strong>: Gross Profit ($) must be ≥ Overhead Cost ($) entered above.</p>
-                    <p className="mt-1"><strong>Statuses</strong>: Jackpot (≥ target and covers overhead), Warning (below target but ≥ break-even and covers overhead), On Thin Ice (margin ≥ 0 but below break-even or overhead not covered), No Bueno (margin < 0).</p>
+                    <p className="mt-1"><strong>Statuses</strong>: Jackpot (≥ target and covers overhead), Warning (below target but ≥ break-even and covers overhead), On Thin Ice (margin ≥ 0 but below break-even or overhead not covered), No Bueno (negative margin).</p>
                   </div>
                 </div>
               </div>
