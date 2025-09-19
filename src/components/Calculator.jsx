@@ -515,28 +515,6 @@ const Calculator = ({ onAddJob }) => {
             />
           </div>
 
-          {/* Break-Even Percentage */}
-          <div>
-            <label htmlFor="breakEvenPercent" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Company Break-Even (%) *
-            </label>
-            <input
-              type="number"
-              id="breakEvenPercent"
-              name="breakEvenPercent"
-              value={formData.breakEvenPercent}
-              onChange={handleInputChange}
-              step="0.01"
-              min="0"
-              max="100"
-              className={`input-field ${errors.breakEvenPercent ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="35.00"
-            />
-            {errors.breakEvenPercent && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.breakEvenPercent}</p>
-            )}
-          </div>
-
           {/* Retail Price */}
           <div>
             <label htmlFor="retailPrice" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
@@ -576,6 +554,28 @@ const Calculator = ({ onAddJob }) => {
             />
             {errors.jobCost && (
               <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.jobCost}</p>
+            )}
+          </div>
+
+          {/* Break-Even Percentage */}
+          <div>
+            <label htmlFor="breakEvenPercent" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+              Company Break-Even (%) *
+            </label>
+            <input
+              type="number"
+              id="breakEvenPercent"
+              name="breakEvenPercent"
+              value={formData.breakEvenPercent}
+              onChange={handleInputChange}
+              step="0.01"
+              min="0"
+              max="100"
+              className={`input-field ${errors.breakEvenPercent ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+              placeholder="35.00"
+            />
+            {errors.breakEvenPercent && (
+              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.breakEvenPercent}</p>
             )}
           </div>
 
