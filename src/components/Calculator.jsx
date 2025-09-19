@@ -344,9 +344,14 @@ const Calculator = ({ onAddJob }) => {
         </head>
         <body>
           <div class="header">
-            <h1>🏗️ Restoration Job Profitability Report</h1>
-            <h2>${formData.jobName}</h2>
-            <p>Generated on ${new Date().toLocaleDateString()}</p>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
+              <img src="/logo.svg" alt="Company Logo" style="height: 60px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
+              <div style="text-align: center;">
+                <h1 style="margin: 0; font-size: 24px;">Restoration Job Profitability Report</h1>
+                <h2 style="margin: 5px 0; font-size: 18px; color: #666;">${formData.jobName}</h2>
+                <p style="margin: 0; font-size: 14px; color: #666;">Generated on ${new Date().toLocaleDateString()}</p>
+              </div>
+            </div>
           </div>
           
           <div class="job-details">
@@ -466,6 +471,31 @@ const Calculator = ({ onAddJob }) => {
 
   return (
     <div className="space-y-6">
+      {/* Company Logo */}
+      <div className="flex justify-center mb-6">
+        <div className="flex items-center gap-4">
+          <img 
+            src="/logo.svg" 
+            alt="Company Logo" 
+            className="h-16 w-auto"
+            onError={(e) => {
+              e.target.src = '/logo.png'
+              e.target.onerror = () => {
+                e.target.style.display = 'none'
+              }
+            }}
+          />
+          <div className="text-center">
+            <h1 className="text-2xl font-bold font-header" style={{color: '#1F1F1F'}}>
+              Restoration Profitability Calculator
+            </h1>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 font-body">
+              Professional Job Costing & Profit Analysis
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Top Section: Quick Tips and Status Indicators */}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Quick Tips - Top Left */}
