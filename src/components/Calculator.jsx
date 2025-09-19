@@ -347,6 +347,10 @@ const Calculator = ({ onAddJob }) => {
           <div class="results">
             <h3>Profitability Results</h3>
             <div class="result-row">
+              <span class="label">Profitability Status:</span>
+              <span class="value status-${results.profitabilityStatus}">${getStatusText(results.profitabilityStatus)}</span>
+            </div>
+            <div class="result-row">
               <span class="label">Actual Margin:</span>
               <span class="value status-${results.profitabilityStatus}">${formatPercentage(results.actualMargin)}</span>
             </div>
