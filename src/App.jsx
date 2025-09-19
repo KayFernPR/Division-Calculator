@@ -126,7 +126,6 @@ function App() {
                     <li>• Target margins should be above break-even</li>
                     <li>• Use the reference table to convert margin to markup</li>
                     <li>• Save jobs to track trends over time</li>
-                    <li>• Print reports for client presentations</li>
                   </ul>
                 </div>
                 
@@ -137,19 +136,19 @@ function App() {
                   <div className="space-y-2 text-sm" style={{color: '#1F1F1F'}}>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">🏆</span>
-                      <span>Jackpot! — At/above target and overhead covered</span>
+                      <span>Jackpot! — You're above target and your overhead is covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">⚠️</span>
-                      <span>Warning! — Below target but ≥ break-even and overhead covered</span>
+                      <span>Warning! — You're Below target but your break-even and overhead are covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">🧊</span>
-                      <span>On Thin Ice — Below break-even or overhead not covered (margin ≥ 0)</span>
+                      <span>On Thin Ice — You're below break-even but your overhead is covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">⛔</span>
-                      <span>No Bueno — Negative margin</span>
+                      <span>No Bueno — You're in the red</span>
                     </div>
                   </div>
                 </div>
