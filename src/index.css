@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Nunito Sans', system-ui, sans-serif;
   }
   
   body {
@@ -13,6 +13,21 @@
 }
 
 @layer components {
+  /* Typography utilities following brand */
+  .font-header {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .font-subheader {
+    font-family: 'Outfit', system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .font-title {
+    font-family: 'Merriweather', Georgia, serif;
+  }
+  .font-body {
+    font-family: 'Nunito Sans', system-ui, sans-serif;
+  }
   .btn {
     @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
   }

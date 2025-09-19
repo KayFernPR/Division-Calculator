@@ -196,3 +196,27 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **Built with ❤️ for restoration contractors who want to make data-driven business decisions.** 
+
+## Branding
+
+- Primary color: `#63D43E`
+- Fonts: Body `Nunito Sans`, Headers `Helvetica`, Subheaders `Outfit (caps)`, Titles `Merriweather`
+- Place logo at `public/logo.png`
+- Place favicon at `public/favicon.ico`
+
+## Build
+
+```bash
+npm run build
+```
+
+## Git (first push)
+
+```bash
+git init
+git add .
+git commit -m "Initial branded setup"
+git branch -M main
+git remote add origin <your-repo-url>
+git push -u origin main
+``` 

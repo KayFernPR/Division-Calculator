@@ -64,10 +64,10 @@ function App() {
   }
 
   const tabs = [
-    { id: 'calculator', label: '🏗️ Calculator', icon: '🏗️' },
-    { id: 'history', label: '📋 History', icon: '📋' },
-    { id: 'chart', label: '📈 Charts', icon: '📈' },
-    { id: 'reference', label: '📊 Reference', icon: '📊' }
+    { id: 'calculator', label: 'Calculator', icon: '🧮' },
+    { id: 'history', label: 'History', icon: '📋' },
+    { id: 'chart', label: 'Charts', icon: '📈' },
+    { id: 'reference', label: 'Reference', icon: '📊' }
   ]
 
   return (
@@ -76,8 +76,9 @@ function App() {
         {/* Header */}
         <header className="text-center mb-8">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-4xl font-bold text-neutral-800 dark:text-neutral-200">
-              🏗️ Restoration Profitability Calculator
+            <h1 className="text-4xl font-bold text-neutral-800 dark:text-neutral-200 flex items-center gap-3 font-header">
+              <img src="/logo.png" alt="Brand Logo" className="h-10 w-10" />
+              Restoration Profitability Calculator
             </h1>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           </div>
@@ -114,7 +115,7 @@ function App() {
               <Calculator onAddJob={addJob} />
               <div className="space-y-6">
                 <div className="card bg-primary-50 dark:bg-primary-900/20">
-                  <h3 className="text-lg font-semibold text-primary-800 dark:text-primary-200 mb-3">
+                  <h3 className="text-lg font-semibold text-primary-800 dark:text-primary-200 mb-3 font-subheader">
                     💡 Quick Tips
                   </h3>
                   <ul className="text-sm text-primary-700 dark:text-primary-300 space-y-2">
@@ -127,7 +128,7 @@ function App() {
                 </div>
                 
                 <div className="card bg-neutral-50 dark:bg-neutral-800">
-                  <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
+                  <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3 font-subheader">
                     📊 Status Indicators
                   </h3>
                   <div className="space-y-2 text-sm">
