@@ -133,7 +133,7 @@ const ProfitChart = ({ jobs }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {/* Chart Type */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+          <label className="block text-sm font-medium style={{color: '#1F1F1F'}} mb-2">
             Chart Type
           </label>
           <select
@@ -148,7 +148,7 @@ const ProfitChart = ({ jobs }) => {
 
         {/* Filter by Carrier */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+          <label className="block text-sm font-medium style={{color: '#1F1F1F'}} mb-2">
             Filter by Carrier
           </label>
           <select
@@ -165,7 +165,7 @@ const ProfitChart = ({ jobs }) => {
 
         {/* Filter by Month */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+          <label className="block text-sm font-medium style={{color: '#1F1F1F'}} mb-2">
             Filter by Month
           </label>
           <select

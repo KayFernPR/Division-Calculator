@@ -103,9 +103,9 @@ function App() {
               >
                 <span className="mr-2 flex items-center justify-center w-5 h-5">
                   {tab.id === 'calculator' ? (
-                    <div className="calculator-icon flex-shrink-0" style={{width: '20px', height: '20px', fontSize: '2px'}}>
-                      <div className="calc-screen" style={{height: '4px', fontSize: '3px'}}>0</div>
-                      <div className="calc-buttons" style={{height: '14px'}}>
+                    <div className="calculator-icon flex-shrink-0" style={{width: '16px', height: '16px', fontSize: '1px'}}>
+                      <div className="calc-screen" style={{height: '3px', fontSize: '2px'}}>0</div>
+                      <div className="calc-buttons" style={{height: '11px'}}>
                         <div className="calc-btn" style={{fontSize: '1px'}}>7</div>
                         <div className="calc-btn" style={{fontSize: '1px'}}>8</div>
                         <div className="calc-btn" style={{fontSize: '1px'}}>9</div>
@@ -121,7 +121,7 @@ function App() {
                     <span className="text-lg">{tab.icon}</span>
                   )}
                 </span>
-                <span>{tab.label}</span>
+                <span style={{color: '#1F1F1F'}}>{tab.label}</span>
               </button>
             ))}
           </div>
@@ -135,10 +135,10 @@ function App() {
               <Calculator onAddJob={addJob} />
               <div className="space-y-6">
                 <div className="card bg-primary-50 dark:bg-primary-900/20">
-                  <h3 className="text-lg font-semibold text-primary-800 dark:text-primary-200 mb-3 font-subheader">
+                  <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
                     💡 Quick Tips
                   </h3>
-                  <ul className="text-sm text-primary-700 dark:text-primary-300 space-y-2">
+                  <ul className="text-sm space-y-2" style={{color: '#1F1F1F'}}>
                     <li>• Set your company's break-even percentage first</li>
                     <li>• Target margins should be above break-even</li>
                     <li>• Use the reference table to convert margin to markup</li>
@@ -148,25 +148,25 @@ function App() {
                 </div>
                 
                 <div className="card bg-neutral-50 dark:bg-neutral-800">
-                  <h3 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 mb-3 font-subheader">
+                  <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
                     🚨 Status Indicators
                   </h3>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-2 text-sm" style={{color: '#1F1F1F'}}>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">🏆</span>
-                      <span className="text-neutral-700 dark:text-neutral-300">Jackpot! — At/above target and overhead covered</span>
+                      <span>Jackpot! — At/above target and overhead covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">⚠️</span>
-                      <span className="text-neutral-700 dark:text-neutral-300">Warning! — Below target but ≥ break-even and overhead covered</span>
+                      <span>Warning! — Below target but ≥ break-even and overhead covered</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">🧊</span>
-                      <span className="text-neutral-700 dark:text-neutral-300">On Thin Ice — Below break-even or overhead not covered (margin ≥ 0)</span>
+                      <span>On Thin Ice — Below break-even or overhead not covered (margin ≥ 0)</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">⛔</span>
-                      <span className="text-neutral-700 dark:text-neutral-300">No Bueno — Negative margin</span>
+                      <span>No Bueno — Negative margin</span>
                     </div>
                   </div>
                 </div>
@@ -196,10 +196,10 @@ function App() {
 
         {/* Footer */}
         <footer className="text-center mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-700">
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p style={{color: '#1F1F1F'}}>
             © 2024 Restoration Profitability Calculator. Built with React + Tailwind CSS
           </p>
-          <p className="text-sm text-neutral-500 dark:text-neutral-500 mt-2">
+          <p className="text-sm mt-2" style={{color: '#1F1F1F'}}>
             Designed specifically for restoration contractors
           </p>
         </footer>

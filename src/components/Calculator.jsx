@@ -440,7 +440,7 @@ const Calculator = ({ onAddJob }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Job Name */}
           <div>
-            <label htmlFor="jobName" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label htmlFor="jobName" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Job Name or Number *
             </label>
             <input
@@ -459,7 +459,7 @@ const Calculator = ({ onAddJob }) => {
 
           {/* Insurance Carrier */}
           <div>
-            <label htmlFor="insuranceCarrier" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label htmlFor="insuranceCarrier" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Insurance Carrier or Client Name (Optional)
             </label>
             <input
@@ -475,7 +475,7 @@ const Calculator = ({ onAddJob }) => {
 
           {/* Break-Even Percentage */}
           <div>
-            <label htmlFor="breakEvenPercent" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label htmlFor="breakEvenPercent" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Company Break-Even (%) *
             </label>
             <input
@@ -497,7 +497,7 @@ const Calculator = ({ onAddJob }) => {
 
           {/* Retail Price */}
           <div>
-            <label htmlFor="retailPrice" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label htmlFor="retailPrice" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Retail Price ($) *
             </label>
             <input
@@ -518,7 +518,7 @@ const Calculator = ({ onAddJob }) => {
 
           {/* Job Cost */}
           <div>
-            <label htmlFor="jobCost" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label htmlFor="jobCost" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Job Cost ($) *
             </label>
             <input
@@ -539,7 +539,7 @@ const Calculator = ({ onAddJob }) => {
 
           {/* Overhead Cost (Optional) */}
           <div>
-            <label htmlFor="overheadCost" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label htmlFor="overheadCost" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Overhead Cost ($) (Optional)
             </label>
             <input
@@ -560,7 +560,7 @@ const Calculator = ({ onAddJob }) => {
 
           {/* Target Margin */}
           <div>
-            <label htmlFor="targetMargin" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label htmlFor="targetMargin" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
               Target Gross Profit Margin (%) *
             </label>
             <input
@@ -608,7 +608,7 @@ const Calculator = ({ onAddJob }) => {
           {/* Profitability Status */}
           <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300 font-medium">
+              <div className="flex items-center gap-2 font-medium" style={{color: '#1F1F1F'}}>
                 <span>Profitability Status:</span>
                 <div className="relative group select-none" ref={statusHelpRef}>
                   <button
@@ -646,35 +646,35 @@ const Calculator = ({ onAddJob }) => {
           </div>
           
           <div className="result-item">
-            <span className="text-neutral-700 dark:text-neutral-300">Actual Margin:</span>
+            <span style={{color: '#1F1F1F'}}>Actual Margin:</span>
             <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
               {formatPercentage(results.actualMargin)}
             </span>
           </div>
           
           <div className="result-item">
-            <span className="text-neutral-700 dark:text-neutral-300">Actual Markup:</span>
+            <span style={{color: '#1F1F1F'}}>Actual Markup:</span>
             <span className="result-value">
               {formatPercentage(results.actualMarkup)}
             </span>
           </div>
 
           <div className="result-item">
-            <span className="text-neutral-700 dark:text-neutral-300">Gross Profit ($):</span>
+            <span style={{color: '#1F1F1F'}}>Gross Profit ($):</span>
             <span className="result-value">
               {formatCurrency(results.grossProfit)}
             </span>
           </div>
           
           <div className="result-item">
-            <span className="text-neutral-700 dark:text-neutral-300">Required Price:</span>
+            <span style={{color: '#1F1F1F'}}>Required Price:</span>
             <span className="result-value">
               {formatCurrency(results.requiredPrice)}
             </span>
           </div>
           
           <div className="result-item">
-            <span className="text-neutral-700 dark:text-neutral-300">Required Markup:</span>
+            <span style={{color: '#1F1F1F'}}>Required Markup:</span>
             <span className="result-value">
               {formatPercentage(results.requiredMarkup)}
             </span>
@@ -683,7 +683,7 @@ const Calculator = ({ onAddJob }) => {
           {results.profitShortfall > 0 && (
             <>
               <div className="result-item">
-                <span className="text-neutral-700 dark:text-neutral-300">Profit Shortfall:</span>
+                <span style={{color: '#1F1F1F'}}>Profit Shortfall:</span>
                 <span className="result-value text-danger-600 dark:text-danger-400">
                   {formatCurrency(results.profitShortfall)}
                 </span>

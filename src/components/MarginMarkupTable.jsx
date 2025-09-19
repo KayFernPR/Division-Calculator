@@ -41,7 +41,7 @@ const MarginMarkupTable = () => {
       
       {/* Search Input */}
       <div className="mb-4">
-        <label htmlFor="searchMargin" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+        <label htmlFor="searchMargin" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
           Search Margin or Markup
         </label>
         <input
@@ -60,10 +60,10 @@ const MarginMarkupTable = () => {
           <table className="w-full">
             <thead className="bg-neutral-50 dark:bg-neutral-800 sticky top-0">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300 border-b border-neutral-200 dark:border-neutral-700">
+                <th className="px-4 py-3 text-left text-sm font-semibold style={{color: '#1F1F1F'}} border-b border-neutral-200 dark:border-neutral-700">
                   Margin (%)
                 </th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-neutral-700 dark:text-neutral-300 border-b border-neutral-200 dark:border-neutral-700">
+                <th className="px-4 py-3 text-left text-sm font-semibold style={{color: '#1F1F1F'}} border-b border-neutral-200 dark:border-neutral-700">
                   Mark-up (%)
                 </th>
               </tr>
@@ -74,10 +74,10 @@ const MarginMarkupTable = () => {
                   key={index}
                   className="odd:bg-neutral-50 dark:odd:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-150"
                 >
-                  <td className="px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 border-b border-neutral-100 dark:border-neutral-800">
+                  <td className="px-4 py-2 text-sm style={{color: '#1F1F1F'}} border-b border-neutral-100 dark:border-neutral-800">
                     <span className="font-mono font-medium">{formatPercentage(item.margin, 0)}</span>
                   </td>
-                  <td className="px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 border-b border-neutral-100 dark:border-neutral-800">
+                  <td className="px-4 py-2 text-sm style={{color: '#1F1F1F'}} border-b border-neutral-100 dark:border-neutral-800">
                     <span className="font-mono font-medium">{formatPercentage(item.markup)}</span>
                   </td>
                 </tr>
@@ -99,7 +99,7 @@ const MarginMarkupTable = () => {
               <div className="text-center" key={markup}>
                 <div className="font-mono font-bold text-primary-600 dark:text-primary-400">{formatPercentage(marginFromMarkup)}</div>
                 <div className="text-neutral-600 dark:text-neutral-400">Margin</div>
-                <div className="font-mono text-neutral-700 dark:text-neutral-300">{formatPercentage(markup)}</div>
+                <div className="font-mono style={{color: '#1F1F1F'}}">{formatPercentage(markup)}</div>
                 <div className="text-neutral-600 dark:text-neutral-400">Mark-up</div>
               </div>
             )

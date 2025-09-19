@@ -131,7 +131,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Sort By */}
           <div>
-            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label className="block text-sm font-medium style={{color: '#1F1F1F'}} mb-2">
               Sort By
             </label>
             <select
@@ -148,7 +148,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
 
           {/* Sort Order */}
           <div>
-            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label className="block text-sm font-medium style={{color: '#1F1F1F'}} mb-2">
               Order
             </label>
             <select
@@ -163,7 +163,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
 
           {/* Filter by Carrier */}
           <div>
-            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+            <label className="block text-sm font-medium style={{color: '#1F1F1F'}} mb-2">
               Filter by Carrier
             </label>
             <select
@@ -187,7 +187,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                 onChange={(e) => setShowAverages(e.target.checked)}
                 className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
               />
-              <span className="ml-2 text-sm text-neutral-700 dark:text-neutral-300">
+              <span className="ml-2 text-sm style={{color: '#1F1F1F'}}">
                 Show Averages
               </span>
             </label>
