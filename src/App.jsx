@@ -64,7 +64,7 @@ function App() {
   }
 
   const tabs = [
-    { id: 'calculator', label: 'Calculator', icon: '🧮', iconSrc: '/calculator.png' },
+    { id: 'calculator', label: 'Calculator', icon: '🧮', iconSrc: '/calculator.svg' },
     { id: 'history', label: 'History', icon: '📋' },
     { id: 'chart', label: 'Charts', icon: '📈' },
     { id: 'reference', label: 'Reference', icon: '📊' }
@@ -77,8 +77,8 @@ function App() {
         <header className="text-center mb-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-neutral-800 dark:text-neutral-200 flex items-center gap-3 font-header">
-              <img src="/logo.png" alt="Brand Logo" className="h-10 w-10"
-                   onError={(e) => { e.currentTarget.style.display = 'none' }} />
+              <img src="/logo.svg" alt="Brand Logo" className="h-10 w-10"
+                   onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
               Restoration Profitability Calculator
             </h1>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -103,7 +103,7 @@ function App() {
               >
                 <span className="mr-2 flex items-center">
                   {tab.iconSrc ? (
-                    <img src={tab.iconSrc} alt="icon" className="w-5 h-5" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+                    <img src={tab.iconSrc} alt="icon" className="w-5 h-5" onError={(e) => { const triedPng = e.currentTarget.getAttribute('data-fallback') === 'png'; if (!triedPng) { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/calculator.png'; } else { e.currentTarget.style.display='none'; } }} />
                   ) : (
                     <span>{tab.icon}</span>
                   )}
