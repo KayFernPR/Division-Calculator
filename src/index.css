@@ -31,14 +31,19 @@
 
   /* Custom Calculator Icon */
   .calculator-icon {
-    width: 32px;
-    height: 40px;
+    width: 32px !important;
+    height: 40px !important;
+    min-width: 32px;
+    min-height: 40px;
+    max-width: 32px;
+    max-height: 40px;
     background: #4a5568;
     border-radius: 4px;
     padding: 2px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    flex-shrink: 0;
   }
 
   .calc-screen {
