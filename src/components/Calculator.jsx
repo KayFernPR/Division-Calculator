@@ -126,8 +126,8 @@ const Calculator = ({ onAddJob }) => {
     // Required Price $ = Job Cost $ / (1 - Required Margin %)
     const requiredPrice = requiredMargin < 100 ? jobCost / (1 - requiredMargin / 100) : 0
 
-    // This Job Is % = Required Margin % - Your Profit Margin is %
-    const thisJobIs = requiredMargin - actualContributionMargin
+    // This Job Is % = Your Profit Margin is % - Required Margin %
+    const thisJobIs = actualContributionMargin - requiredMargin
 
     // Your job $ = Retail Price $ - Required Price $
     const yourJob = retailPrice - requiredPrice
@@ -1036,7 +1036,7 @@ const Calculator = ({ onAddJob }) => {
           {/* Group 7 - Light Grey */}
           <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3 mt-auto">
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>This Job is:</span>
+              <span style={{color: '#1F1F1F'}}>Your Job is:</span>
               <div className="flex items-center gap-2">
                 <span className="result-value text-success-600 dark:text-success-400">
                   {formatPercentage(results.thisJobIs)}
@@ -1050,7 +1050,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Your Job is:</span>
+              <span style={{color: '#1F1F1F'}}>AND is:</span>
               <div className="flex items-center gap-2">
                 <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                   {formatCurrency(results.yourJob)}
