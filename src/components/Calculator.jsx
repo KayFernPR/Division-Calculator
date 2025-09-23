@@ -938,21 +938,51 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Job Cost %:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Job Cost %:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Job Cost %:</strong> Percentage of retail price that goes to direct job costs.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatPercentage(results.jobCostPercent)}
               </span>
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Actual Contribution Margin %:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Actual Contribution Margin %:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Actual Contribution Margin %:</strong> Your actual profit margin percentage after direct costs.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatPercentage(results.actualContributionMargin)}
               </span>
             </div>
             
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Actual Mark-up %:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Actual Mark-up %:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Actual Mark-up %:</strong> How much you mark up your job costs to get the retail price.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatPercentage(results.actualMarkup)}
               </span>
@@ -979,28 +1009,68 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Division Overheads $:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Division Overheads $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Division Overheads $:</strong> Division-specific overhead costs allocated to this job.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatCurrency(results.divisionOverheadsDollars)}
               </span>
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Company Overheads $:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Company Overheads $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Company Overheads $:</strong> Company-wide overhead costs allocated to this job.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatCurrency(results.companyOverheadsDollars)}
               </span>
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Total Controllable Margin $:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Total Controllable Margin $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Total Controllable Margin $:</strong> Money left after covering all overhead costs.</p>
+                  </div>
+                </div>
+              </div>
               <span className={`result-value ${results.totalControllableMargin >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                 {formatCurrency(results.totalControllableMargin)}
               </span>
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Royalty $:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Royalty $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Royalty $:</strong> Royalty fees paid to franchisor or brand owner.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatCurrency(results.royaltyDollars)}
               </span>
@@ -1030,14 +1100,34 @@ const Calculator = ({ onAddJob }) => {
           {/* Group 4 - White */}
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Break Even Price $:</strong> Minimum price needed to cover all costs with zero profit.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatCurrency(results.breakEvenPrice)}
               </span>
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Division Total Break-Even %:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Division Total Break-Even %:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Division Total Break-Even %:</strong> Your company's minimum margin threshold to break even.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatPercentage(results.divisionTotalBreakEven)}
               </span>
@@ -1047,14 +1137,34 @@ const Calculator = ({ onAddJob }) => {
           {/* Group 5 - Light Grey */}
           <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Required Price $:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Required Price $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Required Price $:</strong> Price needed to achieve your target profit margin.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatCurrency(results.requiredPrice)}
               </span>
             </div>
             
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Required Margin %:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Required Margin %:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Required Margin %:</strong> Total margin percentage needed to cover all costs and target profit.</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatPercentage(results.requiredMargin)}
               </span>
@@ -1064,14 +1174,34 @@ const Calculator = ({ onAddJob }) => {
           {/* Group 6 - White */}
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Your Price $:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Your Price $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Your Price $:</strong> The price you entered in the calculator (same as Retail Price).</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatCurrency(parseFloat(formData.retailPrice) || 0)}
               </span>
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Your Profit Margin is %:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Your Profit Margin is %:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Your Profit Margin is %:</strong> Your actual profit margin percentage (same as Actual Contribution Margin %).</p>
+                  </div>
+                </div>
+              </div>
               <span className="result-value">
                 {formatPercentage(results.actualContributionMargin)}
               </span>
@@ -1081,7 +1211,17 @@ const Calculator = ({ onAddJob }) => {
           {/* Group 7 - Light Grey */}
           <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3 mt-auto">
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>You are currently at:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>You are currently at:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>You are currently at:</strong> How your actual margin compares to your required margin (positive = above target, negative = below target).</p>
+                  </div>
+                </div>
+              </div>
               <div className="flex items-center gap-2">
                 <span className={`result-value ${results.thisJobIs >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                   {formatPercentage(results.thisJobIs)}
@@ -1098,7 +1238,17 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Which is:</span>
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Which is:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Which is:</strong> Dollar difference between your price and the required price (positive = above required, negative = below required).</p>
+                  </div>
+                </div>
+              </div>
               <div className="flex items-center gap-2">
                 <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                   {formatCurrency(results.yourJob)}
