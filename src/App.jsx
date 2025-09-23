@@ -82,7 +82,7 @@ function App() {
           </div>
           <div className="flex justify-center mb-6">
             <h1 className="text-4xl font-bold font-header text-center whitespace-nowrap" style={{color: '#1F1F1F'}}>
-              Restoration Profitability Calculator
+              Restoration Division: Profitability Calculator
             </h1>
           </div>
           <p className="text-lg text-center" style={{color: '#1F1F1F'}}>

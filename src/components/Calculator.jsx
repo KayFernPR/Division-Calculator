@@ -565,6 +565,7 @@ const Calculator = ({ onAddJob }) => {
             <li>• Target margins should be above break-even</li>
             <li>• Use the reference table to convert margin to markup</li>
             <li>• Save jobs to track trends over time</li>
+            <li>• Print this page for your records or to include in your reports</li>
           </ul>
         </div>
         
