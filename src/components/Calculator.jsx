@@ -605,7 +605,7 @@ const Calculator = ({ onAddJob }) => {
       {/* Bottom Section: Calculator and Results Side by Side */}
       <div className="flex lg:flex-row flex-col gap-6 items-stretch">
         {/* Calculator Form - Left */}
-        <div className="card border-2 border-[#63D43E] flex flex-col">
+        <div className="card border-2 border-[#63D43E] flex flex-col w-full lg:w-2/3">
         <h2 className="text-2xl font-bold mb-6 font-header flex items-center gap-3" style={{color: '#1F1F1F'}}>
           <div className="calculator-icon flex-shrink-0">
             <div className="calc-screen">0</div>
@@ -830,7 +830,7 @@ const Calculator = ({ onAddJob }) => {
         </div>
 
         {/* Results - Right */}
-        <div className="card flex flex-col">
+        <div className="card flex flex-col w-full lg:w-1/3">
         <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
           📈 Results
         </h3>
