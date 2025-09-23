@@ -839,7 +839,7 @@ const Calculator = ({ onAddJob }) => {
           📈 Results
         </h3>
         
-        <div className="space-y-3">
+        <div className="space-y-6">
           {/* Profitability Status - Only show when calculations have been performed */}
           {results.profitabilityStatus !== 'neutral' && (
             <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
@@ -881,136 +881,181 @@ const Calculator = ({ onAddJob }) => {
             </div>
           )}
           
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Job Cost %:</span>
-            <span className="result-value">
-              {formatPercentage(results.jobCostPercent)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Actual Contribution Margin %:</span>
-            <span className="result-value">
-              {formatPercentage(results.actualContributionMargin)}
-            </span>
-          </div>
-          
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Actual Mark-up %:</span>
-            <span className="result-value">
-              {formatPercentage(results.actualMarkup)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
-            <span className="result-value">
-              {formatCurrency(results.contributionMargin)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Division Overheads $:</span>
-            <span className="result-value">
-              {formatCurrency(results.divisionOverheadsDollars)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Company Overheads $:</span>
-            <span className="result-value">
-              {formatCurrency(results.companyOverheadsDollars)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Total Controllable Margin $:</span>
-            <span className="result-value">
-              {formatCurrency(results.totalControllableMargin)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Royalty $:</span>
-            <span className="result-value">
-              {formatCurrency(results.royaltyDollars)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
-            <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-              {formatCurrency(results.actualNetProfit)}
-            </span>
-          </div>
-          
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
-            <span className="result-value">
-              {formatCurrency(results.breakEvenPrice)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Division Total Break-Even %:</span>
-            <span className="result-value">
-              {formatPercentage(results.divisionTotalBreakEven)}
-            </span>
-          </div>
-          
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Required Price $:</span>
-            <span className="result-value">
-              {formatCurrency(results.requiredPrice)}
-            </span>
-          </div>
-          
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Required Margin %:</span>
-            <span className="result-value">
-              {formatPercentage(results.requiredMargin)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Your Price $:</span>
-            <span className="result-value">
-              {formatCurrency(parseFloat(formData.retailPrice) || 0)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Your Profit Margin is %:</span>
-            <span className="result-value">
-              {formatPercentage(results.actualContributionMargin)}
-            </span>
-          </div>
-
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>This Job is:</span>
-            <div className="flex items-center gap-2">
-              <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
-                {formatPercentage(results.thisJobIs)}
+          {/* Group 1 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Retail Price $:</span>
+              <span className="result-value">
+                {formatCurrency(parseFloat(formData.retailPrice) || 0)}
               </span>
-              {results.profitabilityStatus !== 'neutral' && (
-                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs, true)} bg-opacity-10`}>
-                  {getBudgetStatus(results.thisJobIs, true)}
-                </span>
-              )}
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Job Cost $:</span>
+              <span className="result-value">
+                {formatCurrency(parseFloat(formData.jobCost) || 0)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Job Cost %:</span>
+              <span className="result-value">
+                {formatPercentage(results.jobCostPercent)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Actual Contribution Margin %:</span>
+              <span className="result-value">
+                {formatPercentage(results.actualContributionMargin)}
+              </span>
+            </div>
+            
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Actual Mark-up %:</span>
+              <span className="result-value">
+                {formatPercentage(results.actualMarkup)}
+              </span>
             </div>
           </div>
 
-          <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Your Job is:</span>
-            <div className="flex items-center gap-2">
-              <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                {formatCurrency(results.yourJob)}
+          {/* Group 2 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
+              <span className="result-value">
+                {formatCurrency(results.contributionMargin)}
               </span>
-              {results.profitabilityStatus !== 'neutral' && (
-                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
-                  {getBudgetStatus(results.yourJob, false)}
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Division Overheads $:</span>
+              <span className="result-value">
+                {formatCurrency(results.divisionOverheadsDollars)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Company Overheads $:</span>
+              <span className="result-value">
+                {formatCurrency(results.companyOverheadsDollars)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Total Controllable Margin $:</span>
+              <span className="result-value">
+                {formatCurrency(results.totalControllableMargin)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Royalty $:</span>
+              <span className="result-value">
+                {formatCurrency(results.royaltyDollars)}
+              </span>
+            </div>
+          </div>
+
+          {/* Group 3 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
+              <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+                {formatCurrency(results.actualNetProfit)}
+              </span>
+            </div>
+          </div>
+
+          {/* Group 4 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
+              <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+                {formatCurrency(results.actualNetProfit)}
+              </span>
+            </div>
+          </div>
+
+          {/* Group 5 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
+              <span className="result-value">
+                {formatCurrency(results.breakEvenPrice)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Division Total Break-Even %:</span>
+              <span className="result-value">
+                {formatPercentage(results.divisionTotalBreakEven)}
+              </span>
+            </div>
+          </div>
+
+          {/* Group 6 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Required Price $:</span>
+              <span className="result-value">
+                {formatCurrency(results.requiredPrice)}
+              </span>
+            </div>
+            
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Required Margin %:</span>
+              <span className="result-value">
+                {formatPercentage(results.requiredMargin)}
+              </span>
+            </div>
+          </div>
+
+          {/* Group 7 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Your Price $:</span>
+              <span className="result-value">
+                {formatCurrency(parseFloat(formData.retailPrice) || 0)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Your Profit Margin is %:</span>
+              <span className="result-value">
+                {formatPercentage(results.actualContributionMargin)}
+              </span>
+            </div>
+          </div>
+
+          {/* Group 8 */}
+          <div className="space-y-3">
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>This Job is:</span>
+              <div className="flex items-center gap-2">
+                <span className="result-value text-success-600 dark:text-success-400">
+                  {formatPercentage(results.thisJobIs)}
                 </span>
-              )}
+                {results.profitabilityStatus !== 'neutral' && (
+                  <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs, true)} bg-opacity-10`}>
+                    {getBudgetStatus(results.thisJobIs, true)}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="result-item">
+              <span style={{color: '#1F1F1F'}}>Your Job is:</span>
+              <div className="flex items-center gap-2">
+                <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+                  {formatCurrency(results.yourJob)}
+                </span>
+                {results.profitabilityStatus !== 'neutral' && (
+                  <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
+                    {getBudgetStatus(results.yourJob, false)}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
           
