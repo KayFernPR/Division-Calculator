@@ -775,7 +775,7 @@ const Calculator = ({ onAddJob }) => {
                 min="0"
                 max="100"
                 className={`input-field ${errors.royaltyRate ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="5.00"
+                placeholder="If you don't pay royalty fees, enter 0"
               />
               {errors.royaltyRate && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
