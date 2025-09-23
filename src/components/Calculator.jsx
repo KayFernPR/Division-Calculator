@@ -93,8 +93,8 @@ const Calculator = ({ onAddJob }) => {
     // Actual Contribution Margin % = 1 - (Job Cost $ / Retail Price $)
     const actualContributionMargin = retailPrice > 0 ? (1 - (jobCost / retailPrice)) * 100 : 0
 
-    // Actual Mark-up % = Actual Contribution Margin % / (1 - Actual Contribution Margin %)
-    const actualMarkup = actualContributionMargin > 0 ? (actualContributionMargin / (1 - actualContributionMargin / 100)) * 100 : 0
+    // Actual Mark-up % = (Retail Price - Job Cost) / Job Cost × 100
+    const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
 
     // Contribution Margin $ = Retail Price $ - Job Cost $
     const contributionMargin = retailPrice - jobCost
