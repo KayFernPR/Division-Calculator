@@ -970,16 +970,6 @@ const Calculator = ({ onAddJob }) => {
           {/* Group 4 - White */}
           <div className="space-y-3 bg-white dark:bg-neutral-900 rounded-lg p-4">
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
-              <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                {formatCurrency(results.actualNetProfit)}
-              </span>
-            </div>
-          </div>
-
-          {/* Group 5 - Light Grey */}
-          <div className="space-y-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
-            <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
               <span className="result-value">
                 {formatCurrency(results.breakEvenPrice)}
@@ -994,8 +984,8 @@ const Calculator = ({ onAddJob }) => {
             </div>
           </div>
 
-          {/* Group 6 - White */}
-          <div className="space-y-3 bg-white dark:bg-neutral-900 rounded-lg p-4">
+          {/* Group 5 - Light Grey */}
+          <div className="space-y-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Required Price $:</span>
               <span className="result-value">
@@ -1011,8 +1001,8 @@ const Calculator = ({ onAddJob }) => {
             </div>
           </div>
 
-          {/* Group 7 - Light Grey */}
-          <div className="space-y-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
+          {/* Group 6 - White */}
+          <div className="space-y-3 bg-white dark:bg-neutral-900 rounded-lg p-4">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Your Price $:</span>
               <span className="result-value">
@@ -1028,8 +1018,8 @@ const Calculator = ({ onAddJob }) => {
             </div>
           </div>
 
-          {/* Group 8 - White */}
-          <div className="space-y-3 bg-white dark:bg-neutral-900 rounded-lg p-4">
+          {/* Group 7 - Light Grey */}
+          <div className="space-y-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>This Job is:</span>
               <div className="flex items-center gap-2">
