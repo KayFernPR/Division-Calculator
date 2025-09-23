@@ -11,7 +11,6 @@ const Calculator = ({ onAddJob }) => {
     divisionOverheads: '',
     companyOverheads: '',
     divisionFixedCosts: '',
-    companyVariableCosts: '',
     royaltyRate: '',
     targetNetProfit: '',
     edita: ''
@@ -256,7 +255,6 @@ const Calculator = ({ onAddJob }) => {
         divisionOverheads: '',
         companyOverheads: '',
         divisionFixedCosts: '',
-        companyVariableCosts: '',
         royaltyRate: '',
         targetNetProfit: '',
         edita: ''
@@ -747,7 +745,29 @@ const Calculator = ({ onAddJob }) => {
               Overhead Costs
             </h4>
             
-            {/* Division Overheads */}
+            {/* Royalty Rate */}
+            <div>
+              <label htmlFor="royaltyRate" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Royalty Rate % *
+              </label>
+              <input
+                type="number"
+                id="royaltyRate"
+                name="royaltyRate"
+                value={formData.royaltyRate}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="100"
+                className={`input-field ${errors.royaltyRate ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="Enter 0 if you don't pay fees"
+              />
+              {errors.royaltyRate && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
+              )}
+            </div>
+
+            {/* Division Variable Costs */}
             <div>
               <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Division Variable Costs % *
@@ -766,28 +786,6 @@ const Calculator = ({ onAddJob }) => {
               />
               {errors.divisionOverheads && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionOverheads}</p>
-              )}
-            </div>
-
-            {/* Company Overheads */}
-            <div>
-              <label htmlFor="companyOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Company Fixed Costs % *
-              </label>
-              <input
-                type="number"
-                id="companyOverheads"
-                name="companyOverheads"
-                value={formData.companyOverheads}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="100"
-                className={`input-field ${errors.companyOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="10.00"
-              />
-              {errors.companyOverheads && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyOverheads}</p>
               )}
             </div>
 
@@ -813,47 +811,25 @@ const Calculator = ({ onAddJob }) => {
               )}
             </div>
 
-            {/* Company Variable Costs */}
+            {/* Company Fixed Costs */}
             <div>
-              <label htmlFor="companyVariableCosts" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Company Variable Costs % *
+              <label htmlFor="companyOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Company Fixed Costs % *
               </label>
               <input
                 type="number"
-                id="companyVariableCosts"
-                name="companyVariableCosts"
-                value={formData.companyVariableCosts}
+                id="companyOverheads"
+                name="companyOverheads"
+                value={formData.companyOverheads}
                 onChange={handleInputChange}
                 step="0.01"
                 min="0"
                 max="100"
-                className={`input-field ${errors.companyVariableCosts ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="8.00"
+                className={`input-field ${errors.companyOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="10.00"
               />
-              {errors.companyVariableCosts && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyVariableCosts}</p>
-              )}
-            </div>
-
-            {/* Royalty Rate */}
-            <div>
-              <label htmlFor="royaltyRate" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Royalty Rate % *
-              </label>
-              <input
-                type="number"
-                id="royaltyRate"
-                name="royaltyRate"
-                value={formData.royaltyRate}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="100"
-                className={`input-field ${errors.royaltyRate ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="Enter 0 if you don't pay fees"
-              />
-              {errors.royaltyRate && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
+              {errors.companyOverheads && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyOverheads}</p>
               )}
             </div>
           </div>
@@ -864,7 +840,29 @@ const Calculator = ({ onAddJob }) => {
               Target Profit
             </h4>
             
-            {/* Target Net Profit */}
+            {/* EBITA */}
+            <div>
+              <label htmlFor="edita" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                EBITA % *
+              </label>
+              <input
+                type="number"
+                id="edita"
+                name="edita"
+                value={formData.edita}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="99.99"
+                className={`input-field ${errors.edita ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="5.00"
+              />
+              {errors.edita && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.edita}</p>
+              )}
+            </div>
+
+            {/* Target Operating Profit */}
             <div>
               <label htmlFor="targetNetProfit" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Target Operating Profit % *
@@ -883,28 +881,6 @@ const Calculator = ({ onAddJob }) => {
               />
               {errors.targetNetProfit && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.targetNetProfit}</p>
-              )}
-            </div>
-
-            {/* EDITA */}
-            <div>
-              <label htmlFor="edita" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                EDITA % *
-              </label>
-              <input
-                type="number"
-                id="edita"
-                name="edita"
-                value={formData.edita}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="99.99"
-                className={`input-field ${errors.edita ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="5.00"
-              />
-              {errors.edita && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.edita}</p>
               )}
             </div>
           </div>
