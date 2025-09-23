@@ -150,7 +150,9 @@ const Calculator = ({ onAddJob }) => {
   const validateForm = () => {
     const newErrors = {}
 
-    // Job name is optional, no validation needed
+    if (!formData.jobName.trim()) {
+      newErrors.jobName = 'Job name or number is required'
+    }
 
     if (!formData.retailPrice || parseFloat(formData.retailPrice) <= 0) {
       newErrors.retailPrice = 'Retail price must be greater than 0'
@@ -540,7 +542,7 @@ const Calculator = ({ onAddJob }) => {
             {/* Job Name */}
             <div>
               <label htmlFor="jobName" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Job Name (Optional)
+                Job Name or Number *
               </label>
               <input
                 type="text"
@@ -548,15 +550,18 @@ const Calculator = ({ onAddJob }) => {
                 name="jobName"
                 value={formData.jobName}
                 onChange={handleInputChange}
-                className="input-field"
-                placeholder="Enter job name"
+                className={`input-field ${errors.jobName ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="Enter job name or number"
               />
+              {errors.jobName && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.jobName}</p>
+              )}
             </div>
 
-            {/* Carrier */}
+            {/* Insurance Carrier */}
             <div>
               <label htmlFor="carrier" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Carrier (Optional)
+                Insurance Carrier or Client Name (Optional)
               </label>
               <input
                 type="text"
@@ -565,7 +570,7 @@ const Calculator = ({ onAddJob }) => {
                 value={formData.carrier}
                 onChange={handleInputChange}
                 className="input-field"
-                placeholder="Enter carrier name"
+                placeholder="Enter carrier or client name"
               />
             </div>
 
