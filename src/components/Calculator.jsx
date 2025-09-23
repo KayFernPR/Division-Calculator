@@ -3,13 +3,13 @@ import { useState, useEffect, useRef } from 'react'
 const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
     jobName: '',
-    breakEvenPercent: '',
+    carrier: '',
     retailPrice: '',
     jobCost: '',
-    overheadCost: '',
-    targetNetMargin: '',
-    targetMargin: '',
-    insuranceCarrier: ''
+    divisionOverheads: '',
+    companyOverheads: '',
+    royaltyRate: '',
+    targetNetProfit: ''
   })
 
   const [results, setResults] = useState({
@@ -64,13 +64,16 @@ const Calculator = ({ onAddJob }) => {
   const calculateResults = () => {
     const retailPrice = parseFloat(formData.retailPrice) || 0
     const jobCost = parseFloat(formData.jobCost) || 0
-    const targetGrossMargin = parseFloat(formData.targetMargin) || 0
-    const targetNetMargin = parseFloat(formData.targetNetMargin) || 0
-    const breakEvenPercent = parseFloat(formData.breakEvenPercent) || 0
-    const overheadCostPercent = parseFloat(formData.overheadCost) || 0
+    const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
+    const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
+    const companyOverheads = parseFloat(formData.companyOverheads) || 0
+    const royaltyRate = parseFloat(formData.royaltyRate) || 0
+
+    // Calculate total overhead cost percentage
+    const totalOverheadPercent = divisionOverheads + companyOverheads + royaltyRate
 
     // Calculate actual overhead cost in dollars (percentage of retail price)
-    const overheadCostDollars = retailPrice * (overheadCostPercent / 100)
+    const overheadCostDollars = retailPrice * (totalOverheadPercent / 100)
 
     // Actual Gross Margin = ((Retail Price - Job Cost) / Retail Price) × 100
     const actualGrossMargin = retailPrice > 0 ? ((retailPrice - jobCost) / retailPrice) * 100 : 0
@@ -152,13 +155,7 @@ const Calculator = ({ onAddJob }) => {
   const validateForm = () => {
     const newErrors = {}
 
-    if (!formData.jobName.trim()) {
-      newErrors.jobName = 'Job name is required'
-    }
-
-    if (!formData.breakEvenPercent || parseFloat(formData.breakEvenPercent) < 0) {
-      newErrors.breakEvenPercent = 'Break-even percentage must be 0 or greater'
-    }
+    // Job name is optional, no validation needed
 
     if (!formData.retailPrice || parseFloat(formData.retailPrice) <= 0) {
       newErrors.retailPrice = 'Retail price must be greater than 0'
@@ -168,12 +165,20 @@ const Calculator = ({ onAddJob }) => {
       newErrors.jobCost = 'Job cost cannot be negative'
     }
 
-    if (!formData.overheadCost || parseFloat(formData.overheadCost) < 0) {
-      newErrors.overheadCost = 'Overhead cost percentage is required and must be 0 or greater'
+    if (!formData.divisionOverheads || parseFloat(formData.divisionOverheads) < 0) {
+      newErrors.divisionOverheads = 'Division overheads percentage is required and must be 0 or greater'
     }
 
-    if (!formData.targetNetMargin || parseFloat(formData.targetNetMargin) < 0 || parseFloat(formData.targetNetMargin) >= 100) {
-      newErrors.targetNetMargin = 'Target net profit margin is required and must be between 0 and 99.99'
+    if (!formData.companyOverheads || parseFloat(formData.companyOverheads) < 0) {
+      newErrors.companyOverheads = 'Company overheads percentage is required and must be 0 or greater'
+    }
+
+    if (!formData.royaltyRate || parseFloat(formData.royaltyRate) < 0) {
+      newErrors.royaltyRate = 'Royalty rate percentage is required and must be 0 or greater'
+    }
+
+    if (!formData.targetNetProfit || parseFloat(formData.targetNetProfit) < 0 || parseFloat(formData.targetNetProfit) >= 100) {
+      newErrors.targetNetProfit = 'Target net profit percentage is required and must be between 0 and 99.99'
     }
 
     const retailPrice = parseFloat(formData.retailPrice) || 0
@@ -181,10 +186,6 @@ const Calculator = ({ onAddJob }) => {
 
     if (jobCost > retailPrice) {
       newErrors.jobCost = 'Job cost cannot exceed retail price'
-    }
-
-    if (formData.targetMargin && (parseFloat(formData.targetMargin) < 0 || parseFloat(formData.targetMargin) >= 100)) {
-      newErrors.targetMargin = 'Target margin must be between 0 and 99.99'
     }
 
     setErrors(newErrors)
@@ -197,25 +198,25 @@ const Calculator = ({ onAddJob }) => {
     if (validateForm()) {
       onAddJob({
         ...formData,
-        breakEvenPercent: parseFloat(formData.breakEvenPercent),
         retailPrice: parseFloat(formData.retailPrice),
         jobCost: parseFloat(formData.jobCost),
-        overheadCost: parseFloat(formData.overheadCost),
-        targetNetMargin: parseFloat(formData.targetNetMargin),
-        targetMargin: formData.targetMargin ? parseFloat(formData.targetMargin) : null,
+        divisionOverheads: parseFloat(formData.divisionOverheads),
+        companyOverheads: parseFloat(formData.companyOverheads),
+        royaltyRate: parseFloat(formData.royaltyRate),
+        targetNetProfit: parseFloat(formData.targetNetProfit),
         ...results
       })
 
       // Reset form
       setFormData({
         jobName: '',
-        breakEvenPercent: '',
+        carrier: '',
         retailPrice: '',
         jobCost: '',
-        overheadCost: '',
-        targetNetMargin: '',
-        targetMargin: '',
-        insuranceCarrier: ''
+        divisionOverheads: '',
+        companyOverheads: '',
+        royaltyRate: '',
+        targetNetProfit: ''
       })
     }
   }
@@ -534,170 +535,188 @@ const Calculator = ({ onAddJob }) => {
           Job Calculator
         </h2>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Job Name */}
-          <div>
-            <label htmlFor="jobName" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Job Name or Number *
-            </label>
-            <input
-              type="text"
-              id="jobName"
-              name="jobName"
-              value={formData.jobName}
-              onChange={handleInputChange}
-              className={`input-field ${errors.jobName ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="Enter job name or number"
-            />
-            {errors.jobName && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.jobName}</p>
-            )}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Group 1: Job Details */}
+          <div className="space-y-4">
+            <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
+              Job Details
+            </h4>
+            
+            {/* Job Name */}
+            <div>
+              <label htmlFor="jobName" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Job Name (Optional)
+              </label>
+              <input
+                type="text"
+                id="jobName"
+                name="jobName"
+                value={formData.jobName}
+                onChange={handleInputChange}
+                className="input-field"
+                placeholder="Enter job name"
+              />
+            </div>
+
+            {/* Carrier */}
+            <div>
+              <label htmlFor="carrier" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Carrier (Optional)
+              </label>
+              <input
+                type="text"
+                id="carrier"
+                name="carrier"
+                value={formData.carrier}
+                onChange={handleInputChange}
+                className="input-field"
+                placeholder="Enter carrier name"
+              />
+            </div>
+
+            {/* Retail Price */}
+            <div>
+              <label htmlFor="retailPrice" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Retail Price / Charge Out $ *
+              </label>
+              <input
+                type="number"
+                id="retailPrice"
+                name="retailPrice"
+                value={formData.retailPrice}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                className={`input-field ${errors.retailPrice ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="10,400.00"
+              />
+              {errors.retailPrice && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.retailPrice}</p>
+              )}
+            </div>
+
+            {/* Job Cost */}
+            <div>
+              <label htmlFor="jobCost" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Job Cost / COGS $ *
+              </label>
+              <input
+                type="number"
+                id="jobCost"
+                name="jobCost"
+                value={formData.jobCost}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                className={`input-field ${errors.jobCost ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="8,400.00"
+              />
+              {errors.jobCost && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.jobCost}</p>
+              )}
+            </div>
           </div>
 
-          {/* Insurance Carrier */}
-          <div>
-            <label htmlFor="insuranceCarrier" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Insurance Carrier or Client Name (Optional)
-            </label>
-            <input
-              type="text"
-              id="insuranceCarrier"
-              name="insuranceCarrier"
-              value={formData.insuranceCarrier}
-              onChange={handleInputChange}
-              className="input-field"
-              placeholder="Enter carrier or client name"
-            />
+          {/* Group 2: Overhead Costs */}
+          <div className="space-y-4">
+            <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
+              Overhead Costs
+            </h4>
+            
+            {/* Division Overheads */}
+            <div>
+              <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Division Overheads % *
+              </label>
+              <input
+                type="number"
+                id="divisionOverheads"
+                name="divisionOverheads"
+                value={formData.divisionOverheads}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="100"
+                className={`input-field ${errors.divisionOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="15.00"
+              />
+              {errors.divisionOverheads && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionOverheads}</p>
+              )}
+            </div>
+
+            {/* Company Overheads */}
+            <div>
+              <label htmlFor="companyOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Company Overheads % *
+              </label>
+              <input
+                type="number"
+                id="companyOverheads"
+                name="companyOverheads"
+                value={formData.companyOverheads}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="100"
+                className={`input-field ${errors.companyOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="10.00"
+              />
+              {errors.companyOverheads && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyOverheads}</p>
+              )}
+            </div>
+
+            {/* Royalty Rate */}
+            <div>
+              <label htmlFor="royaltyRate" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Royalty Rate % *
+              </label>
+              <input
+                type="number"
+                id="royaltyRate"
+                name="royaltyRate"
+                value={formData.royaltyRate}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="100"
+                className={`input-field ${errors.royaltyRate ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="5.00"
+              />
+              {errors.royaltyRate && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
+              )}
+            </div>
           </div>
 
-          {/* Retail Price */}
-          <div>
-            <label htmlFor="retailPrice" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Retail Price ($) *
-            </label>
-            <input
-              type="number"
-              id="retailPrice"
-              name="retailPrice"
-              value={formData.retailPrice}
-              onChange={handleInputChange}
-              step="0.01"
-              min="0"
-              className={`input-field ${errors.retailPrice ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="10,400.00"
-            />
-            {errors.retailPrice && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.retailPrice}</p>
-            )}
-          </div>
-
-          {/* Job Cost */}
-          <div>
-            <label htmlFor="jobCost" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Job Cost ($) *
-            </label>
-            <input
-              type="number"
-              id="jobCost"
-              name="jobCost"
-              value={formData.jobCost}
-              onChange={handleInputChange}
-              step="0.01"
-              min="0"
-              className={`input-field ${errors.jobCost ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="8,400.00"
-            />
-            {errors.jobCost && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.jobCost}</p>
-            )}
-          </div>
-
-          {/* Break-Even Percentage */}
-          <div>
-            <label htmlFor="breakEvenPercent" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Company Break-Even (%) *
-            </label>
-            <input
-              type="number"
-              id="breakEvenPercent"
-              name="breakEvenPercent"
-              value={formData.breakEvenPercent}
-              onChange={handleInputChange}
-              step="0.01"
-              min="0"
-              max="100"
-              className={`input-field ${errors.breakEvenPercent ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="35.00"
-            />
-            {errors.breakEvenPercent && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.breakEvenPercent}</p>
-            )}
-          </div>
-
-          {/* Overhead Cost */}
-          <div>
-            <label htmlFor="overheadCost" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Overhead Cost (%) *
-            </label>
-            <input
-              type="number"
-              id="overheadCost"
-              name="overheadCost"
-              value={formData.overheadCost}
-              onChange={handleInputChange}
-              step="0.01"
-              min="0"
-              max="100"
-              className={`input-field ${errors.overheadCost ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="15.00"
-            />
-            {errors.overheadCost && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.overheadCost}</p>
-            )}
-          </div>
-
-          {/* Target Net Profit Margin */}
-          <div>
-            <label htmlFor="targetNetMargin" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Target Net Profit Margin (%) *
-            </label>
-            <input
-              type="number"
-              id="targetNetMargin"
-              name="targetNetMargin"
-              value={formData.targetNetMargin}
-              onChange={handleInputChange}
-              step="0.01"
-              min="0"
-              max="99.99"
-              className={`input-field ${errors.targetNetMargin ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="30.00"
-            />
-            {errors.targetNetMargin && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.targetNetMargin}</p>
-            )}
-          </div>
-
-          {/* Target Gross Profit Margin */}
-          <div>
-            <label htmlFor="targetMargin" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-              Target Gross Profit Margin (%) *
-            </label>
-            <input
-              type="number"
-              id="targetMargin"
-              name="targetMargin"
-              value={formData.targetMargin}
-              onChange={handleInputChange}
-              step="0.01"
-              min="0"
-              max="99.99"
-              className={`input-field ${errors.targetMargin ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-              placeholder="45.00"
-            />
-            {errors.targetMargin && (
-              <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.targetMargin}</p>
-            )}
+          {/* Group 3: Target Profit */}
+          <div className="space-y-4">
+            <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
+              Target Profit
+            </h4>
+            
+            {/* Target Net Profit */}
+            <div>
+              <label htmlFor="targetNetProfit" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Target Net Profit % *
+              </label>
+              <input
+                type="number"
+                id="targetNetProfit"
+                name="targetNetProfit"
+                value={formData.targetNetProfit}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="99.99"
+                className={`input-field ${errors.targetNetProfit ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="30.00"
+              />
+              {errors.targetNetProfit && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.targetNetProfit}</p>
+              )}
+            </div>
           </div>
 
           <div className="flex gap-3 pt-4">
