@@ -291,17 +291,17 @@ const Calculator = ({ onAddJob }) => {
   const getStatusText = (status) => {
     switch (status) {
       case 'jackpot':
-        return "Jackpot!"
+        return "🏆 Jackpot!"
       case 'winning':
-        return "You're Winning!"
+        return "🎯 You're Winning!"
       case 'at-budget':
-        return "Great Job! You're at Budget!"
+        return "✅ Great Job! You're at Budget!"
       case 'warning':
-        return "Warning - You're Cutting Into Profits!"
+        return "⚠️ Warning - You're Cutting Into Profits!"
       case 'extreme-warning':
-        return "EXTREME WARNING - You're Almost Paying For The Job"
+        return "🚨 EXTREME WARNING - You're Almost Paying For The Job"
       case 'below-breakeven':
-        return "STOP - DON'T PAY TO DO THE WORK!!"
+        return "⛔ STOP - DON'T PAY TO DO THE WORK!!"
       default:
         return 'Calculating'
     }
@@ -576,27 +576,27 @@ const Calculator = ({ onAddJob }) => {
           <div className="space-y-2 text-sm" style={{color: '#1F1F1F'}}>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🏆</span>
-              <span>Jackpot! — 5% or More Above Target Profit</span>
+              <span>🏆 Jackpot! — 5% or More Above Target Profit</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎯</span>
-              <span>You're Winning! — 0 - 5% Above Target Profit</span>
+              <span>🎯 You're Winning! — 0 - 5% Above Target Profit</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">✅</span>
-              <span>Great Job! You're at Budget!</span>
+              <span>✅ Great Job! You're at Budget! — Meeting target</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⚠️</span>
-              <span>Warning - You're Cutting Into Profits!</span>
+              <span>⚠️ Warning - You're Cutting Into Profits! — Below target but profitable</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🚨</span>
-              <span>EXTREME WARNING - You're Almost Paying For The Job</span>
+              <span>🚨 EXTREME WARNING - You're Almost Paying For The Job — Near break-even</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⛔</span>
-              <span>STOP - DON'T PAY TO DO THE WORK!!</span>
+              <span>⛔ STOP - DON'T PAY TO DO THE WORK!! — Significant loss</span>
             </div>
           </div>
         </div>
