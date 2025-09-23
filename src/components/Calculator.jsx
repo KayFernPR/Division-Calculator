@@ -309,6 +309,25 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case 'jackpot':
+        return "🏆"
+      case 'winning':
+        return "🎯"
+      case 'at-budget':
+        return "✅"
+      case 'warning':
+        return "⚠️"
+      case 'extreme-warning':
+        return "🚨"
+      case 'below-breakeven':
+        return "⛔"
+      default:
+        return ''
+    }
+  }
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'jackpot':
@@ -1042,9 +1061,12 @@ const Calculator = ({ onAddJob }) => {
                   {formatPercentage(results.thisJobIs)}
                 </span>
                 {results.profitabilityStatus !== 'neutral' && (
-                  <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs, true)} bg-opacity-10`}>
-                    {getBudgetStatus(results.thisJobIs, true)}
-                  </span>
+                  <div className="flex items-center gap-1">
+                    <span className="text-lg">{getStatusIcon(results.profitabilityStatus)}</span>
+                    <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs, true)} bg-opacity-10`}>
+                      ({getBudgetStatus(results.thisJobIs, true)})
+                    </span>
+                  </div>
                 )}
               </div>
             </div>
@@ -1056,9 +1078,12 @@ const Calculator = ({ onAddJob }) => {
                   {formatCurrency(results.yourJob)}
                 </span>
                 {results.profitabilityStatus !== 'neutral' && (
-                  <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
-                    {getBudgetStatus(results.yourJob, false)}
-                  </span>
+                  <div className="flex items-center gap-1">
+                    <span className="text-lg">{getStatusIcon(results.profitabilityStatus)}</span>
+                    <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
+                      ({getBudgetStatus(results.yourJob, false)})
+                    </span>
+                  </div>
                 )}
               </div>
             </div>
