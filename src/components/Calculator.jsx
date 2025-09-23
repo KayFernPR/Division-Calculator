@@ -505,10 +505,6 @@ const Calculator = ({ onAddJob }) => {
               <span class="value">${formatCurrency(results.overheadCostDollars)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Net Profit ($):</span>
-              <span class="value ${results.netProfit >= 0 ? 'status-jackpot' : 'status-no-bueno'}">${formatCurrency(results.netProfit)}</span>
-            </div>
-            <div class="result-row">
               <span class="label">Required Price:</span>
               <span class="value">${formatCurrency(results.requiredPrice)}</span>
             </div>
