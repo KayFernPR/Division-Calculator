@@ -603,9 +603,9 @@ const Calculator = ({ onAddJob }) => {
       </div>
 
       {/* Bottom Section: Calculator and Results Side by Side */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="flex lg:flex-row flex-col gap-6 items-stretch">
         {/* Calculator Form - Left */}
-        <div className="card border-2 border-[#63D43E]">
+        <div className="card border-2 border-[#63D43E] flex flex-col">
         <h2 className="text-2xl font-bold mb-6 font-header flex items-center gap-3" style={{color: '#1F1F1F'}}>
           <div className="calculator-icon flex-shrink-0">
             <div className="calc-screen">0</div>
@@ -624,7 +624,7 @@ const Calculator = ({ onAddJob }) => {
           Job Calculator
         </h2>
         
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 flex flex-col flex-grow">
           {/* Group 1: Job Details - Updated Form Structure */}
           <div className="space-y-4">
             <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
@@ -811,7 +811,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
           </div>
 
-          <div className="flex gap-3 pt-4">
+          <div className="flex gap-3 pt-4 mt-auto">
             <button
               type="submit"
               className="btn btn-primary flex-1"
@@ -830,12 +830,12 @@ const Calculator = ({ onAddJob }) => {
         </div>
 
         {/* Results - Right */}
-        <div className="card">
+        <div className="card flex flex-col">
         <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
           📈 Results
         </h3>
         
-        <div className="space-y-4">
+        <div className="space-y-4 flex flex-col flex-grow">
           {/* Profitability Status - Only show when calculations have been performed */}
           {results.profitabilityStatus !== 'neutral' && (
             <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
@@ -878,7 +878,7 @@ const Calculator = ({ onAddJob }) => {
           )}
           
           {/* Group 1 - Light Grey */}
-          <div className="space-y-2 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
+          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Retail Price $:</span>
               <span className="result-value">
@@ -954,7 +954,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 3 - Light Grey */}
-          <div className="space-y-2 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
+          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
               <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
@@ -981,7 +981,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 5 - Light Grey */}
-          <div className="space-y-2 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
+          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Required Price $:</span>
               <span className="result-value">
@@ -1015,7 +1015,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 7 - Light Grey */}
-          <div className="space-y-2 bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
+          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3 mt-auto">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>This Job is:</span>
               <div className="flex items-center gap-2">
