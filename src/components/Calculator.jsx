@@ -560,7 +560,7 @@ const Calculator = ({ onAddJob }) => {
           <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
             💡 Quick Tips
           </h3>
-          <ul className="text-sm space-y-2" style={{color: '#1F1F1F'}}>
+          <ul className="text-base space-y-2" style={{color: '#1F1F1F'}}>
             <li>• Set your company's break-even percentage first</li>
             <li>• Target margins should be above break-even</li>
             <li>• Use the reference table to convert margin to markup</li>
