@@ -872,10 +872,10 @@ const Calculator = ({ onAddJob }) => {
                       onClick={() => setShowStatusHelp(prev => !prev)}
                       aria-expanded={showStatusHelp}
                       aria-controls="status-help-tooltip"
-                      className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 text-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 text-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500"
                       title="How status is determined"
                     >
-                      i
+                      {getStatusIcon(results.profitabilityStatus)}
                     </button>
                     <div
                       id="status-help-tooltip"
