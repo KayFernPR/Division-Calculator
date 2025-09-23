@@ -14,6 +14,7 @@ const Calculator = ({ onAddJob }) => {
   })
 
   const [results, setResults] = useState({
+    // Legacy fields for backward compatibility
     actualMargin: 0,
     actualNetMargin: 0,
     actualMarkup: 0,
@@ -26,7 +27,22 @@ const Calculator = ({ onAddJob }) => {
     revenueNeeded10Percent: 0,
     revenueNeededCurrent: 0,
     profitabilityStatus: 'neutral',
-    coversOverhead: true
+    coversOverhead: true,
+    
+    // New calculated fields
+    jobCostPercent: 0,
+    actualContributionMargin: 0,
+    contributionMargin: 0,
+    divisionOverheadsDollars: 0,
+    companyOverheadsDollars: 0,
+    totalControllableMargin: 0,
+    royaltyDollars: 0,
+    actualNetProfit: 0,
+    divisionTotalBreakEven: 0,
+    breakEvenPrice: 0,
+    requiredMargin: 0,
+    thisJobIs: 0,
+    yourJob: 0
   })
 
   const [showStatusHelp, setShowStatusHelp] = useState(false)
@@ -70,81 +86,100 @@ const Calculator = ({ onAddJob }) => {
     const companyOverheads = parseFloat(formData.companyOverheads) || 0
     const royaltyRate = parseFloat(formData.royaltyRate) || 0
 
-    // Calculate total overhead cost percentage
-    const totalOverheadPercent = divisionOverheads + companyOverheads + royaltyRate
+    // Job Cost % = Job Cost $ / Retail Price $
+    const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
 
-    // Calculate actual overhead cost in dollars (percentage of retail price)
-    const overheadCostDollars = retailPrice * (totalOverheadPercent / 100)
+    // Actual Contribution Margin % = 1 - (Job Cost $ / Retail Price $)
+    const actualContributionMargin = retailPrice > 0 ? (1 - (jobCost / retailPrice)) * 100 : 0
 
-    // Actual Gross Margin = ((Retail Price - Job Cost) / Retail Price) × 100
-    const actualGrossMargin = retailPrice > 0 ? ((retailPrice - jobCost) / retailPrice) * 100 : 0
+    // Actual Mark-up % = Actual Contribution Margin % / (1 - Actual Contribution Margin %)
+    const actualMarkup = actualContributionMargin > 0 ? (actualContributionMargin / (1 - actualContributionMargin / 100)) * 100 : 0
 
-    // Actual Net Margin = ((Retail Price - Job Cost - Overhead) / Retail Price) × 100
-    const actualNetMargin = retailPrice > 0 ? ((retailPrice - jobCost - overheadCostDollars) / retailPrice) * 100 : 0
+    // Contribution Margin $ = Retail Price $ - Job Cost $
+    const contributionMargin = retailPrice - jobCost
 
-    // Actual Markup = ((Retail Price - Job Cost) / Job Cost) × 100
-    const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
+    // Division Overheads $ = Retail Price $ * Division Overheads %
+    const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
 
-    // Gross Profit Dollars (before overhead)
-    const grossProfit = retailPrice - jobCost
+    // Company Overheads $ = Retail Price $ * Company Overheads %
+    const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
 
-    // Net Profit Dollars (after overhead)
-    const netProfit = grossProfit - overheadCostDollars
+    // Total Controllable Margin $ = Contribution Margin $ - Division Overheads $ - Company Overheads $
+    const totalControllableMargin = contributionMargin - divisionOverheadsDollars - companyOverheadsDollars
 
-    // Required Retail Price to hit Target Net Profit = (Job Cost + Overhead) / (1 - Target Net Profit)
-    const requiredPriceForNetProfit = (jobCost + overheadCostDollars) > 0 && targetNetProfit < 100 ? 
-      (jobCost + overheadCostDollars) / (1 - targetNetProfit / 100) : 0
+    // Royalty $ = Retail Price $ * Royalty rate %
+    const royaltyDollars = retailPrice * (royaltyRate / 100)
 
-    // Use the net profit required price as primary (since it includes overhead)
-    const requiredPrice = requiredPriceForNetProfit
+    // Actual Net Profit $ = Total Controllable Margin $ - Royalty $
+    const actualNetProfit = totalControllableMargin - royaltyDollars
 
-    // Required Markup = ((Required Price - Job Cost) / Job Cost) × 100
-    const requiredMarkup = jobCost > 0 ? ((requiredPrice - jobCost) / jobCost) * 100 : 0
+    // Division Total Break-Even % = Division Overheads % + Company Overheads % + Royalty rate %
+    const divisionTotalBreakEven = divisionOverheads + companyOverheads + royaltyRate
 
-    // Profit Shortfall = Required Price - Retail Price (only if below target)
-    const profitShortfall = (actualNetMargin < targetNetProfit && requiredPrice > retailPrice) ? requiredPrice - retailPrice : 0
+    // Break Even Price $ = Job Cost $ / (1 - Division Total Break-Even %)
+    const breakEvenPrice = divisionTotalBreakEven < 100 ? jobCost / (1 - divisionTotalBreakEven / 100) : 0
 
-    // Additional revenue needed to cover shortfall at 10% margin
-    const revenueNeeded10Percent = profitShortfall > 0 ? profitShortfall / 0.10 : 0
+    // Required Margin % = Division Overheads % + Company Overheads % + Royalty rate % + Target Net Profit %
+    const requiredMargin = divisionOverheads + companyOverheads + royaltyRate + targetNetProfit
 
-    // Additional revenue needed to cover shortfall at current margin
-    const revenueNeededCurrent = profitShortfall > 0 && actualNetMargin > 0 ? profitShortfall / (actualNetMargin / 100) : 0
+    // Required Price $ = Job Cost $ / (1 - Required Margin %)
+    const requiredPrice = requiredMargin < 100 ? jobCost / (1 - requiredMargin / 100) : 0
 
-    // Determine profitability status based on NET margin and overhead coverage
-    // Only calculate status if we have meaningful data (retail price > 0)
+    // This Job Is % = Required Margin % - Your Profit Margin is %
+    const thisJobIs = requiredMargin - actualContributionMargin
+
+    // Your job $ = Retail Price $ - Required Price $
+    const yourJob = retailPrice - requiredPrice
+
+    // Determine profitability status based on "This Job Is" percentage
     let profitabilityStatus = 'neutral'
-    const coversOverhead = overheadCostDollars <= 0 || netProfit >= 0
     
     if (retailPrice > 0) {
-      // Jackpot! (green): above target net profit and overhead is covered
-      // Warning! (yellow): below target net profit but overhead is covered
-      // On Thin Ice (orange): below target net profit and not covering overhead
-      // No Bueno (red): negative net profit (not covering overhead or negative margin)
-      if (actualNetMargin >= targetNetProfit && coversOverhead) {
-        profitabilityStatus = 'jackpot'
-      } else if (actualNetMargin < targetNetProfit && coversOverhead) {
-        profitabilityStatus = 'warning'
-      } else if (actualNetMargin < targetNetProfit && !coversOverhead) {
-        profitabilityStatus = 'thin'
+      if (thisJobIs >= 5) {
+        profitabilityStatus = 'jackpot' // Above Target Profit - Jackpot
+      } else if (thisJobIs >= 0 && thisJobIs < 5) {
+        profitabilityStatus = 'winning' // You're Winning
+      } else if (thisJobIs >= -0.1 && thisJobIs <= 0.1) {
+        profitabilityStatus = 'at-budget' // Great Job You're At Budget
+      } else if (thisJobIs > -targetNetProfit && thisJobIs < 0) {
+        profitabilityStatus = 'warning' // Warning - You're Cutting Into Profits
+      } else if (thisJobIs > -targetNetProfit/2 && thisJobIs <= -targetNetProfit) {
+        profitabilityStatus = 'extreme-warning' // EXTREME WARNING - You're Almost Paying For The Job
       } else {
-        profitabilityStatus = 'no-bueno'
+        profitabilityStatus = 'below-breakeven' // Below Break-Even - STOP - DON'T PAY TO DO THE WORK
       }
     }
 
     setResults({
-      actualMargin: actualGrossMargin, // Keep for backward compatibility
-      actualNetMargin,
+      // Legacy fields for backward compatibility
+      actualMargin: actualContributionMargin,
+      actualNetMargin: actualContributionMargin,
       actualMarkup,
-      grossProfit,
-      netProfit,
-      overheadCostDollars,
+      grossProfit: contributionMargin,
+      netProfit: actualNetProfit,
+      overheadCostDollars: divisionOverheadsDollars + companyOverheadsDollars + royaltyDollars,
       requiredPrice,
-      requiredMarkup,
-      profitShortfall,
-      revenueNeeded10Percent,
-      revenueNeededCurrent,
+      requiredMarkup: actualMarkup,
+      profitShortfall: yourJob < 0 ? Math.abs(yourJob) : 0,
+      revenueNeeded10Percent: 0,
+      revenueNeededCurrent: 0,
       profitabilityStatus,
-      coversOverhead
+      coversOverhead: actualNetProfit >= 0,
+      
+      // New calculated fields
+      jobCostPercent,
+      actualContributionMargin,
+      contributionMargin,
+      divisionOverheadsDollars,
+      companyOverheadsDollars,
+      totalControllableMargin,
+      royaltyDollars,
+      actualNetProfit,
+      divisionTotalBreakEven,
+      breakEvenPrice,
+      requiredMargin,
+      thisJobIs,
+      yourJob
     })
   }
 
@@ -256,13 +291,17 @@ const Calculator = ({ onAddJob }) => {
   const getStatusText = (status) => {
     switch (status) {
       case 'jackpot':
-        return "Jackpot!"
+        return "Above Target Profit - Jackpot"
+      case 'winning':
+        return "You're Winning"
+      case 'at-budget':
+        return "Great Job You're At Budget"
       case 'warning':
-        return 'Warning!'
-      case 'thin':
-        return 'On Thin Ice'
-      case 'no-bueno':
-        return 'No Bueno - Game Over'
+        return "Warning - You're Cutting Into Profits"
+      case 'extreme-warning':
+        return "EXTREME WARNING - You're Almost Paying For The Job"
+      case 'below-breakeven':
+        return "Below Break-Even - STOP - DON'T PAY TO DO THE WORK"
       default:
         return 'Calculating'
     }
@@ -272,11 +311,15 @@ const Calculator = ({ onAddJob }) => {
     switch (status) {
       case 'jackpot':
         return 'text-success-600 dark:text-success-400'
+      case 'winning':
+        return 'text-success-500 dark:text-success-300'
+      case 'at-budget':
+        return 'text-blue-600 dark:text-blue-400'
       case 'warning':
         return 'text-warning-600 dark:text-warning-400'
-      case 'thin':
+      case 'extreme-warning':
         return 'text-orange-600 dark:text-orange-400'
-      case 'no-bueno':
+      case 'below-breakeven':
         return 'text-danger-600 dark:text-danger-400'
       default:
         return 'text-neutral-500 dark:text-neutral-400'
@@ -493,19 +536,27 @@ const Calculator = ({ onAddJob }) => {
           <div className="space-y-2 text-sm" style={{color: '#1F1F1F'}}>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🏆</span>
-              <span>Jackpot! — You're above target and your overhead is covered</span>
+              <span>5% or More — Above Target Profit - Jackpot</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🎯</span>
+              <span>0 - 5% — You're Winning</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">✅</span>
+              <span>0 At Margin — Great Job You're At Budget</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⚠️</span>
-              <span>Warning! — You're below target, but your break-even and overhead are covered</span>
+              <span>0 to (Net Profit)% — Warning - You're Cutting Into Profits</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-2xl">🧊</span>
-              <span>On Thin Ice — You're below target and break-even, but your overhead is covered</span>
+              <span className="text-2xl">🚨</span>
+              <span>0 to (Net profit/2) — EXTREME WARNING - You're Almost Paying For The Job</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⛔</span>
-              <span>No Bueno — You're in the red</span>
+              <span>0 - net profit (negative) — Below Break-Even - STOP - DON'T PAY TO DO THE WORK</span>
             </div>
           </div>
         </div>
@@ -750,7 +801,7 @@ const Calculator = ({ onAddJob }) => {
             <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-medium" style={{color: '#1F1F1F'}}>
-                  <span>Profitability Status:</span>
+                  <span>This Job Is:</span>
                   <div className="relative group select-none" ref={statusHelpRef}>
                     <button
                       type="button"
@@ -787,89 +838,124 @@ const Calculator = ({ onAddJob }) => {
           )}
           
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Actual Gross Margin:</span>
+            <span style={{color: '#1F1F1F'}}>Job Cost %:</span>
             <span className="result-value">
-              {formatPercentage(results.actualMargin)}
+              {formatPercentage(results.jobCostPercent)}
             </span>
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Actual Net Margin:</span>
-            <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
-              {formatPercentage(results.actualNetMargin)}
+            <span style={{color: '#1F1F1F'}}>Actual Contribution Margin %:</span>
+            <span className="result-value">
+              {formatPercentage(results.actualContributionMargin)}
             </span>
           </div>
           
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Actual Markup:</span>
+            <span style={{color: '#1F1F1F'}}>Actual Mark-up %:</span>
             <span className="result-value">
               {formatPercentage(results.actualMarkup)}
             </span>
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Gross Profit ($):</span>
+            <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
             <span className="result-value">
-              {formatCurrency(results.grossProfit)}
+              {formatCurrency(results.contributionMargin)}
             </span>
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Overhead Cost ($):</span>
+            <span style={{color: '#1F1F1F'}}>Division Overheads $:</span>
             <span className="result-value">
-              {formatCurrency(results.overheadCostDollars)}
+              {formatCurrency(results.divisionOverheadsDollars)}
             </span>
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Net Profit ($):</span>
-            <span className={`result-value ${results.netProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-              {formatCurrency(results.netProfit)}
+            <span style={{color: '#1F1F1F'}}>Company Overheads $:</span>
+            <span className="result-value">
+              {formatCurrency(results.companyOverheadsDollars)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Total Controllable Margin $:</span>
+            <span className="result-value">
+              {formatCurrency(results.totalControllableMargin)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Royalty $:</span>
+            <span className="result-value">
+              {formatCurrency(results.royaltyDollars)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
+            <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+              {formatCurrency(results.actualNetProfit)}
             </span>
           </div>
           
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Required Price:</span>
+            <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
+            <span className="result-value">
+              {formatCurrency(results.breakEvenPrice)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Division Total Break-Even %:</span>
+            <span className="result-value">
+              {formatPercentage(results.divisionTotalBreakEven)}
+            </span>
+          </div>
+          
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Required Price $:</span>
             <span className="result-value">
               {formatCurrency(results.requiredPrice)}
             </span>
           </div>
           
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Required Markup:</span>
+            <span style={{color: '#1F1F1F'}}>Required Margin %:</span>
             <span className="result-value">
-              {formatPercentage(results.requiredMarkup)}
+              {formatPercentage(results.requiredMargin)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Your Price $:</span>
+            <span className="result-value">
+              {formatCurrency(parseFloat(formData.retailPrice) || 0)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Your Profit Margin is %:</span>
+            <span className="result-value">
+              {formatPercentage(results.actualContributionMargin)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>This Job Is %:</span>
+            <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
+              {formatPercentage(results.thisJobIs)}
+            </span>
+          </div>
+
+          <div className="result-item">
+            <span style={{color: '#1F1F1F'}}>Your job $:</span>
+            <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+              {formatCurrency(results.yourJob)}
             </span>
           </div>
           
-          {results.profitShortfall > 0 && (
-            <>
-              <div className="result-item">
-                <span style={{color: '#1F1F1F'}}>Profit Shortfall:</span>
-                <span className="result-value text-danger-600 dark:text-danger-400">
-                  {formatCurrency(results.profitShortfall)}
-                </span>
-              </div>
-              
-              <div className="bg-warning-50 dark:bg-warning-900/20 rounded-lg p-4 space-y-2">
-                <h4 className="font-semibold text-warning-800 dark:text-warning-200">Impact to Business:</h4>
-                <div className="text-sm space-y-1">
-                  <div className="flex justify-between">
-                    <span className="text-warning-700 dark:text-warning-300">Revenue needed at 10% margin:</span>
-                    <span className="font-mono font-semibold text-warning-800 dark:text-warning-200">
-                      {formatCurrency(results.revenueNeeded10Percent)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-warning-700 dark:text-warning-300">Revenue needed at current margin:</span>
-                    <span className="font-mono font-semibold text-warning-800 dark:text-warning-200">
-                      {formatCurrency(results.revenueNeededCurrent)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
         </div>
         </div>
       </div>
