@@ -275,20 +275,6 @@ const Calculator = ({ onAddJob }) => {
     return `${value.toFixed(2)}%`
   }
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'jackpot':
-        return '🏆'
-      case 'warning':
-        return '⚠️'
-      case 'thin':
-        return '🧊'
-      case 'no-bueno':
-        return '⛔'
-      default:
-        return '📊'
-    }
-  }
 
   const getStatusText = (status) => {
     switch (status) {
