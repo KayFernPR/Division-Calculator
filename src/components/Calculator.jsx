@@ -142,10 +142,10 @@ const Calculator = ({ onAddJob }) => {
         profitabilityStatus = 'winning' // You're Winning
       } else if (thisJobIs >= -0.1 && thisJobIs <= 0.1) {
         profitabilityStatus = 'at-budget' // Great Job You're At Budget
+      } else if (thisJobIs < 0 || thisJobIs > targetNetProfit / 2) {
+        profitabilityStatus = 'extreme-warning' // EXTREME WARNING - You're Almost Paying For The Job
       } else if (thisJobIs > -targetNetProfit && thisJobIs < 0) {
         profitabilityStatus = 'warning' // Warning - You're Cutting Into Profits
-      } else if (thisJobIs > -targetNetProfit/2 && thisJobIs <= -targetNetProfit) {
-        profitabilityStatus = 'extreme-warning' // EXTREME WARNING - You're Almost Paying For The Job
       } else {
         profitabilityStatus = 'below-breakeven' // Below Break-Even - STOP - DON'T PAY TO DO THE WORK
       }
