@@ -859,7 +859,7 @@ const Calculator = ({ onAddJob }) => {
           📈 Results
         </h3>
         
-        <div className="space-y-1 flex flex-col flex-grow">
+        <div className="space-y-3 flex flex-col flex-grow">
           {/* Profitability Status - Only show when calculations have been performed */}
           {results.profitabilityStatus !== 'neutral' && (
             <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-1">
@@ -902,7 +902,7 @@ const Calculator = ({ onAddJob }) => {
           )}
           
           {/* Group 1 - Light Grey */}
-          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
+          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3">
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Retail Price $:</span>
@@ -990,7 +990,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 2 - White */}
-          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
+          <div className="space-y-2 bg-white dark:bg-neutral-900 rounded-lg p-3">
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
@@ -1078,7 +1078,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 3 - Light Grey */}
-          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
+          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3">
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
@@ -1098,7 +1098,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 4 - White */}
-          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
+          <div className="space-y-2 bg-white dark:bg-neutral-900 rounded-lg p-3">
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
@@ -1135,7 +1135,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 5 - Light Grey */}
-          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
+          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3">
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Required Price $:</span>
@@ -1172,7 +1172,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 6 - White */}
-          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
+          <div className="space-y-2 bg-white dark:bg-neutral-900 rounded-lg p-3">
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Your Price $:</span>
