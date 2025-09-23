@@ -845,7 +845,7 @@ const Calculator = ({ onAddJob }) => {
             <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-medium" style={{color: '#1F1F1F'}}>
-                  <span>This Job Is:</span>
+                  <span>This Job is:</span>
                   <div className="relative group select-none" ref={statusHelpRef}>
                     <button
                       type="button"
@@ -987,7 +987,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>This Job Is:</span>
+            <span style={{color: '#1F1F1F'}}>This Job is:</span>
             <div className="flex items-center gap-2">
               <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
                 {formatPercentage(results.thisJobIs)}
@@ -1001,7 +1001,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Your Job:</span>
+            <span style={{color: '#1F1F1F'}}>Your Job is:</span>
             <div className="flex items-center gap-2">
               <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                 {formatCurrency(results.yourJob)}
