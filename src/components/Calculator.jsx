@@ -835,10 +835,10 @@ const Calculator = ({ onAddJob }) => {
           📈 Results
         </h3>
         
-        <div className="space-y-2 flex flex-col flex-grow">
+        <div className="space-y-1 flex flex-col flex-grow">
           {/* Profitability Status - Only show when calculations have been performed */}
           {results.profitabilityStatus !== 'neutral' && (
-            <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-2">
+            <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-1">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-medium" style={{color: '#1F1F1F'}}>
                   <span>This Job is:</span>
@@ -878,7 +878,7 @@ const Calculator = ({ onAddJob }) => {
           )}
           
           {/* Group 1 - Light Grey */}
-          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
+          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Retail Price $:</span>
               <span className="result-value">
@@ -916,7 +916,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 2 - White */}
-          <div className="space-y-2 bg-white dark:bg-neutral-900 rounded-lg p-2">
+          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
               <span className="result-value">
@@ -954,7 +954,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 3 - Light Grey */}
-          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
+          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
               <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
@@ -964,7 +964,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 4 - White */}
-          <div className="space-y-2 bg-white dark:bg-neutral-900 rounded-lg p-2">
+          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Break Even Price $:</span>
               <span className="result-value">
@@ -981,7 +981,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 5 - Light Grey */}
-          <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
+          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Required Price $:</span>
               <span className="result-value">
@@ -998,7 +998,7 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           {/* Group 6 - White */}
-          <div className="space-y-2 bg-white dark:bg-neutral-900 rounded-lg p-2">
+          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Your Price $:</span>
               <span className="result-value">
