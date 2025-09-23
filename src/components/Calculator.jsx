@@ -326,6 +326,26 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
+  const getBudgetStatus = (thisJobIs) => {
+    if (thisJobIs > 0.1) {
+      return 'Above Budget'
+    } else if (thisJobIs >= -0.1 && thisJobIs <= 0.1) {
+      return 'At Budget'
+    } else {
+      return 'Below Budget'
+    }
+  }
+
+  const getBudgetStatusColor = (thisJobIs) => {
+    if (thisJobIs > 0.1) {
+      return 'text-success-600 dark:text-success-400'
+    } else if (thisJobIs >= -0.1 && thisJobIs <= 0.1) {
+      return 'text-blue-600 dark:text-blue-400'
+    } else {
+      return 'text-danger-600 dark:text-danger-400'
+    }
+  }
+
   const handlePrint = () => {
     const printWindow = window.open('', '_blank')
     
@@ -943,17 +963,31 @@ const Calculator = ({ onAddJob }) => {
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>This Job Is %:</span>
-            <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
-              {formatPercentage(results.thisJobIs)}
-            </span>
+            <span style={{color: '#1F1F1F'}}>This Job Is:</span>
+            <div className="flex items-center gap-2">
+              <span className={`result-value ${getStatusColor(results.profitabilityStatus)}`}>
+                {formatPercentage(results.thisJobIs)}
+              </span>
+              {results.profitabilityStatus !== 'neutral' && (
+                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs)} bg-opacity-10`}>
+                  {getBudgetStatus(results.thisJobIs)}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="result-item">
-            <span style={{color: '#1F1F1F'}}>Your job $:</span>
-            <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-              {formatCurrency(results.yourJob)}
-            </span>
+            <span style={{color: '#1F1F1F'}}>Your Job:</span>
+            <div className="flex items-center gap-2">
+              <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+                {formatCurrency(results.yourJob)}
+              </span>
+              {results.profitabilityStatus !== 'neutral' && (
+                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs)} bg-opacity-10`}>
+                  {getBudgetStatus(results.thisJobIs)}
+                </span>
+              )}
+            </div>
           </div>
           
         </div>
