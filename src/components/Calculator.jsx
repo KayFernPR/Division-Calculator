@@ -1041,7 +1041,7 @@ const Calculator = ({ onAddJob }) => {
           {/* Group 7 - Light Grey */}
           <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3 mt-auto">
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>Your Job is:</span>
+              <span style={{color: '#1F1F1F'}}>You are currently at:</span>
               <div className="flex items-center gap-2">
                 <span className={`result-value ${results.thisJobIs >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                   {formatPercentage(results.thisJobIs)}
@@ -1058,7 +1058,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
             <div className="result-item">
-              <span style={{color: '#1F1F1F'}}>AND is:</span>
+              <span style={{color: '#1F1F1F'}}>Which is:</span>
               <div className="flex items-center gap-2">
                 <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                   {formatCurrency(results.yourJob)}
