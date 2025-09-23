@@ -534,7 +534,7 @@ const Calculator = ({ onAddJob }) => {
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Group 1: Job Details */}
+          {/* Group 1: Job Details - Updated Form Structure */}
           <div className="space-y-4">
             <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
               Job Details
