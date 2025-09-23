@@ -90,23 +90,18 @@ const Calculator = ({ onAddJob }) => {
     // Net Profit Dollars (after overhead)
     const netProfit = grossProfit - overheadCostDollars
 
-    // Required Retail Price to hit Target Net Margin = (Job Cost + Overhead) / (1 - Target Net Margin)
-    const requiredPriceForNetMargin = (jobCost + overheadCostDollars) > 0 && targetNetMargin < 100 ? 
-      (jobCost + overheadCostDollars) / (1 - targetNetMargin / 100) : 0
+    // Required Retail Price to hit Target Net Profit = (Job Cost + Overhead) / (1 - Target Net Profit)
+    const requiredPriceForNetProfit = (jobCost + overheadCostDollars) > 0 && targetNetProfit < 100 ? 
+      (jobCost + overheadCostDollars) / (1 - targetNetProfit / 100) : 0
 
-    // Required Retail Price to hit Target Gross Margin = Job Cost / (1 - Target Gross Margin)
-    const requiredPriceForGrossMargin = jobCost > 0 && targetGrossMargin < 100 ? 
-      jobCost / (1 - targetGrossMargin / 100) : 0
-
-    // Use the net margin required price as primary (since it includes overhead)
-    // Fall back to gross margin if net margin calculation isn't valid
-    const requiredPrice = (requiredPriceForNetMargin > 0 && targetNetMargin > 0) ? requiredPriceForNetMargin : requiredPriceForGrossMargin
+    // Use the net profit required price as primary (since it includes overhead)
+    const requiredPrice = requiredPriceForNetProfit
 
     // Required Markup = ((Required Price - Job Cost) / Job Cost) × 100
     const requiredMarkup = jobCost > 0 ? ((requiredPrice - jobCost) / jobCost) * 100 : 0
 
     // Profit Shortfall = Required Price - Retail Price (only if below target)
-    const profitShortfall = (actualNetMargin < targetNetMargin && requiredPrice > retailPrice) ? requiredPrice - retailPrice : 0
+    const profitShortfall = (actualNetMargin < targetNetProfit && requiredPrice > retailPrice) ? requiredPrice - retailPrice : 0
 
     // Additional revenue needed to cover shortfall at 10% margin
     const revenueNeeded10Percent = profitShortfall > 0 ? profitShortfall / 0.10 : 0
@@ -120,15 +115,15 @@ const Calculator = ({ onAddJob }) => {
     const coversOverhead = overheadCostDollars <= 0 || netProfit >= 0
     
     if (retailPrice > 0) {
-      // Jackpot! (green): above target net margin, above break-even, and overhead is covered
-      // Warning! (yellow): below target net margin but above break-even and overhead is covered
-      // On Thin Ice (orange): below target net margin, below break-even, but overhead is covered
-      // No Bueno (red): below everything (not covering overhead or negative margin)
-      if (actualNetMargin >= targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
+      // Jackpot! (green): above target net profit and overhead is covered
+      // Warning! (yellow): below target net profit but overhead is covered
+      // On Thin Ice (orange): below target net profit and not covering overhead
+      // No Bueno (red): negative net profit (not covering overhead or negative margin)
+      if (actualNetMargin >= targetNetProfit && coversOverhead) {
         profitabilityStatus = 'jackpot'
-      } else if (actualNetMargin < targetNetMargin && actualNetMargin >= breakEvenPercent && coversOverhead) {
+      } else if (actualNetMargin < targetNetProfit && coversOverhead) {
         profitabilityStatus = 'warning'
-      } else if (actualNetMargin < targetNetMargin && actualNetMargin < breakEvenPercent && coversOverhead) {
+      } else if (actualNetMargin < targetNetProfit && !coversOverhead) {
         profitabilityStatus = 'thin'
       } else {
         profitabilityStatus = 'no-bueno'
