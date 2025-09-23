@@ -938,7 +938,7 @@ const Calculator = ({ onAddJob }) => {
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-1">
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
-              <span className="result-value">
+              <span className={`result-value ${results.contributionMargin >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                 {formatCurrency(results.contributionMargin)}
               </span>
             </div>
@@ -959,7 +959,7 @@ const Calculator = ({ onAddJob }) => {
 
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Total Controllable Margin $:</span>
-              <span className="result-value">
+              <span className={`result-value ${results.totalControllableMargin >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                 {formatCurrency(results.totalControllableMargin)}
               </span>
             </div>
@@ -1038,7 +1038,7 @@ const Calculator = ({ onAddJob }) => {
             <div className="result-item">
               <span style={{color: '#1F1F1F'}}>Your Job is:</span>
               <div className="flex items-center gap-2">
-                <span className="result-value text-success-600 dark:text-success-400">
+                <span className={`result-value ${results.thisJobIs >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                   {formatPercentage(results.thisJobIs)}
                 </span>
                 {results.profitabilityStatus !== 'neutral' && (
