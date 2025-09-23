@@ -326,23 +326,47 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
-  const getBudgetStatus = (thisJobIs) => {
-    if (thisJobIs > 0.1) {
-      return 'Above Budget'
-    } else if (thisJobIs >= -0.1 && thisJobIs <= 0.1) {
-      return 'At Budget'
+  const getBudgetStatus = (value, isPercentage = true) => {
+    if (isPercentage) {
+      // For "This Job Is" percentage
+      if (value > 0.1) {
+        return 'Above Budget'
+      } else if (value >= -0.1 && value <= 0.1) {
+        return 'At Budget'
+      } else {
+        return 'Below Budget'
+      }
     } else {
-      return 'Below Budget'
+      // For "Your Job" dollar amount
+      if (value > 0) {
+        return 'Above Budget'
+      } else if (value === 0) {
+        return 'At Budget'
+      } else {
+        return 'Below Budget'
+      }
     }
   }
 
-  const getBudgetStatusColor = (thisJobIs) => {
-    if (thisJobIs > 0.1) {
-      return 'text-success-600 dark:text-success-400'
-    } else if (thisJobIs >= -0.1 && thisJobIs <= 0.1) {
-      return 'text-blue-600 dark:text-blue-400'
+  const getBudgetStatusColor = (value, isPercentage = true) => {
+    if (isPercentage) {
+      // For "This Job Is" percentage
+      if (value > 0.1) {
+        return 'text-success-600 dark:text-success-400'
+      } else if (value >= -0.1 && value <= 0.1) {
+        return 'text-blue-600 dark:text-blue-400'
+      } else {
+        return 'text-danger-600 dark:text-danger-400'
+      }
     } else {
-      return 'text-danger-600 dark:text-danger-400'
+      // For "Your Job" dollar amount
+      if (value > 0) {
+        return 'text-success-600 dark:text-success-400'
+      } else if (value === 0) {
+        return 'text-blue-600 dark:text-blue-400'
+      } else {
+        return 'text-danger-600 dark:text-danger-400'
+      }
     }
   }
 
@@ -969,8 +993,8 @@ const Calculator = ({ onAddJob }) => {
                 {formatPercentage(results.thisJobIs)}
               </span>
               {results.profitabilityStatus !== 'neutral' && (
-                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs)} bg-opacity-10`}>
-                  {getBudgetStatus(results.thisJobIs)}
+                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs, true)} bg-opacity-10`}>
+                  {getBudgetStatus(results.thisJobIs, true)}
                 </span>
               )}
             </div>
@@ -983,8 +1007,8 @@ const Calculator = ({ onAddJob }) => {
                 {formatCurrency(results.yourJob)}
               </span>
               {results.profitabilityStatus !== 'neutral' && (
-                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs)} bg-opacity-10`}>
-                  {getBudgetStatus(results.thisJobIs)}
+                <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
+                  {getBudgetStatus(results.yourJob, false)}
                 </span>
               )}
             </div>
