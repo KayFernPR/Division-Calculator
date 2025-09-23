@@ -10,8 +10,11 @@ const Calculator = ({ onAddJob }) => {
     jobCost: '',
     divisionOverheads: '',
     companyOverheads: '',
+    divisionFixedCosts: '',
+    companyVariableCosts: '',
     royaltyRate: '',
-    targetNetProfit: ''
+    targetNetProfit: '',
+    edita: ''
   })
 
   const [results, setResults] = useState({
@@ -252,8 +255,11 @@ const Calculator = ({ onAddJob }) => {
         jobCost: '',
         divisionOverheads: '',
         companyOverheads: '',
+        divisionFixedCosts: '',
+        companyVariableCosts: '',
         royaltyRate: '',
-        targetNetProfit: ''
+        targetNetProfit: '',
+        edita: ''
       })
     }
   }
@@ -744,7 +750,7 @@ const Calculator = ({ onAddJob }) => {
             {/* Division Overheads */}
             <div>
               <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Division Overheads % *
+                Division Variable Costs % *
               </label>
               <input
                 type="number"
@@ -766,7 +772,7 @@ const Calculator = ({ onAddJob }) => {
             {/* Company Overheads */}
             <div>
               <label htmlFor="companyOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Company Overheads % *
+                Company Fixed Costs % *
               </label>
               <input
                 type="number"
@@ -782,6 +788,50 @@ const Calculator = ({ onAddJob }) => {
               />
               {errors.companyOverheads && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyOverheads}</p>
+              )}
+            </div>
+
+            {/* Division Fixed Costs */}
+            <div>
+              <label htmlFor="divisionFixedCosts" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Division Fixed Costs % *
+              </label>
+              <input
+                type="number"
+                id="divisionFixedCosts"
+                name="divisionFixedCosts"
+                value={formData.divisionFixedCosts}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="100"
+                className={`input-field ${errors.divisionFixedCosts ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="5.00"
+              />
+              {errors.divisionFixedCosts && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionFixedCosts}</p>
+              )}
+            </div>
+
+            {/* Company Variable Costs */}
+            <div>
+              <label htmlFor="companyVariableCosts" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Company Variable Costs % *
+              </label>
+              <input
+                type="number"
+                id="companyVariableCosts"
+                name="companyVariableCosts"
+                value={formData.companyVariableCosts}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="100"
+                className={`input-field ${errors.companyVariableCosts ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="8.00"
+              />
+              {errors.companyVariableCosts && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyVariableCosts}</p>
               )}
             </div>
 
@@ -833,6 +883,28 @@ const Calculator = ({ onAddJob }) => {
               />
               {errors.targetNetProfit && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.targetNetProfit}</p>
+              )}
+            </div>
+
+            {/* EDITA */}
+            <div>
+              <label htmlFor="edita" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                EDITA % *
+              </label>
+              <input
+                type="number"
+                id="edita"
+                name="edita"
+                value={formData.edita}
+                onChange={handleInputChange}
+                step="0.01"
+                min="0"
+                max="99.99"
+                className={`input-field ${errors.edita ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="5.00"
+              />
+              {errors.edita && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.edita}</p>
               )}
             </div>
           </div>
@@ -907,13 +979,13 @@ const Calculator = ({ onAddJob }) => {
           <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
             <div className="result-item">
               <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Retail Price $:</span>
+                <span style={{color: '#1F1F1F'}}>Sales $:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Retail Price:</strong> The total amount you charge the customer for the job.</p>
+                    <p><strong>Sales:</strong> The total amount you charge the customer for the job.</p>
                   </div>
                 </div>
               </div>
@@ -924,13 +996,13 @@ const Calculator = ({ onAddJob }) => {
 
             <div className="result-item">
               <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Job Cost $:</span>
+                <span style={{color: '#1F1F1F'}}>COGS $:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Job Cost:</strong> Your direct costs for materials, labor, and subcontractors (COGS).</p>
+                    <p><strong>COGS:</strong> Your direct costs for materials, labor, and subcontractors (Cost of Goods Sold).</p>
                   </div>
                 </div>
               </div>
@@ -941,18 +1013,35 @@ const Calculator = ({ onAddJob }) => {
 
             <div className="result-item">
               <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Job Cost %:</span>
+                <span style={{color: '#1F1F1F'}}>COGS %:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Job Cost %:</strong> Percentage of retail price that goes to direct job costs.</p>
+                    <p><strong>COGS %:</strong> Percentage of sales that goes to direct costs (Cost of Goods Sold).</p>
                   </div>
                 </div>
               </div>
               <span className="result-value">
                 {formatPercentage(results.jobCostPercent)}
+              </span>
+            </div>
+
+            <div className="result-item">
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Gross Profit $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Gross Profit $:</strong> Sales minus COGS (Cost of Goods Sold).</p>
+                  </div>
+                </div>
+              </div>
+              <span className="result-value">
+                {formatCurrency((parseFloat(formData.retailPrice) || 0) - (parseFloat(formData.jobCost) || 0))}
               </span>
             </div>
 
@@ -1012,13 +1101,13 @@ const Calculator = ({ onAddJob }) => {
 
             <div className="result-item">
               <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Division Overheads $:</span>
+                <span style={{color: '#1F1F1F'}}>Division Variable Costs $:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Division Overheads $:</strong> Division-specific overhead costs allocated to this job.</p>
+                    <p><strong>Division Variable Costs $:</strong> Division-specific variable costs allocated to this job.</p>
                   </div>
                 </div>
               </div>
@@ -1029,13 +1118,13 @@ const Calculator = ({ onAddJob }) => {
 
             <div className="result-item">
               <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Company Overheads $:</span>
+                <span style={{color: '#1F1F1F'}}>Company Fixed Costs $:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Company Overheads $:</strong> Company-wide overhead costs allocated to this job.</p>
+                    <p><strong>Company Fixed Costs $:</strong> Company-wide fixed costs allocated to this job.</p>
                   </div>
                 </div>
               </div>
