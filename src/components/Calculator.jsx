@@ -137,17 +137,19 @@ const Calculator = ({ onAddJob }) => {
     
     if (retailPrice > 0) {
       if (thisJobIs >= 5) {
-        profitabilityStatus = 'jackpot' // Above Target Profit - Jackpot
-      } else if (thisJobIs >= 0 && thisJobIs < 5) {
-        profitabilityStatus = 'winning' // You're Winning
-      } else if (thisJobIs >= -0.1 && thisJobIs <= 0.1) {
-        profitabilityStatus = 'at-budget' // Great Job You're At Budget
+        profitabilityStatus = 'jackpot' // 5% or More above target
+      } else if (thisJobIs > 0 && thisJobIs < 5) {
+        profitabilityStatus = 'winning' // 0-5% above target
+      } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
+        profitabilityStatus = 'at-budget' // 0 At Margin
+      } else if (thisJobIs < 0 && thisJobIs < (0 - targetNetProfit)) {
+        profitabilityStatus = 'below-breakeven' // If less than 0 and less than 0-target net profit then Below break-even
       } else if (thisJobIs < 0 || thisJobIs > targetNetProfit / 2) {
-        profitabilityStatus = 'extreme-warning' // EXTREME WARNING - You're Almost Paying For The Job
-      } else if (thisJobIs > -targetNetProfit && thisJobIs < 0) {
-        profitabilityStatus = 'warning' // Warning - You're Cutting Into Profits
+        profitabilityStatus = 'extreme-warning' // if less than 0 or greater than target net profit / 2 then EXTREME WARNING
+      } else if (thisJobIs < 0 || thisJobIs > (0 - targetNetProfit)) {
+        profitabilityStatus = 'warning' // If less than 0 or greater than 0-target net profit then Warning
       } else {
-        profitabilityStatus = 'below-breakeven' // Below Break-Even - STOP - DON'T PAY TO DO THE WORK
+        profitabilityStatus = 'below-breakeven' // Default fallback
       }
     }
 
