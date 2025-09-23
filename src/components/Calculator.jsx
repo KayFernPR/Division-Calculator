@@ -5,6 +5,7 @@ const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
     jobName: '',
     carrier: '',
+    division: '',
     retailPrice: '',
     jobCost: '',
     divisionOverheads: '',
@@ -244,6 +245,7 @@ const Calculator = ({ onAddJob }) => {
       setFormData({
         jobName: '',
         carrier: '',
+        division: '',
         retailPrice: '',
         jobCost: '',
         divisionOverheads: '',
@@ -664,6 +666,22 @@ const Calculator = ({ onAddJob }) => {
                 onChange={handleInputChange}
                 className="input-field"
                 placeholder="Enter carrier or client name"
+              />
+            </div>
+
+            {/* Division */}
+            <div>
+              <label htmlFor="division" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Division (Optional)
+              </label>
+              <input
+                type="text"
+                id="division"
+                name="division"
+                value={formData.division}
+                onChange={handleInputChange}
+                className="input-field"
+                placeholder="Enter division name"
               />
             </div>
 
