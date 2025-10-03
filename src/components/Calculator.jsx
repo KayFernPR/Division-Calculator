@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-// Updated form structure with grouped fields
+// Calculator - Restored to working version
 const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
     jobName: '',
