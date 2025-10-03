@@ -143,7 +143,7 @@ const Calculator = ({ onAddJob }) => {
       } else if (thisJobIs > 0 && thisJobIs < 5) {
         profitabilityStatus = 'winning' // 0-5% above target
       } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
-        profitabilityStatus = 'at-budget' // 0 At Margin
+        profitabilityStatus = 'at-budget' // 0 At Target
       } else if (thisJobIs < 0 && thisJobIs < (0 - targetNetProfit)) {
         profitabilityStatus = 'below-breakeven' // If less than 0 and less than 0-target net profit then Below break-even
       } else if (thisJobIs < 0 || thisJobIs > targetNetProfit / 2) {
@@ -289,7 +289,7 @@ const Calculator = ({ onAddJob }) => {
       case 'winning':
         return "You're Winning!"
       case 'at-budget':
-        return "Great Job! You're at Budget!"
+        return "Great Job! You're at Target!"
       case 'warning':
         return "Warning - You're Cutting Into Profits!"
       case 'extreme-warning':
@@ -343,20 +343,20 @@ const Calculator = ({ onAddJob }) => {
     if (isPercentage) {
       // For "This Job Is" percentage
       if (value > 0.1) {
-        return 'Above Budget'
+        return 'Above Target'
       } else if (value >= -0.1 && value <= 0.1) {
-        return 'At Budget'
+        return 'At Target'
       } else {
-        return 'Below Budget'
+        return 'Below Target'
       }
     } else {
       // For "Your Job" dollar amount
       if (value > 0) {
-        return 'Above Budget'
+        return 'Above Target'
       } else if (value === 0) {
-        return 'At Budget'
+        return 'At Target'
       } else {
-        return 'Below Budget'
+        return 'Below Target'
       }
     }
   }
@@ -598,7 +598,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">✅</span>
-              <span>Great Job! You're at Budget! — Meeting target</span>
+              <span>Great Job! You're at Target! — Meeting target</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⚠️</span>
