@@ -1010,7 +1010,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
-            <div className="result-item">
+            <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>COGS %:</span>
                 <div className="relative group">
@@ -1082,7 +1082,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
               </div>
 
-            <div className="result-item">
+            <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Division Variable Costs $:</span>
                 <div className="relative group">
@@ -1099,7 +1099,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
-            <div className="result-item">
+            <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Company Fixed Costs $:</span>
                 <div className="relative group">
@@ -1133,7 +1133,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
-            <div className="result-item">
+            <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Royalty $:</span>
                 <div className="relative group">
