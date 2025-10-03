@@ -443,13 +443,29 @@ const Calculator = ({ onAddJob }) => {
         </head>
         <body>
           <div class="header">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+              <!-- Logo top left -->
               <img src="/logo.svg" alt="Company Logo" style="height: 40px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
-              <div style="text-align: center;">
-                <h1 style="margin: 0; font-size: 24px;">Restoration Job Profitability Report</h1>
-                <h2 style="margin: 5px 0; font-size: 18px; color: #666;">${formData.jobName}</h2>
-                <p style="margin: 0; font-size: 14px; color: #666;">Generated on ${new Date().toLocaleDateString()}</p>
+              
+              <!-- Date and time top right -->
+              <div style="text-align: right; font-size: 12px; color: #666;">
+                ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
               </div>
+            </div>
+            
+            <!-- Job # top center -->
+            <div style="text-align: center; margin-bottom: 10px;">
+              <h2 style="margin: 0; font-size: 20px; color: #333;">${formData.jobName || 'Job #'}</h2>
+            </div>
+            
+            <!-- "Profitability Report" centered under Job # -->
+            <div style="text-align: center; margin-bottom: 5px;">
+              <h1 style="margin: 0; font-size: 18px; color: #333;">Profitability Report</h1>
+            </div>
+            
+            <!-- "Generated on" centered under "Profitability Report" -->
+            <div style="text-align: center; margin-bottom: 20px;">
+              <p style="margin: 0; font-size: 12px; color: #666;">Generated on ${new Date().toLocaleDateString()}</p>
             </div>
           </div>
           
