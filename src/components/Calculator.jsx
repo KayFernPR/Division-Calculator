@@ -12,8 +12,7 @@ const Calculator = ({ onAddJob }) => {
     companyOverheads: '',
     divisionFixedCosts: '',
     royaltyRate: '',
-    targetNetProfit: '',
-    edita: ''
+    targetNetProfit: ''
   })
 
   const [results, setResults] = useState({
@@ -82,65 +81,65 @@ const Calculator = ({ onAddJob }) => {
   }, [formData])
 
   const calculateResults = () => {
-    const retailPrice = parseFloat(formData.retailPrice) || 0
-    const jobCost = parseFloat(formData.jobCost) || 0
+      const retailPrice = parseFloat(formData.retailPrice) || 0
+      const jobCost = parseFloat(formData.jobCost) || 0
     const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
-    const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
-    const companyOverheads = parseFloat(formData.companyOverheads) || 0
-    const royaltyRate = parseFloat(formData.royaltyRate) || 0
+      const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
+      const companyOverheads = parseFloat(formData.companyOverheads) || 0
+      const royaltyRate = parseFloat(formData.royaltyRate) || 0
 
-    // Job Cost % = Job Cost $ / Retail Price $
-    const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
+      // Job Cost % = Job Cost $ / Retail Price $
+      const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
 
-    // Actual Contribution Margin % = 1 - (Job Cost $ / Retail Price $)
-    const actualContributionMargin = retailPrice > 0 ? (1 - (jobCost / retailPrice)) * 100 : 0
+      // Actual Contribution Margin % = 1 - (Job Cost $ / Retail Price $)
+      const actualContributionMargin = retailPrice > 0 ? (1 - (jobCost / retailPrice)) * 100 : 0
 
     // Actual Mark-up % = (Retail Price - Job Cost) / Job Cost × 100
     const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
 
-    // Contribution Margin $ = Retail Price $ - Job Cost $
-    const contributionMargin = retailPrice - jobCost
+      // Contribution Margin $ = Retail Price $ - Job Cost $
+      const contributionMargin = retailPrice - jobCost
 
-    // Division Overheads $ = Retail Price $ * Division Overheads %
-    const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
+      // Division Overheads $ = Retail Price $ * Division Overheads %
+      const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
 
-    // Company Overheads $ = Retail Price $ * Company Overheads %
-    const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
+      // Company Overheads $ = Retail Price $ * Company Overheads %
+      const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
 
-    // Total Controllable Margin $ = Contribution Margin $ - Division Overheads $ - Company Overheads $
-    const totalControllableMargin = contributionMargin - divisionOverheadsDollars - companyOverheadsDollars
+      // Total Controllable Margin $ = Contribution Margin $ - Division Overheads $ - Company Overheads $
+      const totalControllableMargin = contributionMargin - divisionOverheadsDollars - companyOverheadsDollars
 
-    // Royalty $ = Retail Price $ * Royalty rate %
-    const royaltyDollars = retailPrice * (royaltyRate / 100)
+      // Royalty $ = Retail Price $ * Royalty rate %
+      const royaltyDollars = retailPrice * (royaltyRate / 100)
 
-    // Actual Net Profit $ = Total Controllable Margin $ - Royalty $
-    const actualNetProfit = totalControllableMargin - royaltyDollars
+      // Actual Net Profit $ = Total Controllable Margin $ - Royalty $
+      const actualNetProfit = totalControllableMargin - royaltyDollars
 
-    // Division Total Break-Even % = Division Overheads % + Company Overheads % + Royalty rate %
-    const divisionTotalBreakEven = divisionOverheads + companyOverheads + royaltyRate
+      // Division Total Break-Even % = Division Overheads % + Company Overheads % + Royalty rate %
+      const divisionTotalBreakEven = divisionOverheads + companyOverheads + royaltyRate
 
-    // Break Even Price $ = Job Cost $ / (1 - Division Total Break-Even %)
-    const breakEvenPrice = divisionTotalBreakEven < 100 ? jobCost / (1 - divisionTotalBreakEven / 100) : 0
+      // Break Even Price $ = Job Cost $ / (1 - Division Total Break-Even %)
+      const breakEvenPrice = divisionTotalBreakEven < 100 ? jobCost / (1 - divisionTotalBreakEven / 100) : 0
 
     // Required Margin % = Division Overheads % + Company Overheads % + Royalty rate % + Target Net Profit %
     const requiredMargin = divisionOverheads + companyOverheads + royaltyRate + targetNetProfit
 
-    // Required Price $ = Job Cost $ / (1 - Required Margin %)
-    const requiredPrice = requiredMargin < 100 ? jobCost / (1 - requiredMargin / 100) : 0
+      // Required Price $ = Job Cost $ / (1 - Required Margin %)
+      const requiredPrice = requiredMargin < 100 ? jobCost / (1 - requiredMargin / 100) : 0
 
-    // This Job Is % = Your Profit Margin is % - Required Margin %
-    const thisJobIs = actualContributionMargin - requiredMargin
+      // This Job Is % = Your Profit Margin is % - Required Margin %
+      const thisJobIs = actualContributionMargin - requiredMargin
 
-    // Your job $ = Retail Price $ - Required Price $
-    const yourJob = retailPrice - requiredPrice
+      // Your job $ = Retail Price $ - Required Price $
+      const yourJob = retailPrice - requiredPrice
 
-    // Determine profitability status based on "This Job Is" percentage
-    let profitabilityStatus = 'neutral'
-    
-    if (retailPrice > 0) {
-      if (thisJobIs >= 5) {
+      // Determine profitability status based on "This Job Is" percentage
+      let profitabilityStatus = 'neutral'
+      
+      if (retailPrice > 0) {
+        if (thisJobIs >= 5) {
         profitabilityStatus = 'jackpot' // 5% or More above target
-      } else if (thisJobIs > 0 && thisJobIs < 5) {
+        } else if (thisJobIs > 0 && thisJobIs < 5) {
         profitabilityStatus = 'winning' // 0-5% above target
       } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
         profitabilityStatus = 'at-budget' // 0 At Target
@@ -150,40 +149,40 @@ const Calculator = ({ onAddJob }) => {
         profitabilityStatus = 'extreme-warning' // if less than 0 or greater than target net profit / 2 then EXTREME WARNING
       } else if (thisJobIs < 0 || thisJobIs > (0 - targetNetProfit)) {
         profitabilityStatus = 'warning' // If less than 0 or greater than 0-target net profit then Warning
-      } else {
+        } else {
         profitabilityStatus = 'below-breakeven' // Default fallback
+        }
       }
-    }
 
-    setResults({
-      // Legacy fields for backward compatibility
-      actualMargin: actualContributionMargin,
-      actualNetMargin: actualContributionMargin,
-      actualMarkup,
-      grossProfit: contributionMargin,
-      netProfit: actualNetProfit,
-      overheadCostDollars: divisionOverheadsDollars + companyOverheadsDollars + royaltyDollars,
-      requiredPrice,
-      requiredMarkup: actualMarkup,
-      profitShortfall: yourJob < 0 ? Math.abs(yourJob) : 0,
-      revenueNeeded10Percent: 0,
-      revenueNeededCurrent: 0,
-      profitabilityStatus,
-      coversOverhead: actualNetProfit >= 0,
-      
-      // New calculated fields
-      jobCostPercent,
-      actualContributionMargin,
-      contributionMargin,
-      divisionOverheadsDollars,
-      companyOverheadsDollars,
-      totalControllableMargin,
-      royaltyDollars,
-      actualNetProfit,
-      divisionTotalBreakEven,
-      breakEvenPrice,
-      requiredMargin,
-      thisJobIs,
+      setResults({
+        // Legacy fields for backward compatibility
+        actualMargin: actualContributionMargin,
+        actualNetMargin: actualContributionMargin,
+        actualMarkup,
+        grossProfit: contributionMargin,
+        netProfit: actualNetProfit,
+        overheadCostDollars: divisionOverheadsDollars + companyOverheadsDollars + royaltyDollars,
+        requiredPrice,
+        requiredMarkup: actualMarkup,
+        profitShortfall: yourJob < 0 ? Math.abs(yourJob) : 0,
+        revenueNeeded10Percent: 0,
+        revenueNeededCurrent: 0,
+        profitabilityStatus,
+        coversOverhead: actualNetProfit >= 0,
+        
+        // New calculated fields
+        jobCostPercent,
+        actualContributionMargin,
+        contributionMargin,
+        divisionOverheadsDollars,
+        companyOverheadsDollars,
+        totalControllableMargin,
+        royaltyDollars,
+        actualNetProfit,
+        divisionTotalBreakEven,
+        breakEvenPrice,
+        requiredMargin,
+        thisJobIs,
       yourJob
     })
   }
@@ -256,8 +255,7 @@ const Calculator = ({ onAddJob }) => {
         companyOverheads: '',
         divisionFixedCosts: '',
         royaltyRate: '',
-        targetNetProfit: '',
-        edita: ''
+        targetNetProfit: ''
       })
     }
   }
@@ -472,13 +470,13 @@ const Calculator = ({ onAddJob }) => {
             <!-- Job # top center - compact -->
             <div style="text-align: center; margin-bottom: 8px;">
               <h2 style="margin: 0; font-size: 18px; color: #333; font-weight: bold;">Job #: ${formData.jobName || '0001'}</h2>
-            </div>
-            
+          </div>
+
             <!-- "Profitability Report" centered under Job # - compact -->
             <div style="text-align: center; margin-bottom: 6px;">
               <h1 style="margin: 0; font-size: 16px; color: #333; font-weight: bold;">Profitability Report</h1>
-            </div>
-            
+          </div>
+
             <!-- "Generated on" centered under "Profitability Report" - compact -->
             <div style="text-align: center; margin-bottom: 10px;">
               <p style="margin: 0; font-size: 12px; color: #666; font-weight: 500;">Generated on ${new Date().toLocaleDateString()}</p>
@@ -520,7 +518,7 @@ const Calculator = ({ onAddJob }) => {
               <span class="value">${formatPercentage(parseFloat(formData.breakEvenPercent) || 0)}</span>
             </div>
           </div>
-          
+
           <div class="results">
             <h3>Profitability Results</h3>
             ${results.profitabilityStatus !== 'neutral' ? `
@@ -606,7 +604,7 @@ const Calculator = ({ onAddJob }) => {
               <span class="value">${formatCurrency(results.yourJob)} (${results.yourJob > 0 ? 'Above Target' : results.yourJob === 0 ? 'At Target' : 'Below Target'})</span>
             </div>
           </div>
-          
+
           ${results.profitShortfall > 0 ? `
           <div class="impact">
             <h3>Impact to Business</h3>
@@ -620,7 +618,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
           </div>
           ` : ''}
-          
+
           <div class="footer">
             <p>Generated by Restoration Profitability Calculator</p>
             <p>© 2024 All rights reserved</p>
@@ -633,7 +631,7 @@ const Calculator = ({ onAddJob }) => {
     printWindow.focus()
     
     setTimeout(() => {
-      printWindow.print()
+    printWindow.print()
       printWindow.close()
     }, 500)
   }
@@ -710,161 +708,161 @@ const Calculator = ({ onAddJob }) => {
             </div>
           </div>
           Job Calculator
-        </h2>
-        
+          </h2>
+          
         <form onSubmit={handleSubmit} className="space-y-6 flex flex-col flex-grow">
           {/* Group 1: Job Details - Updated Form Structure */}
-          <div className="space-y-4">
+            <div className="space-y-4">
             <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
-              Job Details
-            </h4>
-            
-            {/* Job Name */}
-            <div>
+                Job Details
+              </h4>
+              
+              {/* Job Name */}
+              <div>
               <label htmlFor="jobName" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Job Name or Number *
-              </label>
-              <input
-                type="text"
-                id="jobName"
-                name="jobName"
-                value={formData.jobName}
-                onChange={handleInputChange}
+                </label>
+                <input
+                  type="text"
+                  id="jobName"
+                  name="jobName"
+                  value={formData.jobName}
+                  onChange={handleInputChange}
                 className={`input-field ${errors.jobName ? 'border-danger-500 focus:ring-danger-500' : ''}`}
                 placeholder="Enter job name or number"
-              />
-              {errors.jobName && (
+                />
+                {errors.jobName && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.jobName}</p>
-              )}
-            </div>
+                )}
+              </div>
 
             {/* Insurance Carrier */}
-            <div>
+              <div>
               <label htmlFor="carrier" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Insurance Carrier or Client Name (Optional)
-              </label>
-              <input
-                type="text"
-                id="carrier"
-                name="carrier"
-                value={formData.carrier}
-                onChange={handleInputChange}
+                </label>
+                <input
+                  type="text"
+                  id="carrier"
+                  name="carrier"
+                  value={formData.carrier}
+                  onChange={handleInputChange}
                 className="input-field"
                 placeholder="Enter carrier or client name"
-              />
-            </div>
+                />
+              </div>
 
-            {/* Division */}
-            <div>
+              {/* Division */}
+              <div>
               <label htmlFor="division" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Division (Optional)
-              </label>
-              <input
-                type="text"
-                id="division"
-                name="division"
-                value={formData.division}
-                onChange={handleInputChange}
+                </label>
+                <input
+                  type="text"
+                  id="division"
+                  name="division"
+                  value={formData.division}
+                  onChange={handleInputChange}
                 className="input-field"
-                placeholder="Enter division name"
-              />
-            </div>
+                  placeholder="Enter division name"
+                />
+              </div>
 
             {/* Retail Price */}
-            <div>
+              <div>
               <label htmlFor="retailPrice" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Retail Price / Charge Out $ *
-              </label>
-              <input
-                type="number"
-                id="retailPrice"
-                name="retailPrice"
-                value={formData.retailPrice}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
+                  Retail Price / Charge Out $ *
+                </label>
+                <input
+                  type="number"
+                  id="retailPrice"
+                  name="retailPrice"
+                  value={formData.retailPrice}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
                 className={`input-field ${errors.retailPrice ? 'border-danger-500 focus:ring-danger-500' : ''}`}
                 placeholder="10,400.00"
-              />
-              {errors.retailPrice && (
+                />
+                {errors.retailPrice && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.retailPrice}</p>
-              )}
-            </div>
+                )}
+              </div>
 
             {/* Job Cost */}
-            <div>
+              <div>
               <label htmlFor="jobCost" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Job Cost / COGS $ *
-              </label>
-              <input
-                type="number"
-                id="jobCost"
-                name="jobCost"
-                value={formData.jobCost}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
+                </label>
+                <input
+                  type="number"
+                  id="jobCost"
+                  name="jobCost"
+                  value={formData.jobCost}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
                 className={`input-field ${errors.jobCost ? 'border-danger-500 focus:ring-danger-500' : ''}`}
                 placeholder="8,400.00"
-              />
-              {errors.jobCost && (
+                />
+                {errors.jobCost && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.jobCost}</p>
-              )}
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Group 2: Overhead Costs */}
-          <div className="space-y-4">
+            {/* Group 2: Overhead Costs */}
+            <div className="space-y-4">
             <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
-              Overhead Costs
-            </h4>
-            
-            {/* Royalty Rate */}
-            <div>
+                Overhead Costs
+              </h4>
+              
+              {/* Royalty Rate */}
+              <div>
               <label htmlFor="royaltyRate" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Royalty Rate % *
-              </label>
-              <input
-                type="number"
-                id="royaltyRate"
-                name="royaltyRate"
-                value={formData.royaltyRate}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="100"
+                </label>
+                <input
+                  type="number"
+                  id="royaltyRate"
+                  name="royaltyRate"
+                  value={formData.royaltyRate}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                  max="100"
                 className={`input-field ${errors.royaltyRate ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="Enter 0 if you don't pay fees"
-              />
+                  placeholder="Enter 0 if you don't pay fees"
+                />
               {errors.royaltyRate && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
               )}
-            </div>
+              </div>
 
             {/* Division Variable Costs */}
-            <div>
+              <div>
               <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Division Variable Costs % *
-              </label>
-              <input
-                type="number"
-                id="divisionOverheads"
-                name="divisionOverheads"
-                value={formData.divisionOverheads}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="100"
+                </label>
+                <input
+                  type="number"
+                  id="divisionOverheads"
+                  name="divisionOverheads"
+                  value={formData.divisionOverheads}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                  max="100"
                 className={`input-field ${errors.divisionOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="15.00"
-              />
-              {errors.divisionOverheads && (
+                  placeholder="15.00"
+                />
+                {errors.divisionOverheads && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionOverheads}</p>
-              )}
-            </div>
+                )}
+              </div>
 
             {/* Division Fixed Costs */}
-            <div>
+              <div>
               <label htmlFor="divisionFixedCosts" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Division Fixed Costs % *
               </label>
@@ -889,105 +887,84 @@ const Calculator = ({ onAddJob }) => {
             <div>
               <label htmlFor="companyOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
                 Company Fixed Costs % *
-              </label>
-              <input
-                type="number"
-                id="companyOverheads"
-                name="companyOverheads"
-                value={formData.companyOverheads}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="100"
+                </label>
+                <input
+                  type="number"
+                  id="companyOverheads"
+                  name="companyOverheads"
+                  value={formData.companyOverheads}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                  max="100"
                 className={`input-field ${errors.companyOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="10.00"
-              />
-              {errors.companyOverheads && (
+                  placeholder="10.00"
+                />
+                {errors.companyOverheads && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyOverheads}</p>
-              )}
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Group 3: Target Profit */}
-          <div className="space-y-4">
+            {/* Group 3: Target Profit */}
+            <div className="space-y-4">
             <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
-              Target Profit
-            </h4>
+                Target Profit
+              </h4>
             
-            {/* EBITA */}
-            <div>
-              <label htmlFor="edita" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                EBITA % *
-              </label>
-              <input
-                type="number"
-                id="edita"
-                name="edita"
-                value={formData.edita}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="99.99"
-                className={`input-field ${errors.edita ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="5.00"
-              />
-              {errors.edita && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.edita}</p>
-              )}
-            </div>
-
-            {/* Target Operating Profit */}
-            <div>
+              
+              {/* Target Operating Profit */}
+              <div>
               <label htmlFor="targetNetProfit" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Target Operating Profit % *
-              </label>
-              <input
-                type="number"
+                  Target Operating Profit % *
+                </label>
+                <input
+                  type="number"
                 id="targetNetProfit"
                 name="targetNetProfit"
                 value={formData.targetNetProfit}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="99.99"
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                  max="99.99"
                 className={`input-field ${errors.targetNetProfit ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="30.00"
-              />
+                  placeholder="30.00"
+                />
               {errors.targetNetProfit && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.targetNetProfit}</p>
-              )}
+                )}
+              </div>
             </div>
-          </div>
 
           <div className="flex gap-3 pt-4 mt-auto">
-            <button
-              type="submit"
+              <button
+                type="submit"
               className="btn btn-primary flex-1"
-            >
-              💾 Save Job
-            </button>
-            <button
-              type="button"
-              onClick={handlePrint}
+              >
+                💾 Save Job
+              </button>
+          <button
+            type="button"
+            onClick={handlePrint}
               className="btn btn-secondary"
-            >
+          >
               🖨️ Print
-            </button>
-          </div>
-        </form>
+          </button>
+            </div>
+          </form>
         </div>
 
         {/* Results - Right */}
         <div className="card flex flex-col w-full lg:w-2/3">
         <h3 className="text-lg font-semibold mb-3 font-subheader" style={{color: '#1F1F1F'}}>
-          📈 Results
-        </h3>
-        
+            📈 Results
+          </h3>
+          
         <div className="space-y-2 flex flex-col flex-grow">
           {/* Profitability Status - Only show when calculations have been performed */}
-          {results.profitabilityStatus !== 'neutral' && (
+            {results.profitabilityStatus !== 'neutral' && (
             <div className="result-item bg-neutral-50 dark:bg-neutral-800 rounded-lg p-1">
-              <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-medium" style={{color: '#1F1F1F'}}>
                   <span>This Job is:</span>
                   <div className="relative group select-none" ref={statusHelpRef}>
@@ -1022,10 +999,10 @@ const Calculator = ({ onAddJob }) => {
                   Overhead not covered by current gross profit.
                 </p>
               )}
-            </div>
-          )}
-          
-          {/* Group 1 - Light Grey */}
+              </div>
+            )}
+            
+            {/* Group 1 - Light Grey */}
           <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1036,13 +1013,13 @@ const Calculator = ({ onAddJob }) => {
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
                     <p><strong>Sales:</strong> The total amount you charge the customer for the job.</p>
-                  </div>
-                </div>
+              </div>
+              </div>
               </div>
               <span className="result-value">
                 {formatCurrency(parseFloat(formData.retailPrice) || 0)}
               </span>
-            </div>
+              </div>
 
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1127,10 +1104,10 @@ const Calculator = ({ onAddJob }) => {
               <span className="result-value">
                 {formatPercentage(results.actualMarkup)}
               </span>
+              </div>
             </div>
-          </div>
 
-          {/* Group 2 - White */}
+            {/* Group 2 - White */}
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-2">
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1141,13 +1118,13 @@ const Calculator = ({ onAddJob }) => {
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
                     <p><strong>Contribution Margin:</strong> Revenue minus direct job costs. Money available to cover overhead and profit.</p>
-                  </div>
-                </div>
+              </div>
+              </div>
               </div>
               <span className={`result-value ${results.contributionMargin >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                 {formatCurrency(results.contributionMargin)}
               </span>
-            </div>
+              </div>
 
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1215,10 +1192,10 @@ const Calculator = ({ onAddJob }) => {
               <span className="result-value">
                 {formatCurrency(results.royaltyDollars)}
               </span>
+              </div>
             </div>
-          </div>
 
-          {/* Group 3 - Light Grey */}
+            {/* Group 3 - Light Grey */}
           <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1233,12 +1210,12 @@ const Calculator = ({ onAddJob }) => {
                 </div>
               </div>
               <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                {formatCurrency(results.actualNetProfit)}
-              </span>
+                  {formatCurrency(results.actualNetProfit)}
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* Group 4 - White */}
+            {/* Group 4 - White */}
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-2">
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1249,7 +1226,7 @@ const Calculator = ({ onAddJob }) => {
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
                     <p><strong>Break Even Price $:</strong> Minimum price needed to cover all costs with zero profit.</p>
-                  </div>
+              </div>
                 </div>
               </div>
               <span className="result-value">
@@ -1272,10 +1249,10 @@ const Calculator = ({ onAddJob }) => {
               <span className="result-value">
                 {formatPercentage(results.divisionTotalBreakEven)}
               </span>
+              </div>
             </div>
-          </div>
 
-          {/* Group 5 - Light Grey */}
+            {/* Group 5 - Light Grey */}
           <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1286,7 +1263,7 @@ const Calculator = ({ onAddJob }) => {
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
                     <p><strong>Required Price $:</strong> Price needed to achieve your target profit margin.</p>
-                  </div>
+              </div>
                 </div>
               </div>
               <span className="result-value">
@@ -1309,10 +1286,10 @@ const Calculator = ({ onAddJob }) => {
               <span className="result-value">
                 {formatPercentage(results.requiredMargin)}
               </span>
+              </div>
             </div>
-          </div>
 
-          {/* Group 6 - White */}
+            {/* Group 6 - White */}
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-2">
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1323,7 +1300,7 @@ const Calculator = ({ onAddJob }) => {
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
                     <p><strong>Your Price $:</strong> The price you entered in the calculator (same as Retail Price).</p>
-                  </div>
+              </div>
                 </div>
               </div>
               <span className="result-value">
@@ -1346,10 +1323,10 @@ const Calculator = ({ onAddJob }) => {
               <span className="result-value">
                 {formatPercentage(results.actualContributionMargin)}
               </span>
+              </div>
             </div>
-          </div>
 
-          {/* Group 7 - Light Grey */}
+            {/* Group 7 - Light Grey */}
           <div className="space-y-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3 mt-auto">
             <div className="result-item">
               <div className="flex items-center gap-1">
@@ -1363,17 +1340,17 @@ const Calculator = ({ onAddJob }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                 <span className={`result-value ${results.thisJobIs >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                  {formatPercentage(results.thisJobIs)}
-                </span>
+                    {formatPercentage(results.thisJobIs)}
+                  </span>
                 {results.profitabilityStatus !== 'neutral' && (
                   <div className="flex items-center gap-1">
                     <span className="text-lg">{getStatusIcon(results.profitabilityStatus)}</span>
                     <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.thisJobIs, true)} bg-opacity-10`}>
                       ({getBudgetStatus(results.thisJobIs, true)})
-                    </span>
-                  </div>
+                  </span>
+                </div>
                 )}
               </div>
             </div>
@@ -1390,27 +1367,27 @@ const Calculator = ({ onAddJob }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                 <span className={`result-value ${results.yourJob >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                  {formatCurrency(results.yourJob)}
-                </span>
+                    {formatCurrency(results.yourJob)}
+                  </span>
                 {results.profitabilityStatus !== 'neutral' && (
                   <div className="flex items-center gap-1">
                     <span className="text-lg">{getStatusIcon(results.profitabilityStatus)}</span>
                     <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
                       ({getBudgetStatus(results.yourJob, false)})
-                    </span>
-                  </div>
+                  </span>
+                </div>
                 )}
               </div>
             </div>
           </div>
           
-        </div>
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-export default Calculator 
+export default Calculator
