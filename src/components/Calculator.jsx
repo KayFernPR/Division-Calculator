@@ -443,29 +443,19 @@ const Calculator = ({ onAddJob }) => {
         </head>
         <body>
           <div class="header">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-              <!-- Logo top left -->
-              <img src="/logo.svg" alt="Company Logo" style="height: 40px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
-              
-              <!-- Date and time top right -->
-              <div style="text-align: right; font-size: 12px; color: #666;">
-                ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
-              </div>
+            <!-- Job # top center - enlarged -->
+            <div style="text-align: center; margin-bottom: 15px;">
+              <h2 style="margin: 0; font-size: 28px; color: #333; font-weight: bold;">${formData.jobName || 'Job #'}</h2>
             </div>
             
-            <!-- Job # top center -->
+            <!-- "Profitability Report" centered under Job # - enlarged -->
             <div style="text-align: center; margin-bottom: 10px;">
-              <h2 style="margin: 0; font-size: 20px; color: #333;">${formData.jobName || 'Job #'}</h2>
+              <h1 style="margin: 0; font-size: 24px; color: #333; font-weight: bold;">Profitability Report</h1>
             </div>
             
-            <!-- "Profitability Report" centered under Job # -->
-            <div style="text-align: center; margin-bottom: 5px;">
-              <h1 style="margin: 0; font-size: 18px; color: #333;">Profitability Report</h1>
-            </div>
-            
-            <!-- "Generated on" centered under "Profitability Report" -->
+            <!-- "Generated on" centered under "Profitability Report" - enlarged -->
             <div style="text-align: center; margin-bottom: 20px;">
-              <p style="margin: 0; font-size: 12px; color: #666;">Generated on ${new Date().toLocaleDateString()}</p>
+              <p style="margin: 0; font-size: 16px; color: #666; font-weight: 500;">Generated on ${new Date().toLocaleDateString()}</p>
             </div>
           </div>
           
