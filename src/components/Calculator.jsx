@@ -464,14 +464,9 @@ const Calculator = ({ onAddJob }) => {
         </head>
         <body>
           <div class="header">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: flex-start; align-items: flex-start; margin-bottom: 15px;">
               <!-- Logo top left -->
               <img src="/logo.svg" alt="Company Logo" style="height: 35px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
-              
-              <!-- Date and time top right -->
-              <div style="text-align: right; font-size: 12px; color: #666;">
-                ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
-              </div>
             </div>
             
             <!-- Job # top center - larger -->
@@ -535,39 +530,81 @@ const Calculator = ({ onAddJob }) => {
             </div>
             ` : ''}
             <div class="result-row">
-              <span class="label">Actual Gross Margin:</span>
-              <span class="value">${formatPercentage(results.actualMargin)}</span>
+              <span class="label">Sales $:</span>
+              <span class="value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Actual Net Margin:</span>
-              <span class="value status-${results.profitabilityStatus}">${formatPercentage(results.actualNetMargin)}</span>
+              <span class="label">COGS $:</span>
+              <span class="value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Actual Markup:</span>
+              <span class="label">COGS %:</span>
+              <span class="value">${formatPercentage(results.jobCostPercent)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Gross Profit $:</span>
+              <span class="value">${formatCurrency(results.contributionMargin)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Actual Contribution Margin %:</span>
+              <span class="value">${formatPercentage(results.actualContributionMargin)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Actual Mark-up %:</span>
               <span class="value">${formatPercentage(results.actualMarkup)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Gross Profit ($):</span>
-              <span class="value">${formatCurrency(results.grossProfit)}</span>
+              <span class="label">Division Variable Costs $:</span>
+              <span class="value">${formatCurrency(results.divisionOverheadsDollars)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Overhead Cost ($):</span>
-              <span class="value">${formatCurrency(results.overheadCostDollars)}</span>
+              <span class="label">Company Fixed Costs $:</span>
+              <span class="value">${formatCurrency(results.companyOverheadsDollars)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Required Price:</span>
+              <span class="label">Total Controllable Margin $:</span>
+              <span class="value">${formatCurrency(results.totalControllableMargin)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Royalty $:</span>
+              <span class="value">${formatCurrency(results.royaltyDollars)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Actual Operating Profit $:</span>
+              <span class="value">${formatCurrency(results.actualNetProfit)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Break Even Price $:</span>
+              <span class="value">${formatCurrency(results.breakEvenPrice)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Division Total Break-Even %:</span>
+              <span class="value">${formatPercentage(results.divisionTotalBreakEven)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Required Price $:</span>
               <span class="value">${formatCurrency(results.requiredPrice)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Required Markup:</span>
-              <span class="value">${formatPercentage(results.requiredMarkup)}</span>
+              <span class="label">Required Margin %:</span>
+              <span class="value">${formatPercentage(results.requiredMargin)}</span>
             </div>
-            ${results.profitShortfall > 0 ? `
             <div class="result-row">
-              <span class="label">Profit Shortfall:</span>
-              <span class="value status-danger">${formatCurrency(results.profitShortfall)}</span>
+              <span class="label">Your Price $:</span>
+              <span class="value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
             </div>
-            ` : ''}
+            <div class="result-row">
+              <span class="label">Your Profit Margin is %:</span>
+              <span class="value">${formatPercentage(results.actualContributionMargin)}</span>
+            </div>
+            <div class="result-row">
+              <span class="label">You are currently at:</span>
+              <span class="value">${formatPercentage(results.thisJobIs)} (${results.thisJobIs > 0.1 ? 'Above Target' : results.thisJobIs >= -0.1 && results.thisJobIs <= 0.1 ? 'At Target' : 'Below Target'})</span>
+            </div>
+            <div class="result-row">
+              <span class="label">Which is:</span>
+              <span class="value">${formatCurrency(results.yourJob)} (${results.yourJob > 0 ? 'Above Target' : results.yourJob === 0 ? 'At Target' : 'Below Target'})</span>
+            </div>
           </div>
           
           ${results.profitShortfall > 0 ? `
