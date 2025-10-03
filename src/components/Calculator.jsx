@@ -394,32 +394,32 @@ const Calculator = ({ onAddJob }) => {
           <style>
             body {
               font-family: Arial, sans-serif;
-              margin: 15px;
-              line-height: 1.4;
+              margin: 12px;
+              line-height: 1.3;
               color: #333;
-              font-size: 14px;
+              font-size: 12px;
             }
             .header {
               text-align: center;
-              border-bottom: 2px solid #249100;
-              padding-bottom: 15px;
-              margin-bottom: 20px;
+              border-bottom: 1px solid #249100;
+              padding-bottom: 10px;
+              margin-bottom: 15px;
             }
             .job-details, .results, .impact {
-              margin-bottom: 20px;
+              margin-bottom: 15px;
             }
             .job-details h3, .results h3, .impact h3 {
-              font-size: 16px;
-              margin-bottom: 10px;
+              font-size: 14px;
+              margin-bottom: 8px;
               color: #249100;
             }
             .result-row {
               display: flex;
               justify-content: space-between;
-              margin-bottom: 6px;
-              padding: 4px 0;
+              margin-bottom: 4px;
+              padding: 2px 0;
               border-bottom: 1px solid #ebe6e3;
-              font-size: 13px;
+              font-size: 11px;
             }
             .result-row:last-child {
               border-bottom: none;
@@ -437,51 +437,51 @@ const Calculator = ({ onAddJob }) => {
             .status-thin { color: #ea580c; }
             .status-no-bueno { color: #ef4444; }
             .footer {
-              margin-top: 25px;
+              margin-top: 20px;
               text-align: center;
-              font-size: 12px;
+              font-size: 10px;
               color: #907c6d;
             }
             @media print {
               body { 
-                margin: 10px; 
-                font-size: 13px;
+                margin: 8px; 
+                font-size: 11px;
               }
               .no-print { display: none; }
               .header {
-                margin-bottom: 15px;
-                padding-bottom: 12px;
+                margin-bottom: 12px;
+                padding-bottom: 8px;
               }
               .job-details, .results, .impact {
-                margin-bottom: 15px;
+                margin-bottom: 12px;
               }
               .result-row {
-                margin-bottom: 4px;
-                font-size: 12px;
+                margin-bottom: 3px;
+                font-size: 10px;
               }
             }
           </style>
         </head>
         <body>
           <div class="header">
-            <div style="display: flex; justify-content: flex-start; align-items: flex-start; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: flex-start; align-items: flex-start; margin-bottom: 10px;">
               <!-- Logo top left -->
-              <img src="/logo.svg" alt="Company Logo" style="height: 35px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
+              <img src="/logo.svg" alt="Company Logo" style="height: 30px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
             </div>
             
-            <!-- Job # top center - larger -->
-            <div style="text-align: center; margin-bottom: 12px;">
-              <h2 style="margin: 0; font-size: 24px; color: #333; font-weight: bold;">${formData.jobName || 'Job #'}</h2>
-            </div>
-            
-            <!-- "Profitability Report" centered under Job # - larger -->
+            <!-- Job # top center - compact -->
             <div style="text-align: center; margin-bottom: 8px;">
-              <h1 style="margin: 0; font-size: 20px; color: #333; font-weight: bold;">Profitability Report</h1>
+              <h2 style="margin: 0; font-size: 18px; color: #333; font-weight: bold;">Job #: ${formData.jobName || '0001'}</h2>
             </div>
             
-            <!-- "Generated on" centered under "Profitability Report" - larger -->
-            <div style="text-align: center; margin-bottom: 15px;">
-              <p style="margin: 0; font-size: 14px; color: #666; font-weight: 500;">Generated on ${new Date().toLocaleDateString()}</p>
+            <!-- "Profitability Report" centered under Job # - compact -->
+            <div style="text-align: center; margin-bottom: 6px;">
+              <h1 style="margin: 0; font-size: 16px; color: #333; font-weight: bold;">Profitability Report</h1>
+            </div>
+            
+            <!-- "Generated on" centered under "Profitability Report" - compact -->
+            <div style="text-align: center; margin-bottom: 10px;">
+              <p style="margin: 0; font-size: 12px; color: #666; font-weight: 500;">Generated on ${new Date().toLocaleDateString()}</p>
             </div>
           </div>
           
