@@ -1345,4 +1345,5 @@ const Calculator = ({ onAddJob }) => {
   )
 }
 
+// Calculator component
 export default Calculator
