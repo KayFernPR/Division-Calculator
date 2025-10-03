@@ -1028,7 +1028,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
 
-            <div className="result-item">
+            <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Actual Contribution Margin %:</span>
                 <div className="relative group">
@@ -1335,12 +1335,12 @@ const Calculator = ({ onAddJob }) => {
                   </div>
                 )}
                 </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   )
 }
