@@ -1065,7 +1065,7 @@ const Calculator = ({ onAddJob }) => {
 
             {/* Group 2 - White */}
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-2">
-            <div className="result-item">
+            <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
                 <div className="relative group">
@@ -1116,7 +1116,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
-            <div className="result-item">
+            <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Total Controllable Margin $:</span>
                 <div className="relative group">
@@ -1152,7 +1152,7 @@ const Calculator = ({ onAddJob }) => {
 
             {/* Group 3 - Light Grey */}
           <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
-            <div className="result-item">
+            <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
                 <div className="relative group">
