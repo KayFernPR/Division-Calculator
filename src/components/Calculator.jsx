@@ -597,7 +597,7 @@ const Calculator = ({ onAddJob }) => {
               <span class="label">Which is:</span>
               <span class="value">${formatCurrency(results.yourJob)} (${results.yourJob > 0 ? 'Above Target' : results.yourJob === 0 ? 'At Target' : 'Below Target'})</span>
             </div>
-          </div>
+            </div>
 
           ${results.profitShortfall > 0 ? `
           <div class="impact">
@@ -605,7 +605,7 @@ const Calculator = ({ onAddJob }) => {
             <div class="result-row">
               <span class="label">Revenue needed at 10% margin:</span>
               <span class="value">${formatCurrency(results.revenueNeeded10Percent)}</span>
-            </div>
+          </div>
             <div class="result-row">
               <span class="label">Revenue needed at current margin:</span>
               <span class="value">${formatCurrency(results.revenueNeededCurrent)}</span>
@@ -833,10 +833,10 @@ const Calculator = ({ onAddJob }) => {
               )}
               </div>
 
-            {/* Division Overhead Costs */}
+              {/* Division Overhead Costs */}
               <div>
               <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Division Overhead Costs % *
+                  Division Overhead Costs % *
                 </label>
                 <input
                   type="number"
@@ -855,27 +855,27 @@ const Calculator = ({ onAddJob }) => {
                 )}
               </div>
 
-            {/* Company Overhead Costs */}
+              {/* Company Overhead Costs */}
               <div>
               <label htmlFor="companyOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Company Overhead Costs % *
+                  Company Overhead Costs % *
                 </label>
                 <input
                   type="number"
-                id="companyOverheads"
-                name="companyOverheads"
-                value={formData.companyOverheads}
+                  id="companyOverheads"
+                  name="companyOverheads"
+                  value={formData.companyOverheads}
                   onChange={handleInputChange}
                   step="0.01"
                   min="0"
                   max="100"
                 className={`input-field ${errors.companyOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="10.00"
+                  placeholder="10.00"
                 />
-              {errors.companyOverheads && (
+                {errors.companyOverheads && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyOverheads}</p>
-              )}
-            </div>
+                )}
+              </div>
             </div>
 
             {/* Group 3: Target Profit */}
@@ -1091,7 +1091,7 @@ const Calculator = ({ onAddJob }) => {
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
                     <p><strong>Division Overhead Costs $:</strong> Division-specific overhead costs allocated to this job.</p>
-                  </div>
+              </div>
                 </div>
               </div>
               <span className="result-value">
@@ -1331,9 +1331,10 @@ const Calculator = ({ onAddJob }) => {
                     <span className="text-lg">{getStatusIcon(results.profitabilityStatus)}</span>
                     <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
                       ({getBudgetStatus(results.yourJob, false)})
-                    </span>
+                  </span>
                   </div>
                 )}
+                </div>
               </div>
             </div>
           </div>
