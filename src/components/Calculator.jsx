@@ -538,10 +538,6 @@ const Calculator = ({ onAddJob }) => {
               <span class="value">${formatPercentage(results.jobCostPercent)}</span>
             </div>
             <div class="result-row">
-              <span class="label">Gross Profit $:</span>
-              <span class="value">${formatCurrency(results.contributionMargin)}</span>
-            </div>
-            <div class="result-row">
               <span class="label">Actual Contribution Margin %:</span>
               <span class="value">${formatPercentage(results.actualContributionMargin)}</span>
             </div>
