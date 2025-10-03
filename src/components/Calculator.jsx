@@ -444,7 +444,7 @@ const Calculator = ({ onAddJob }) => {
         <body>
           <div class="header">
             <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
-              <img src="/logo.svg" alt="Company Logo" style="height: 60px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
+              <img src="/logo.svg" alt="Company Logo" style="height: 40px; width: auto;" onerror="this.src='/logo.png'; this.onerror=function(){this.style.display='none';}" />
               <div style="text-align: center;">
                 <h1 style="margin: 0; font-size: 24px;">Restoration Job Profitability Report</h1>
                 <h2 style="margin: 5px 0; font-size: 18px; color: #666;">${formData.jobName}</h2>
