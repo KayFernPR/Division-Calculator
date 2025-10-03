@@ -9,8 +9,6 @@ const Calculator = ({ onAddJob }) => {
     retailPrice: '',
     jobCost: '',
     divisionOverheads: '',
-    companyOverheads: '',
-    divisionFixedCosts: '',
     royaltyRate: '',
     targetNetProfit: ''
   })
@@ -85,7 +83,6 @@ const Calculator = ({ onAddJob }) => {
       const jobCost = parseFloat(formData.jobCost) || 0
     const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
       const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
-      const companyOverheads = parseFloat(formData.companyOverheads) || 0
       const royaltyRate = parseFloat(formData.royaltyRate) || 0
 
       // Job Cost % = Job Cost $ / Retail Price $
@@ -103,11 +100,8 @@ const Calculator = ({ onAddJob }) => {
       // Division Overheads $ = Retail Price $ * Division Overheads %
       const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
 
-      // Company Overheads $ = Retail Price $ * Company Overheads %
-      const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
-
-      // Total Controllable Margin $ = Contribution Margin $ - Division Overheads $ - Company Overheads $
-      const totalControllableMargin = contributionMargin - divisionOverheadsDollars - companyOverheadsDollars
+      // Total Controllable Margin $ = Contribution Margin $ - Division Overheads $
+      const totalControllableMargin = contributionMargin - divisionOverheadsDollars
 
       // Royalty $ = Retail Price $ * Royalty rate %
       const royaltyDollars = retailPrice * (royaltyRate / 100)
@@ -115,14 +109,14 @@ const Calculator = ({ onAddJob }) => {
       // Actual Net Profit $ = Total Controllable Margin $ - Royalty $
       const actualNetProfit = totalControllableMargin - royaltyDollars
 
-      // Division Total Break-Even % = Division Overheads % + Company Overheads % + Royalty rate %
-      const divisionTotalBreakEven = divisionOverheads + companyOverheads + royaltyRate
+      // Division Total Break-Even % = Division Overheads % + Royalty rate %
+      const divisionTotalBreakEven = divisionOverheads + royaltyRate
 
       // Break Even Price $ = Job Cost $ / (1 - Division Total Break-Even %)
       const breakEvenPrice = divisionTotalBreakEven < 100 ? jobCost / (1 - divisionTotalBreakEven / 100) : 0
 
-    // Required Margin % = Division Overheads % + Company Overheads % + Royalty rate % + Target Net Profit %
-    const requiredMargin = divisionOverheads + companyOverheads + royaltyRate + targetNetProfit
+    // Required Margin % = Division Overheads % + Royalty rate % + Target Net Profit %
+    const requiredMargin = divisionOverheads + royaltyRate + targetNetProfit
 
       // Required Price $ = Job Cost $ / (1 - Required Margin %)
       const requiredPrice = requiredMargin < 100 ? jobCost / (1 - requiredMargin / 100) : 0
@@ -161,7 +155,7 @@ const Calculator = ({ onAddJob }) => {
         actualMarkup,
         grossProfit: contributionMargin,
         netProfit: actualNetProfit,
-        overheadCostDollars: divisionOverheadsDollars + companyOverheadsDollars + royaltyDollars,
+        overheadCostDollars: divisionOverheadsDollars + royaltyDollars,
         requiredPrice,
         requiredMarkup: actualMarkup,
         profitShortfall: yourJob < 0 ? Math.abs(yourJob) : 0,
@@ -175,7 +169,6 @@ const Calculator = ({ onAddJob }) => {
         actualContributionMargin,
         contributionMargin,
         divisionOverheadsDollars,
-        companyOverheadsDollars,
         totalControllableMargin,
         royaltyDollars,
         actualNetProfit,
@@ -203,11 +196,7 @@ const Calculator = ({ onAddJob }) => {
     }
 
     if (!formData.divisionOverheads || parseFloat(formData.divisionOverheads) < 0) {
-      newErrors.divisionOverheads = 'Division overheads percentage is required and must be 0 or greater'
-    }
-
-    if (!formData.companyOverheads || parseFloat(formData.companyOverheads) < 0) {
-      newErrors.companyOverheads = 'Company overheads percentage is required and must be 0 or greater'
+      newErrors.divisionOverheads = 'Division overhead costs percentage is required and must be 0 or greater'
     }
 
     if (!formData.royaltyRate || parseFloat(formData.royaltyRate) < 0) {
@@ -238,7 +227,6 @@ const Calculator = ({ onAddJob }) => {
         retailPrice: parseFloat(formData.retailPrice),
         jobCost: parseFloat(formData.jobCost),
         divisionOverheads: parseFloat(formData.divisionOverheads),
-        companyOverheads: parseFloat(formData.companyOverheads),
         royaltyRate: parseFloat(formData.royaltyRate),
         targetNetProfit: parseFloat(formData.targetNetProfit),
         ...results
@@ -252,8 +240,6 @@ const Calculator = ({ onAddJob }) => {
         retailPrice: '',
         jobCost: '',
         divisionOverheads: '',
-        companyOverheads: '',
-        divisionFixedCosts: '',
         royaltyRate: '',
         targetNetProfit: ''
       })
@@ -861,47 +847,25 @@ const Calculator = ({ onAddJob }) => {
                 )}
               </div>
 
-            {/* Division Fixed Costs */}
+            {/* Division Overhead Costs */}
               <div>
-              <label htmlFor="divisionFixedCosts" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Division Fixed Costs % *
-              </label>
-              <input
-                type="number"
-                id="divisionFixedCosts"
-                name="divisionFixedCosts"
-                value={formData.divisionFixedCosts}
-                onChange={handleInputChange}
-                step="0.01"
-                min="0"
-                max="100"
-                className={`input-field ${errors.divisionFixedCosts ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                placeholder="5.00"
-              />
-              {errors.divisionFixedCosts && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionFixedCosts}</p>
-              )}
-            </div>
-
-            {/* Company Fixed Costs */}
-            <div>
-              <label htmlFor="companyOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Company Fixed Costs % *
+              <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Division Overhead costs % *
                 </label>
                 <input
                   type="number"
-                  id="companyOverheads"
-                  name="companyOverheads"
-                  value={formData.companyOverheads}
+                id="divisionOverheads"
+                name="divisionOverheads"
+                value={formData.divisionOverheads}
                   onChange={handleInputChange}
                   step="0.01"
                   min="0"
                   max="100"
-                className={`input-field ${errors.companyOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                  placeholder="10.00"
+                className={`input-field ${errors.divisionOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                placeholder="15.00"
                 />
-                {errors.companyOverheads && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.companyOverheads}</p>
+              {errors.divisionOverheads && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionOverheads}</p>
                 )}
               </div>
             </div>
