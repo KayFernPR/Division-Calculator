@@ -1158,16 +1158,15 @@ const Calculator = ({ onAddJob }) => {
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
-                  </span>
+                </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
                     <p><strong>Actual Net Profit:</strong> Final profit after all costs including overhead and royalty fees.</p>
-                  </div>
+              </div>
                 </div>
               </div>
               <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
                   {formatCurrency(results.actualNetProfit)}
                 </span>
-              </div>
             </div>
 
             {/* Group 4 - White */}
