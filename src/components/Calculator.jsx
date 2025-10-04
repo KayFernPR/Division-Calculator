@@ -1341,6 +1341,7 @@ const Calculator = ({ onAddJob }) => {
         </div>
       </div>
     </div>
+    </div>
   )
 }
 
