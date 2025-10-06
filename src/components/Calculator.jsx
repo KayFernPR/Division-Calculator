@@ -132,29 +132,22 @@ const Calculator = ({ onAddJob }) => {
       // Your job $ = Retail Price $ - Required Price $
       const yourJob = retailPrice - requiredPrice
 
-      // Determine profitability status based on actual net profit vs target net profit
+      // Determine profitability status based on "This Job Is" percentage (actual vs required margin)
       let profitabilityStatus = 'neutral'
       
       if (retailPrice > 0) {
-        // Calculate target net profit in dollars
-        const targetNetProfitDollars = retailPrice * (targetNetProfit / 100)
-        
-        // Calculate difference between actual and target net profit
-        const profitDifference = actualNetProfit - targetNetProfitDollars
-        const profitDifferencePercent = targetNetProfitDollars > 0 ? (profitDifference / targetNetProfitDollars) * 100 : 0
-        
-        // Check conditions in order of priority
-        if (actualNetProfit < 0 && actualNetProfit < (0 - targetNetProfitDollars)) {
+        // Check conditions in order of priority based on thisJobIs percentage
+        if (actualNetProfit < 0 && thisJobIs < (0 - targetNetProfit)) {
           profitabilityStatus = 'below-breakeven' // STOP - Significant loss (Below break-even)
-        } else if (actualNetProfit < 0 || profitDifferencePercent < (targetNetProfit / 2)) {
+        } else if (actualNetProfit < 0 || thisJobIs < (targetNetProfit / 2)) {
           profitabilityStatus = 'extreme-warning' // EXTREME WARNING - Near break-even
-        } else if (actualNetProfit < 0 || profitDifferencePercent < (0 - targetNetProfit)) {
+        } else if (actualNetProfit < 0 || thisJobIs < (0 - targetNetProfit)) {
           profitabilityStatus = 'warning' // Warning - Below target but profitable
-        } else if (profitDifferencePercent >= 5) {
+        } else if (thisJobIs >= 5) {
           profitabilityStatus = 'jackpot' // 5% or More above target
-        } else if (profitDifferencePercent > 0 && profitDifferencePercent < 5) {
+        } else if (thisJobIs > 0 && thisJobIs < 5) {
           profitabilityStatus = 'winning' // 0-5% above target
-        } else if (profitDifferencePercent === 0 || (profitDifferencePercent >= -0.1 && profitDifferencePercent <= 0.1)) {
+        } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
           profitabilityStatus = 'at-budget' // 0 At Target
         } else {
           profitabilityStatus = 'warning' // Default to warning for any other case
