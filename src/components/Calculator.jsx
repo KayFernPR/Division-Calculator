@@ -126,8 +126,8 @@ const Calculator = ({ onAddJob }) => {
       // Required Price $ = Job Cost $ / (1 - Required Margin %)
       const requiredPrice = requiredMargin < 100 ? jobCost / (1 - requiredMargin / 100) : 0
 
-      // This Job Is % = Your Profit Margin is % - Required Margin %
-      const thisJobIs = actualContributionMargin - requiredMargin
+      // This Job Is % = Required Margin % - Your Profit Margin is %
+      const thisJobIs = requiredMargin - actualContributionMargin
 
       // Your job $ = Retail Price $ - Required Price $
       const yourJob = retailPrice - requiredPrice
@@ -140,9 +140,11 @@ const Calculator = ({ onAddJob }) => {
         const targetNetProfitDollars = retailPrice * (targetNetProfit / 100)
         
         // Check conditions in order of priority
-        if (thisJobIs >= 5) {
+        // Note: thisJobIs = requiredMargin - actualContributionMargin
+        // Negative values = above target, Positive values = below target
+        if (thisJobIs <= -5) {
           profitabilityStatus = 'jackpot' // 5% or More above target
-        } else if (thisJobIs > 0 && thisJobIs < 5) {
+        } else if (thisJobIs < 0 && thisJobIs > -5) {
           profitabilityStatus = 'winning' // 0-5% above target
         } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
           profitabilityStatus = 'at-budget' // 0 At Target
@@ -186,8 +188,8 @@ const Calculator = ({ onAddJob }) => {
         breakEvenPrice,
         requiredMargin,
         thisJobIs,
-      yourJob
-    })
+        yourJob
+      })
   }
 
   const validateForm = () => {
