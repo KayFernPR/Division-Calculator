@@ -1345,5 +1345,5 @@ const Calculator = ({ onAddJob }) => {
   )
 }
 
-// Calculator component - force new deployment
+// Calculator component - trigger deployment
 export default Calculator
