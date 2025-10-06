@@ -42,15 +42,22 @@ function App() {
   }, [jobs])
 
   const addJob = (jobData) => {
+    console.log('addJob function called with:', jobData)
     const newJob = {
       id: Date.now(),
       ...jobData,
       timestamp: new Date().toISOString()
     }
-    setJobs(prevJobs => [newJob, ...prevJobs])
+    console.log('Created new job:', newJob)
+    setJobs(prevJobs => {
+      const updatedJobs = [newJob, ...prevJobs]
+      console.log('Updated jobs array:', updatedJobs)
+      return updatedJobs
+    })
     
     // Auto-scroll to results after saving
     setTimeout(() => {
+      console.log('Switching to history tab')
       setActiveTab('history')
     }, 500)
   }

@@ -234,9 +234,13 @@ const Calculator = ({ onAddJob }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log('Save Job button clicked!')
+    console.log('Form data:', formData)
+    console.log('Results:', results)
     
     if (validateForm()) {
-      onAddJob({
+      console.log('Form validation passed!')
+      const jobData = {
         ...formData,
         retailPrice: parseFloat(formData.retailPrice),
         jobCost: parseFloat(formData.jobCost),
@@ -245,7 +249,9 @@ const Calculator = ({ onAddJob }) => {
         royaltyRate: parseFloat(formData.royaltyRate),
         targetNetProfit: parseFloat(formData.targetNetProfit),
         ...results
-      })
+      }
+      console.log('Calling onAddJob with:', jobData)
+      onAddJob(jobData)
 
       // Reset form
       setFormData({
@@ -259,6 +265,10 @@ const Calculator = ({ onAddJob }) => {
         royaltyRate: '',
         targetNetProfit: ''
       })
+      console.log('Form reset completed!')
+    } else {
+      console.log('Form validation failed!')
+      console.log('Errors:', errors)
     }
   }
 
