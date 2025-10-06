@@ -237,6 +237,8 @@ const Calculator = ({ onAddJob }) => {
     console.log('Save Job button clicked!')
     console.log('Form data:', formData)
     console.log('Results:', results)
+    console.log('onAddJob prop:', onAddJob)
+    console.log('onAddJob type:', typeof onAddJob)
     
     if (validateForm()) {
       console.log('Form validation passed!')
@@ -251,7 +253,17 @@ const Calculator = ({ onAddJob }) => {
         ...results
       }
       console.log('Calling onAddJob with:', jobData)
-      onAddJob(jobData)
+      
+      if (typeof onAddJob === 'function') {
+        try {
+          onAddJob(jobData)
+          console.log('onAddJob called successfully!')
+        } catch (error) {
+          console.error('Error calling onAddJob:', error)
+        }
+      } else {
+        console.error('onAddJob is not a function!', onAddJob)
+      }
 
       // Reset form
       setFormData({
