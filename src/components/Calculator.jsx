@@ -1018,8 +1018,9 @@ const Calculator = ({ onAddJob }) => {
               </div>
             )}
             
-            {/* Group 1 - Light Grey */}
+            {/* Group 1 - Light Grey - Reordered Fields */}
           <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
+            {/* 1. Sales $: */}
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Sales $:</span>
@@ -1037,6 +1038,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
               </div>
 
+            {/* 2. COGS $: */}
             <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>COGS $:</span>
@@ -1054,6 +1056,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
+            {/* 3. COGS %: */}
             <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>COGS %:</span>
@@ -1071,7 +1074,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
-
+            {/* 4. Actual Gross Profit Margin %: */}
             <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Actual Gross Profit Margin %:</span>
@@ -1089,6 +1092,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
             
+            {/* 5. Actual Mark-up %: */}
             <div className="result-item">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Actual Mark-up %:</span>
@@ -1106,6 +1110,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
               </div>
 
+            {/* 6. Actual Gross Profit $: */}
             <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Actual Gross Profit $:</span>
@@ -1122,27 +1127,8 @@ const Calculator = ({ onAddJob }) => {
                 {formatCurrency(results.actualGrossProfit)}
               </span>
             </div>
-            </div>
 
-            {/* Group 2 - White */}
-          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-2">
-            <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
-              <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
-                <div className="relative group">
-                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
-                    i
-                  </span>
-                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Contribution Margin:</strong> Revenue minus direct job costs. Money available to cover overhead and profit.</p>
-              </div>
-              </div>
-              </div>
-              <span className={`result-value ${results.contributionMargin >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                {formatCurrency(results.contributionMargin)}
-              </span>
-              </div>
-
+            {/* 7. Division Variable Expenses $: */}
             <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Division Variable Expenses $:</span>
@@ -1160,6 +1146,43 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
+            {/* 8. Royalty $: */}
+            <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Royalty $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Royalty $:</strong> Royalty fees or franchise fees paid on this job.</p>
+                  </div>
+                </div>
+              </div>
+              <span className="result-value">
+                {formatCurrency(results.royaltyDollars)}
+              </span>
+            </div>
+
+            {/* 9. Contribution Margin $: */}
+            <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Contribution Margin $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Contribution Margin:</strong> Revenue minus direct job costs. Money available to cover overhead and profit.</p>
+                  </div>
+                </div>
+              </div>
+              <span className={`result-value ${results.contributionMargin >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
+                {formatCurrency(results.contributionMargin)}
+              </span>
+              </div>
+
+            {/* 10. Division Fixed Expenses $: */}
             <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Division Fixed Expenses $:</span>
@@ -1177,23 +1200,7 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
-            <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
-              <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Company Overhead Costs $:</span>
-                <div className="relative group">
-                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
-                    i
-                  </span>
-                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Company Overhead Costs $:</strong> Company-wide overhead costs allocated to this job.</p>
-                  </div>
-                </div>
-              </div>
-              <span className="result-value">
-                {formatCurrency(results.companyOverheadsDollars)}
-              </span>
-            </div>
-
+            {/* 11. Division Controllable Margin $: */}
             <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Division Controllable Margin $:</span>
@@ -1211,41 +1218,49 @@ const Calculator = ({ onAddJob }) => {
               </span>
             </div>
 
+            {/* 12. Company Overhead Costs $: */}
             <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Royalty $:</span>
+                <span style={{color: '#1F1F1F'}}>Company Overhead Costs $:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Royalty $:</strong> Royalty fees paid to franchisor or brand owner.</p>
+                    <p><strong>Company Overhead Costs $:</strong> Company-wide overhead costs allocated to this job.</p>
                   </div>
                 </div>
               </div>
               <span className="result-value">
-                {formatCurrency(results.royaltyDollars)}
+                {formatCurrency(results.companyOverheadsDollars)}
               </span>
             </div>
 
-            {/* Group 3 - Light Grey */}
-          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
+            {/* 13. Actual Net Profit $: */}
             <div className="result-item border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <span style={{color: '#1F1F1F'}}>Actual Net Profit $:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
-                </span>
+                  </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Actual Net Profit:</strong> Final profit after all costs including overhead and royalty fees.</p>
-              </div>
+                    <p><strong>Actual Net Profit $:</strong> Final profit after all costs and expenses.</p>
+                  </div>
                 </div>
               </div>
               <span className={`result-value ${results.actualNetProfit >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'}`}>
-                  {formatCurrency(results.actualNetProfit)}
-                </span>
+                {formatCurrency(results.actualNetProfit)}
+              </span>
             </div>
+            </div>
+
+            {/* Group 2 - White - Remaining fields only */}
+          <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-2">
+            </div>
+
+            {/* Group 3 - Light Grey */}
+          <div className="space-y-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2">
 
             {/* Group 4 - White */}
           <div className="space-y-1 bg-white dark:bg-neutral-900 rounded-lg p-2">
