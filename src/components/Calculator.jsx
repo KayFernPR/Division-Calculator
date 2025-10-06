@@ -132,24 +132,31 @@ const Calculator = ({ onAddJob }) => {
       // Your job $ = Retail Price $ - Required Price $
       const yourJob = retailPrice - requiredPrice
 
-      // Determine profitability status based on "This Job Is" percentage
+      // Determine profitability status based on actual net profit vs target net profit
       let profitabilityStatus = 'neutral'
       
       if (retailPrice > 0) {
-        if (thisJobIs >= 5) {
-        profitabilityStatus = 'jackpot' // 5% or More above target
-        } else if (thisJobIs > 0 && thisJobIs < 5) {
-        profitabilityStatus = 'winning' // 0-5% above target
-      } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
-        profitabilityStatus = 'at-budget' // 0 At Target
-      } else if (thisJobIs < 0 && thisJobIs < (0 - targetNetProfit)) {
-        profitabilityStatus = 'below-breakeven' // If less than 0 and less than 0-target net profit then Below break-even
-      } else if (thisJobIs < 0 || thisJobIs > targetNetProfit / 2) {
-        profitabilityStatus = 'extreme-warning' // if less than 0 or greater than target net profit / 2 then EXTREME WARNING
-      } else if (thisJobIs < 0 || thisJobIs > (0 - targetNetProfit)) {
-        profitabilityStatus = 'warning' // If less than 0 or greater than 0-target net profit then Warning
+        // Calculate target net profit in dollars
+        const targetNetProfitDollars = retailPrice * (targetNetProfit / 100)
+        
+        // Calculate difference between actual and target net profit
+        const profitDifference = actualNetProfit - targetNetProfitDollars
+        const profitDifferencePercent = targetNetProfitDollars > 0 ? (profitDifference / targetNetProfitDollars) * 100 : 0
+        
+        if (profitDifferencePercent >= 5) {
+          profitabilityStatus = 'jackpot' // 5% or More above target
+        } else if (profitDifferencePercent > 0 && profitDifferencePercent < 5) {
+          profitabilityStatus = 'winning' // 0-5% above target
+        } else if (profitDifferencePercent === 0 || (profitDifferencePercent >= -0.1 && profitDifferencePercent <= 0.1)) {
+          profitabilityStatus = 'at-budget' // 0 At Target
+        } else if (actualNetProfit < 0 && actualNetProfit < (0 - targetNetProfitDollars)) {
+          profitabilityStatus = 'below-breakeven' // If less than 0 and less than 0-target net profit then Below break-even
+        } else if (actualNetProfit < 0 || profitDifferencePercent < (targetNetProfit / 2)) {
+          profitabilityStatus = 'extreme-warning' // if less than 0 or greater than target net profit / 2 then EXTREME WARNING
+        } else if (actualNetProfit < 0 || profitDifferencePercent < (0 - targetNetProfit)) {
+          profitabilityStatus = 'warning' // If less than 0 or greater than 0-target net profit then Warning
         } else {
-        profitabilityStatus = 'below-breakeven' // Default fallback
+          profitabilityStatus = 'below-breakeven' // Default fallback
         }
       }
 
