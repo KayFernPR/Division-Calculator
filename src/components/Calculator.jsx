@@ -1345,8 +1345,6 @@ const Calculator = ({ onAddJob }) => {
                     </span>
                   </div>
                 )}
-                </div>
-                </div>
               </div>
             </div>
           </div>
