@@ -11,6 +11,7 @@ const Calculator = ({ onAddJob }) => {
     divisionOverheads: '',
     companyOverheads: '',
     royaltyRate: '',
+    divisionVariableExpenses: '',
     targetNetProfit: ''
   })
 
@@ -217,6 +218,10 @@ const Calculator = ({ onAddJob }) => {
       newErrors.royaltyRate = 'Royalty rate percentage is required and must be 0 or greater'
     }
 
+    if (!formData.divisionVariableExpenses || parseFloat(formData.divisionVariableExpenses) < 0) {
+      newErrors.divisionVariableExpenses = 'Division variable expenses percentage is required and must be 0 or greater'
+    }
+
     if (!formData.targetNetProfit || parseFloat(formData.targetNetProfit) < 0 || parseFloat(formData.targetNetProfit) >= 100) {
       newErrors.targetNetProfit = 'Target net profit percentage is required and must be between 0 and 99.99'
     }
@@ -243,6 +248,7 @@ const Calculator = ({ onAddJob }) => {
         divisionOverheads: parseFloat(formData.divisionOverheads),
         companyOverheads: parseFloat(formData.companyOverheads),
         royaltyRate: parseFloat(formData.royaltyRate),
+        divisionVariableExpenses: parseFloat(formData.divisionVariableExpenses),
         targetNetProfit: parseFloat(formData.targetNetProfit),
         ...results
       })
@@ -257,6 +263,7 @@ const Calculator = ({ onAddJob }) => {
         divisionOverheads: '',
         companyOverheads: '',
         royaltyRate: '',
+        divisionVariableExpenses: '',
         targetNetProfit: ''
       })
     }
@@ -834,6 +841,28 @@ const Calculator = ({ onAddJob }) => {
                 />
               {errors.royaltyRate && (
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
+              )}
+              </div>
+
+              {/* Division Variable Expenses */}
+              <div>
+              <label htmlFor="divisionVariableExpenses" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Division Variable Expenses % *
+                </label>
+                <input
+                  type="number"
+                  id="divisionVariableExpenses"
+                  name="divisionVariableExpenses"
+                  value={formData.divisionVariableExpenses}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                  max="100"
+                className={`input-field ${errors.divisionVariableExpenses ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                  placeholder="Enter variable expenses percentage"
+                />
+              {errors.divisionVariableExpenses && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionVariableExpenses}</p>
               )}
               </div>
 
