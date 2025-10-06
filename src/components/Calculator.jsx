@@ -1342,7 +1342,7 @@ const Calculator = ({ onAddJob }) => {
                     <span className="text-lg">{getStatusIcon(results.profitabilityStatus)}</span>
                     <span className={`text-sm font-medium px-2 py-1 rounded ${getBudgetStatusColor(results.yourJob, false)} bg-opacity-10`}>
                       ({getBudgetStatus(results.yourJob, false)})
-                  </span>
+                    </span>
                   </div>
                 )}
                 </div>
