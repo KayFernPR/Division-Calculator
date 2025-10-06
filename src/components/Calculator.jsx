@@ -207,7 +207,7 @@ const Calculator = ({ onAddJob }) => {
     }
 
     if (!formData.divisionOverheads || parseFloat(formData.divisionOverheads) < 0) {
-      newErrors.divisionOverheads = 'Division overhead costs percentage is required and must be 0 or greater'
+      newErrors.divisionOverheads = 'Division fixed expenses percentage is required and must be 0 or greater'
     }
 
     if (!formData.companyOverheads || parseFloat(formData.companyOverheads) < 0) {
@@ -866,10 +866,10 @@ const Calculator = ({ onAddJob }) => {
               )}
               </div>
 
-              {/* Division Overhead Costs */}
+              {/* Division Fixed Expenses */}
               <div>
               <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                  Division Overhead Costs % *
+                  Division Fixed Expenses % *
                 </label>
                 <input
                   type="number"
