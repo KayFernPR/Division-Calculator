@@ -1359,4 +1359,5 @@ const Calculator = ({ onAddJob }) => {
 
 // Calculator component - trigger deployment
 // Build fix applied - extra closing div removed
+// Calculation fixes applied - "You are currently at" formula corrected
 export default Calculator
