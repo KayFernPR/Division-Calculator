@@ -36,6 +36,7 @@ const Calculator = ({ onAddJob }) => {
     actualContributionMargin: 0,
     actualGrossProfit: 0,
     contributionMargin: 0,
+    divisionVariableExpensesDollars: 0,
     divisionOverheadsDollars: 0,
     companyOverheadsDollars: 0,
     totalControllableMargin: 0,
@@ -88,6 +89,7 @@ const Calculator = ({ onAddJob }) => {
       const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
       const companyOverheads = parseFloat(formData.companyOverheads) || 0
       const royaltyRate = parseFloat(formData.royaltyRate) || 0
+      const divisionVariableExpenses = parseFloat(formData.divisionVariableExpenses) || 0
 
       // Job Cost % = Job Cost $ / Retail Price $
       const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
@@ -103,6 +105,9 @@ const Calculator = ({ onAddJob }) => {
 
       // Contribution Margin $ = Retail Price $ - Job Cost $
       const contributionMargin = retailPrice - jobCost
+
+      // Division Variable Expenses $ = Retail Price $ * Division Variable Expenses %
+      const divisionVariableExpensesDollars = retailPrice * (divisionVariableExpenses / 100)
 
       // Division Overheads $ = Retail Price $ * Division Overheads %
       const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
@@ -183,6 +188,7 @@ const Calculator = ({ onAddJob }) => {
         actualContributionMargin,
         actualGrossProfit,
         contributionMargin,
+        divisionVariableExpensesDollars,
         divisionOverheadsDollars,
         companyOverheadsDollars,
         totalControllableMargin,
@@ -1136,6 +1142,23 @@ const Calculator = ({ onAddJob }) => {
                 {formatCurrency(results.contributionMargin)}
               </span>
               </div>
+
+            <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
+              <div className="flex items-center gap-1">
+                <span style={{color: '#1F1F1F'}}>Division Variable Expenses $:</span>
+                <div className="relative group">
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
+                    i
+                  </span>
+                  <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
+                    <p><strong>Division Variable Expenses $:</strong> Division variable expenses calculated from retail price and percentage.</p>
+                  </div>
+                </div>
+              </div>
+              <span className="result-value">
+                {formatCurrency(results.divisionVariableExpensesDollars)}
+              </span>
+            </div>
 
             <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
