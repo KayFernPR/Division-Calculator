@@ -1162,13 +1162,13 @@ const Calculator = ({ onAddJob }) => {
 
             <div className="result-item border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg p-2 flex justify-between items-center">
               <div className="flex items-center gap-1">
-                <span style={{color: '#1F1F1F'}}>Division Overhead Costs $:</span>
+                <span style={{color: '#1F1F1F'}}>Division Fixed Expenses $:</span>
                 <div className="relative group">
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">
                     i
                   </span>
                   <div className="absolute z-10 invisible group-hover:visible bottom-6 left-0 w-64 p-3 text-xs rounded-md shadow-lg bg-white text-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700">
-                    <p><strong>Division Overhead Costs $:</strong> Division-specific overhead costs allocated to this job.</p>
+                    <p><strong>Division Fixed Expenses $:</strong> Division-specific fixed expenses allocated to this job.</p>
               </div>
                 </div>
               </div>
