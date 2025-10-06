@@ -136,19 +136,22 @@ const Calculator = ({ onAddJob }) => {
       let profitabilityStatus = 'neutral'
       
       if (retailPrice > 0) {
-        // Check conditions in order of priority based on thisJobIs percentage
+        // Calculate target net profit in dollars from Target Operating Profit %
+        const targetNetProfitDollars = retailPrice * (targetNetProfit / 100)
+        
+        // Check conditions in order of priority
         if (thisJobIs >= 5) {
           profitabilityStatus = 'jackpot' // 5% or More above target
         } else if (thisJobIs > 0 && thisJobIs < 5) {
           profitabilityStatus = 'winning' // 0-5% above target
         } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
           profitabilityStatus = 'at-budget' // 0 At Target
-        } else if (actualNetProfit < 0 && thisJobIs < (0 - targetNetProfit)) {
+        } else if (actualNetProfit < 0 && actualNetProfit < (0 - targetNetProfitDollars)) {
           profitabilityStatus = 'below-breakeven' // STOP - Significant loss (Below break-even)
-        } else if (actualNetProfit < 0 || thisJobIs < (targetNetProfit / 2)) {
+        } else if (actualNetProfit < 0 || actualNetProfit < (targetNetProfitDollars / 2)) {
           profitabilityStatus = 'extreme-warning' // EXTREME WARNING - Near break-even
-        } else if (actualNetProfit < 0 || thisJobIs < (0 - targetNetProfit)) {
-          profitabilityStatus = 'warning' // Warning - Below target but profitable
+        } else if (actualNetProfit > 0 && actualNetProfit < targetNetProfitDollars) {
+          profitabilityStatus = 'warning' // Warning - Below target but profitable (positive but below target)
         } else {
           profitabilityStatus = 'warning' // Default to warning for any other case
         }
