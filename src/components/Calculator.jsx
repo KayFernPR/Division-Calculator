@@ -121,6 +121,9 @@ const Calculator = ({ onAddJob }) => {
       // Company Overheads $ = Retail Price $ * Company Overheads %
       const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
 
+      // Division Overheads $ = Retail Price $ * Division Overheads % (for legacy compatibility)
+      const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
+
       // Controllable Margin - General Company Fixed and Variable Expenses = Operating Income
       const operatingIncome = controllableMargin - companyOverheadsDollars
 
