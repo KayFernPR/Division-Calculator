@@ -9,65 +9,93 @@ function App() {
   const [darkMode, setDarkMode] = useState(false)
   const [jobs, setJobs] = useState([])
   const [activeTab, setActiveTab] = useState('calculator')
+  const [error, setError] = useState(null)
 
   // Load dark mode preference from localStorage
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode')
-    if (savedDarkMode !== null) {
-      setDarkMode(JSON.parse(savedDarkMode))
+    try {
+      const savedDarkMode = localStorage.getItem('darkMode')
+      if (savedDarkMode !== null) {
+        setDarkMode(JSON.parse(savedDarkMode))
+      }
+    } catch (err) {
+      console.error('Error loading dark mode:', err)
     }
   }, [])
 
   // Load jobs from localStorage
   useEffect(() => {
-    const savedJobs = localStorage.getItem('profitabilityJobs')
-    if (savedJobs) {
-      setJobs(JSON.parse(savedJobs))
+    try {
+      const savedJobs = localStorage.getItem('profitabilityJobs')
+      if (savedJobs) {
+        setJobs(JSON.parse(savedJobs))
+      }
+    } catch (err) {
+      console.error('Error loading jobs:', err)
     }
   }, [])
 
   // Save dark mode preference to localStorage
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode))
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
+    try {
+      localStorage.setItem('darkMode', JSON.stringify(darkMode))
+      if (darkMode) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    } catch (err) {
+      console.error('Error saving dark mode:', err)
     }
   }, [darkMode])
 
   // Save jobs to localStorage whenever jobs change
   useEffect(() => {
-    localStorage.setItem('profitabilityJobs', JSON.stringify(jobs))
+    try {
+      localStorage.setItem('profitabilityJobs', JSON.stringify(jobs))
+    } catch (err) {
+      console.error('Error saving jobs:', err)
+    }
   }, [jobs])
 
   const addJob = (jobData) => {
-    console.log('addJob function called with:', jobData)
-    const newJob = {
-      id: Date.now(),
-      ...jobData,
-      timestamp: new Date().toISOString()
+    try {
+      console.log('addJob function called with:', jobData)
+      const newJob = {
+        id: Date.now(),
+        ...jobData,
+        timestamp: new Date().toISOString()
+      }
+      console.log('Created new job:', newJob)
+      setJobs(prevJobs => [newJob, ...prevJobs])
+      
+      // Auto-scroll to results after saving
+      setTimeout(() => {
+        console.log('Switching to history tab')
+        setActiveTab('history')
+      }, 500)
+    } catch (error) {
+      console.error('Error in addJob function:', error)
+      setError('Failed to save job. Please try again.')
     }
-    console.log('Created new job:', newJob)
-    setJobs(prevJobs => {
-      const updatedJobs = [newJob, ...prevJobs]
-      console.log('Updated jobs array:', updatedJobs)
-      return updatedJobs
-    })
-    
-    // Auto-scroll to results after saving
-    setTimeout(() => {
-      console.log('Switching to history tab')
-      setActiveTab('history')
-    }, 500)
   }
 
   const deleteJob = (jobId) => {
-    setJobs(prevJobs => prevJobs.filter(job => job.id !== jobId))
+    try {
+      setJobs(prevJobs => prevJobs.filter(job => job.id !== jobId))
+    } catch (error) {
+      console.error('Error deleting job:', error)
+      setError('Failed to delete job. Please try again.')
+    }
   }
 
   const clearHistory = () => {
-    setJobs([])
+    try {
+      setJobs([])
+    } catch (error) {
+      console.error('Error clearing history:', error)
+      setError('Failed to clear history. Please try again.')
+    }
   }
 
   const tabs = [
@@ -76,6 +104,26 @@ function App() {
     { id: 'chart', label: 'Charts', icon: '📈' },
     { id: 'reference', label: 'Reference', icon: '📊' }
   ]
+
+  // Error boundary component
+  if (error) {
+    return (
+      <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-200">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4 text-red-600">Error</h1>
+            <p className="text-red-600 mb-4">{error}</p>
+            <button 
+              onClick={() => setError(null)}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-200">
@@ -160,4 +208,4 @@ function App() {
   )
 }
 
-export default App 
+export default App
