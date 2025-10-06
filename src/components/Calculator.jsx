@@ -10,7 +10,6 @@ const Calculator = ({ onAddJob }) => {
     jobCost: '',
     divisionVariableExpenses: '',
     divisionFixedExpenses: '',
-    divisionOverheads: '',
     companyOverheads: '',
     royaltyRate: '',
     targetNetProfit: ''
@@ -93,7 +92,6 @@ const Calculator = ({ onAddJob }) => {
     const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
       const divisionVariableExpenses = parseFloat(formData.divisionVariableExpenses) || 0
       const divisionFixedExpenses = parseFloat(formData.divisionFixedExpenses) || 0
-      const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
       const companyOverheads = parseFloat(formData.companyOverheads) || 0
       const royaltyRate = parseFloat(formData.royaltyRate) || 0
 
@@ -121,8 +119,6 @@ const Calculator = ({ onAddJob }) => {
       // Company Overheads $ = Retail Price $ * Company Overheads %
       const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
 
-      // Division Overheads $ = Retail Price $ * Division Overheads % (for legacy compatibility)
-      const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
 
       // Controllable Margin - General Company Fixed and Variable Expenses = Operating Income
       const operatingIncome = controllableMargin - companyOverheadsDollars
@@ -136,14 +132,14 @@ const Calculator = ({ onAddJob }) => {
       // Your Profit Margin is % = Actual Contribution Margin %
       const yourProfitMargin = retailPrice > 0 ? (contributionMargin / retailPrice) * 100 : 0
 
-      // Division Total Break-Even % = Division Overheads % + Company Overheads % + Royalty rate %
-      const divisionTotalBreakEven = divisionOverheads + companyOverheads + royaltyRate
+      // Division Total Break-Even % = Company Overheads % + Royalty rate %
+      const divisionTotalBreakEven = companyOverheads + royaltyRate
 
       // Break Even Price $ = Job Cost $ / (1 - Division Total Break-Even %)
       const breakEvenPrice = divisionTotalBreakEven < 100 ? jobCost / (1 - divisionTotalBreakEven / 100) : 0
 
-    // Required Margin % = Division Overheads % + Company Overheads % + Royalty rate % + Target Net Profit %
-    const requiredMargin = divisionOverheads + companyOverheads + royaltyRate + targetNetProfit
+    // Required Margin % = Company Overheads % + Royalty rate % + Target Net Profit %
+    const requiredMargin = companyOverheads + royaltyRate + targetNetProfit
 
       // Required Price $ = Job Cost $ / (1 - Required Margin %)
       const requiredPrice = requiredMargin < 100 ? jobCost / (1 - requiredMargin / 100) : 0
@@ -191,7 +187,7 @@ const Calculator = ({ onAddJob }) => {
         actualMarkup: jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0,
         grossProfit,
         netProfit: actualNetProfit,
-        overheadCostDollars: divisionOverheadsDollars + companyOverheadsDollars + royaltyDollars,
+        overheadCostDollars: companyOverheadsDollars + royaltyDollars,
         requiredPrice,
         requiredMarkup: jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0,
         profitShortfall: yourJob < 0 ? Math.abs(yourJob) : 0,
@@ -246,9 +242,6 @@ const Calculator = ({ onAddJob }) => {
       newErrors.divisionFixedExpenses = 'Division fixed expenses percentage is required and must be 0 or greater'
     }
 
-    if (!formData.divisionOverheads || parseFloat(formData.divisionOverheads) < 0) {
-      newErrors.divisionOverheads = 'Division overhead costs percentage is required and must be 0 or greater'
-    }
 
     if (!formData.companyOverheads || parseFloat(formData.companyOverheads) < 0) {
       newErrors.companyOverheads = 'Company overhead costs percentage is required and must be 0 or greater'
@@ -303,7 +296,6 @@ const Calculator = ({ onAddJob }) => {
         jobCost: '',
         divisionVariableExpenses: '',
         divisionFixedExpenses: '',
-        divisionOverheads: '',
         companyOverheads: '',
         royaltyRate: '',
         targetNetProfit: ''
@@ -862,12 +854,34 @@ const Calculator = ({ onAddJob }) => {
               </div>
             </div>
 
-            {/* Group 2: Division Expenses */}
+            {/* Group 2: Overhead Costs */}
             <div className="space-y-4">
             <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
-                Division Expenses
+                Overhead Costs
               </h4>
               
+              {/* Royalty Rate */}
+              <div>
+              <label htmlFor="royaltyRate" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
+                Royalty Rate % *
+                </label>
+                <input
+                  type="number"
+                  id="royaltyRate"
+                  name="royaltyRate"
+                  value={formData.royaltyRate}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                  max="100"
+                className={`input-field ${errors.royaltyRate ? 'border-danger-500 focus:ring-danger-500' : ''}`}
+                  placeholder="Enter 0 if you don't pay fees"
+                />
+              {errors.royaltyRate && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
+              )}
+              </div>
+
               {/* Division Variable Expenses */}
               <div>
               <label htmlFor="divisionVariableExpenses" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
@@ -911,57 +925,6 @@ const Calculator = ({ onAddJob }) => {
                 <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionFixedExpenses}</p>
                 )}
               </div>
-            </div>
-
-            {/* Group 3: Overhead Costs */}
-            <div className="space-y-4">
-            <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
-                Overhead Costs
-              </h4>
-              
-              {/* Royalty Rate */}
-              <div>
-              <label htmlFor="royaltyRate" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                Royalty Rate % *
-                </label>
-                <input
-                  type="number"
-                  id="royaltyRate"
-                  name="royaltyRate"
-                  value={formData.royaltyRate}
-                  onChange={handleInputChange}
-                  step="0.01"
-                  min="0"
-                  max="100"
-                className={`input-field ${errors.royaltyRate ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                  placeholder="Enter 0 if you don't pay fees"
-                />
-              {errors.royaltyRate && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.royaltyRate}</p>
-              )}
-              </div>
-
-              {/* Division Overhead Costs */}
-              <div>
-              <label htmlFor="divisionOverheads" className="block text-sm font-medium mb-2" style={{color: '#1F1F1F'}}>
-                  Division Overhead Costs % *
-                </label>
-                <input
-                  type="number"
-                  id="divisionOverheads"
-                  name="divisionOverheads"
-                  value={formData.divisionOverheads}
-                  onChange={handleInputChange}
-                  step="0.01"
-                  min="0"
-                  max="100"
-                className={`input-field ${errors.divisionOverheads ? 'border-danger-500 focus:ring-danger-500' : ''}`}
-                  placeholder="5.00"
-                />
-                {errors.divisionOverheads && (
-                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">{errors.divisionOverheads}</p>
-                )}
-              </div>
 
               {/* Company Overhead Costs */}
               <div>
@@ -986,7 +949,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
             </div>
 
-            {/* Group 4: Target Profit */}
+            {/* Group 3: Target Profit */}
             <div className="space-y-4">
             <h4 className="text-md font-semibold font-subheader" style={{color: '#1F1F1F'}}>
                 Target Profit
