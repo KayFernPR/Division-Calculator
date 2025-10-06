@@ -132,23 +132,23 @@ const Calculator = ({ onAddJob }) => {
       // Your job $ = Retail Price $ - Required Price $
       const yourJob = retailPrice - requiredPrice
 
-      // Determine profitability status based on "This Job Is" percentage (actual vs required margin)
+      // Determine profitability status based on "You are currently at:" (thisJobIs) and "Which is:" (yourJob)
       let profitabilityStatus = 'neutral'
       
       if (retailPrice > 0) {
         // Check conditions in order of priority based on thisJobIs percentage
-        if (actualNetProfit < 0 && thisJobIs < (0 - targetNetProfit)) {
-          profitabilityStatus = 'below-breakeven' // STOP - Significant loss (Below break-even)
-        } else if (actualNetProfit < 0 || thisJobIs < (targetNetProfit / 2)) {
-          profitabilityStatus = 'extreme-warning' // EXTREME WARNING - Near break-even
-        } else if (actualNetProfit < 0 || thisJobIs < (0 - targetNetProfit)) {
-          profitabilityStatus = 'warning' // Warning - Below target but profitable
-        } else if (thisJobIs >= 5) {
+        if (thisJobIs >= 5) {
           profitabilityStatus = 'jackpot' // 5% or More above target
         } else if (thisJobIs > 0 && thisJobIs < 5) {
           profitabilityStatus = 'winning' // 0-5% above target
         } else if (thisJobIs === 0 || (thisJobIs >= -0.1 && thisJobIs <= 0.1)) {
           profitabilityStatus = 'at-budget' // 0 At Target
+        } else if (actualNetProfit < 0 && thisJobIs < (0 - targetNetProfit)) {
+          profitabilityStatus = 'below-breakeven' // STOP - Significant loss (Below break-even)
+        } else if (actualNetProfit < 0 || thisJobIs < (targetNetProfit / 2)) {
+          profitabilityStatus = 'extreme-warning' // EXTREME WARNING - Near break-even
+        } else if (actualNetProfit < 0 || thisJobIs < (0 - targetNetProfit)) {
+          profitabilityStatus = 'warning' // Warning - Below target but profitable
         } else {
           profitabilityStatus = 'warning' // Default to warning for any other case
         }
