@@ -143,20 +143,21 @@ const Calculator = ({ onAddJob }) => {
         const profitDifference = actualNetProfit - targetNetProfitDollars
         const profitDifferencePercent = targetNetProfitDollars > 0 ? (profitDifference / targetNetProfitDollars) * 100 : 0
         
-        if (profitDifferencePercent >= 5) {
+        // Check conditions in order of priority
+        if (actualNetProfit < 0 && actualNetProfit < (0 - targetNetProfitDollars)) {
+          profitabilityStatus = 'below-breakeven' // STOP - Significant loss (Below break-even)
+        } else if (actualNetProfit < 0 || profitDifferencePercent < (targetNetProfit / 2)) {
+          profitabilityStatus = 'extreme-warning' // EXTREME WARNING - Near break-even
+        } else if (actualNetProfit < 0 || profitDifferencePercent < (0 - targetNetProfit)) {
+          profitabilityStatus = 'warning' // Warning - Below target but profitable
+        } else if (profitDifferencePercent >= 5) {
           profitabilityStatus = 'jackpot' // 5% or More above target
         } else if (profitDifferencePercent > 0 && profitDifferencePercent < 5) {
           profitabilityStatus = 'winning' // 0-5% above target
         } else if (profitDifferencePercent === 0 || (profitDifferencePercent >= -0.1 && profitDifferencePercent <= 0.1)) {
           profitabilityStatus = 'at-budget' // 0 At Target
-        } else if (actualNetProfit < 0 && actualNetProfit < (0 - targetNetProfitDollars)) {
-          profitabilityStatus = 'below-breakeven' // If less than 0 and less than 0-target net profit then Below break-even
-        } else if (actualNetProfit < 0 || profitDifferencePercent < (targetNetProfit / 2)) {
-          profitabilityStatus = 'extreme-warning' // if less than 0 or greater than target net profit / 2 then EXTREME WARNING
-        } else if (actualNetProfit < 0 || profitDifferencePercent < (0 - targetNetProfit)) {
-          profitabilityStatus = 'warning' // If less than 0 or greater than 0-target net profit then Warning
         } else {
-          profitabilityStatus = 'below-breakeven' // Default fallback
+          profitabilityStatus = 'warning' // Default to warning for any other case
         }
       }
 
