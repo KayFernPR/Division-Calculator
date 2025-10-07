@@ -95,21 +95,21 @@ const Calculator = () => {
   }
 
   const calculateResults = () => {
-    const retailPrice = parseFloat(formData.retailPrice) || 0
-    const jobCost = parseFloat(formData.jobCost) || 0
+      const retailPrice = parseFloat(formData.retailPrice) || 0
+      const jobCost = parseFloat(formData.jobCost) || 0
     const royaltyRate = parseFloat(formData.royaltyRate) || 0
-    const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
-    const companyOverheads = parseFloat(formData.companyOverheads) || 0
+      const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
+      const companyOverheads = parseFloat(formData.companyOverheads) || 0
     const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
     const interestTaxesDepreciationAmortization = parseFloat(formData.interestTaxesDepreciationAmortization) || 0
 
     // Calculation flow
     const grossProfit = retailPrice - jobCost
-    const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
+      const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
     const royaltyDollars = retailPrice * (royaltyRate / 100)
     const contributionMargin = grossProfit - divisionOverheadsDollars - royaltyDollars
     const controllableMargin = contributionMargin
-    const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
+      const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
     const operatingIncome = controllableMargin - companyOverheadsDollars
     const actualNetProfit = operatingIncome - interestTaxesDepreciationAmortization
 
@@ -121,10 +121,10 @@ const Calculator = () => {
     const requiredPrice = jobCost / (1 - requiredMargin / 100)
     const yourPrice = retailPrice
     const thisJobIs = requiredMargin - yourProfitMargin
-    const yourJob = retailPrice - requiredPrice
+      const yourJob = retailPrice - requiredPrice
 
     // Profitability status
-    let profitabilityStatus = 'neutral'
+      let profitabilityStatus = 'neutral'
     if (yourProfitMargin > requiredMargin + 5) profitabilityStatus = 'excellent'
     else if (yourProfitMargin > requiredMargin + 2) profitabilityStatus = 'good'
     else if (yourProfitMargin > requiredMargin - 2) profitabilityStatus = 'thin'
@@ -134,23 +134,23 @@ const Calculator = () => {
     const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
     const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
 
-    setResults({
+      setResults({
       grossProfit,
-      divisionOverheadsDollars,
-      royaltyDollars,
+        divisionOverheadsDollars,
+        royaltyDollars,
       contributionMargin,
       controllableMargin,
       companyOverheadsDollars,
       operatingIncome,
       interestTaxesDepreciationAmortization,
-      actualNetProfit,
+        actualNetProfit,
       yourPrice,
       yourProfitMargin,
-      divisionTotalBreakEven,
-      breakEvenPrice,
-      requiredMargin,
+        divisionTotalBreakEven,
+        breakEvenPrice,
+        requiredMargin,
       requiredPrice,
-      thisJobIs,
+        thisJobIs,
       yourJob,
       profitabilityStatus,
       coversOverhead,
@@ -161,23 +161,23 @@ const Calculator = () => {
 
   const validateForm = () => {
     const newErrors = {}
-    
+
     if (!formData.retailPrice || parseFloat(formData.retailPrice) <= 0) {
       newErrors.retailPrice = 'Retail Price must be greater than 0'
     }
-    
+
     if (!formData.jobCost || parseFloat(formData.jobCost) <= 0) {
       newErrors.jobCost = 'Job Cost must be greater than 0'
     }
-    
+
     if (!formData.royaltyRate || parseFloat(formData.royaltyRate) < 0) {
       newErrors.royaltyRate = 'Royalty Rate must be 0 or greater'
     }
-    
+
     if (!formData.divisionOverheads || parseFloat(formData.divisionOverheads) < 0) {
       newErrors.divisionOverheads = 'Division Overhead Costs must be 0 or greater'
     }
-    
+
     if (!formData.companyOverheads || parseFloat(formData.companyOverheads) < 0) {
       newErrors.companyOverheads = 'Company Overhead Costs must be 0 or greater'
     }
@@ -292,8 +292,8 @@ const Calculator = () => {
               <span>📋</span>
               Reference
             </button>
+            </div>
           </div>
-        </div>
 
         {/* Quick Tips and Status Indicators */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -304,13 +304,13 @@ const Calculator = () => {
               Quick Tips
             </h2>
             <ul className="space-y-2 text-blue-800 dark:text-blue-200">
-              <li>• Set your company's break-even percentage first</li>
-              <li>• Target margins should be above break-even</li>
-              <li>• Use the reference table to convert margin to markup</li>
-              <li>• Save jobs to track trends over time</li>
-            </ul>
-          </div>
-
+            <li>• Set your company's break-even percentage first</li>
+            <li>• Target margins should be above break-even</li>
+            <li>• Use the reference table to convert margin to markup</li>
+            <li>• Save jobs to track trends over time</li>
+          </ul>
+        </div>
+        
           {/* Status Indicators */}
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
             <h2 className="text-xl font-semibold text-red-900 dark:text-red-100 mb-4 flex items-center gap-2">
@@ -318,249 +318,447 @@ const Calculator = () => {
               Status Indicators
             </h2>
             <div className="space-y-3 text-red-800 dark:text-red-200">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🏆</span>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🏆</span>
                 <span className="text-sm"><strong>5% or More — Above Target Profit - Jackpot</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🎯</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🎯</span>
                 <span className="text-sm"><strong>0 - 5% — You're Winning</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">✅</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">✅</span>
                 <span className="text-sm"><strong>0 At Margin — Great Job You're At Target</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">⚠️</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">⚠️</span>
                 <span className="text-sm"><strong>0 to (Net Profit)% — Warning — You're Cutting Into Profits</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🚨</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🚨</span>
                 <span className="text-sm"><strong>0 to (Net profit/2) — EXTREME WARNING — You're Almost Paying For The Job</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">⛔</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">⛔</span>
                 <span className="text-sm"><strong>0 - net profit (negative) — Below Break-Even - STOP - DON'T PAY TO DO THE WORK</strong></span>
-              </div>
             </div>
           </div>
         </div>
+      </div>
 
         {/* Calculator and Results */}
         <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
-            {/* Left Panel - Profitability Calculator */}
+            {/* Left Panel - Job Calculator */}
             <div>
               <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
                 <span className="text-green-600">🧮</span>
-                Profitability Calculator
-              </h2>
+          Job Calculator
+          </h2>
           
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Section 1: Job Details */}
-                <div className="space-y-4">
+                {/* Section 1: JOB DETAILS */}
+            <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
-                    Job Details
+                    JOB DETAILS
                   </h3>
                   
                   <div className="space-y-4">
-                    <div>
+              <div>
                       <label htmlFor="jobName" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                        Job Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="jobName"
-                        name="jobName"
+                Job Name or Number *
+                </label>
+                <input
+                  type="text"
+                  id="jobName"
+                  name="jobName"
                         className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white"
-                        placeholder="Enter job name"
-                      />
-                    </div>
-                    
-                    <div>
+                placeholder="Enter job name or number"
+                />
+              </div>
+
+              <div>
                       <label htmlFor="clientName" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                        Carrier
-                      </label>
-                      <input
-                        type="text"
+                Insurance Carrier or Client Name (Optional)
+                </label>
+                <input
+                  type="text"
                         id="clientName"
                         name="clientName"
                         className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white"
-                        placeholder="Enter carrier name"
-                      />
+                placeholder="Enter carrier or client name"
+                />
+              </div>
+
+              <div>
+                      <label htmlFor="division" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                Division (Optional)
+                </label>
+                <input
+                  type="text"
+                  id="division"
+                  name="division"
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white"
+                  placeholder="Enter division name"
+                />
+              </div>
+
+              <div>
+                      <label htmlFor="retailPrice" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                  Retail Price / Charge Out $ *
+                </label>
+                <input
+                  type="number"
+                  id="retailPrice"
+                  name="retailPrice"
+                  value={formData.retailPrice}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
+                          errors.retailPrice ? 'border-red-500' : 'border-neutral-300'
+                        }`}
+                placeholder="10,400.00"
+                />
+                {errors.retailPrice && (
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.retailPrice}</p>
+                )}
+              </div>
+
+              <div>
+                      <label htmlFor="jobCost" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                Job Cost / COGS $ *
+                </label>
+                <input
+                  type="number"
+                  id="jobCost"
+                  name="jobCost"
+                  value={formData.jobCost}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
+                          errors.jobCost ? 'border-red-500' : 'border-neutral-300'
+                        }`}
+                placeholder="8,400.00"
+                />
+                {errors.jobCost && (
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.jobCost}</p>
+                )}
                     </div>
-                  </div>
-                </div>
+              </div>
+            </div>
 
                 {/* Section 2: OVERHEAD COSTS */}
-                <div className="space-y-4">
+            <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
                     OVERHEAD COSTS
                   </h3>
                   
                   <div className="space-y-4">
-                    <div>
+              <div>
                       <label htmlFor="royaltyRate" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                        Royalty Rate % *
-                      </label>
-                      <input
-                        type="number"
-                        id="royaltyRate"
-                        name="royaltyRate"
-                        value={formData.royaltyRate}
-                        onChange={handleInputChange}
-                        step="0.01"
-                        min="0"
+                Royalty Rate % *
+                </label>
+                <input
+                  type="number"
+                  id="royaltyRate"
+                  name="royaltyRate"
+                  value={formData.royaltyRate}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
                           errors.royaltyRate ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="Enter 0 if you don't pay fees"
-                      />
-                      {errors.royaltyRate && (
+                  placeholder="Enter 0 if you don't pay fees"
+                />
+              {errors.royaltyRate && (
                         <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.royaltyRate}</p>
-                      )}
-                    </div>
-                    
-                    <div>
+              )}
+              </div>
+
+              <div>
                       <label htmlFor="divisionOverheads" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                        Division Overhead Costs % *
-                      </label>
-                      <input
-                        type="number"
-                        id="divisionOverheads"
-                        name="divisionOverheads"
-                        value={formData.divisionOverheads}
-                        onChange={handleInputChange}
-                        step="0.01"
-                        min="0"
+                  Division Overhead Costs % *
+                </label>
+                <input
+                  type="number"
+                  id="divisionOverheads"
+                  name="divisionOverheads"
+                  value={formData.divisionOverheads}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
                           errors.divisionOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="5.00"
-                      />
-                      {errors.divisionOverheads && (
+                  placeholder="5.00"
+                />
+                {errors.divisionOverheads && (
                         <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.divisionOverheads}</p>
-                      )}
-                    </div>
-                    
-                    <div>
+                )}
+              </div>
+
+              <div>
                       <label htmlFor="companyOverheads" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                        Company Overhead Costs % *
-                      </label>
-                      <input
-                        type="number"
-                        id="companyOverheads"
-                        name="companyOverheads"
-                        value={formData.companyOverheads}
-                        onChange={handleInputChange}
-                        step="0.01"
-                        min="0"
+                  Company Overhead Costs % *
+                </label>
+                <input
+                  type="number"
+                  id="companyOverheads"
+                  name="companyOverheads"
+                  value={formData.companyOverheads}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
                           errors.companyOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="10.00"
-                      />
-                      {errors.companyOverheads && (
+                  placeholder="10.00"
+                />
+                {errors.companyOverheads && (
                         <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.companyOverheads}</p>
-                      )}
+                )}
                     </div>
-                  </div>
-                </div>
+              </div>
+            </div>
 
                 {/* Section 3: TARGET PROFIT */}
-                <div className="space-y-4">
+            <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
                     TARGET PROFIT
                   </h3>
                   
                   <div className="space-y-4">
-                    <div>
+              <div>
                       <label htmlFor="targetNetProfit" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                        Target Operating Profit % *
-                      </label>
-                      <input
-                        type="number"
-                        id="targetNetProfit"
-                        name="targetNetProfit"
-                        value={formData.targetNetProfit}
-                        onChange={handleInputChange}
-                        step="0.01"
-                        min="0"
+                  Target Operating Profit % *
+                </label>
+                <input
+                  type="number"
+                id="targetNetProfit"
+                name="targetNetProfit"
+                value={formData.targetNetProfit}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
                           errors.targetNetProfit ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="30.00"
-                      />
-                      {errors.targetNetProfit && (
+                  placeholder="30.00"
+                />
+              {errors.targetNetProfit && (
                         <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.targetNetProfit}</p>
-                      )}
+                )}
                     </div>
-                  </div>
-                </div>
+              </div>
+            </div>
 
                 {/* Action Buttons */}
                 <div className="flex gap-4 pt-4">
-                  <button
+              <button
                     type="button"
                     className="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
-                  >
+              >
                     <span>💾</span>
                     Save Job
-                  </button>
-                  <button
-                    type="button"
+              </button>
+          <button
+            type="button"
                     className="flex-1 bg-neutral-500 text-white py-2 px-4 rounded-md hover:bg-neutral-600 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
-                  >
+          >
                     <span>🖨️</span>
                     Print
-                  </button>
-                </div>
-              </form>
+          </button>
             </div>
+          </form>
+        </div>
 
             {/* Right Panel - Results */}
             <div>
               <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
-                <span className="text-gray-500">📊</span>
-                Results
+                <span className="text-blue-600">📊</span>
+                RESULTS
               </h2>
               
               <div className="space-y-3">
-                {/* Retail Price $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Retail Price $:</span>
+                {/* Sales $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Sales $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
                   <span className="font-mono text-sm">{formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
                 </div>
 
-                {/* Job Cost $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Job Cost $:</span>
+                {/* COGS $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">COGS $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
                   <span className="font-mono text-sm">{formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
                 </div>
 
-                {/* Job Cost % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Job Cost %:</span>
+                {/* COGS % */}
+                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">COGS %:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.jobCostPercent)}</span>
                 </div>
 
+                {/* Division Overhead Costs $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Overhead Costs $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
+                </div>
+
+                {/* Company Overhead Costs $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Company Overhead Costs $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.companyOverheadsDollars)}</span>
+                </div>
+
+                {/* Royalty $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Royalty $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
+                </div>
+
                 {/* Actual Contribution Margin % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Contribution Margin %:</span>
+                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Contribution Margin %:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
                 </div>
 
                 {/* Actual Mark-up % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
-                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Mark-up %:</span>
+                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Mark-up %:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.actualMarkup)}</span>
+                </div>
+
+                {/* Contribution Margin $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Contribution Margin $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
+                </div>
+
+                {/* Total Controllable Margin $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Total Controllable Margin $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
+                </div>
+
+                {/* Actual Net Profit $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Net Profit $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.actualNetProfit)}</span>
+                </div>
+
+                {/* Break Even Price $ */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Break Even Price $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
+                </div>
+
+                {/* Division Total Break-Even % */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Total Break-Even %:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatPercentage(results.divisionTotalBreakEven)}</span>
+                </div>
+
+                {/* Required Price $ */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Required Price $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.requiredPrice)}</span>
+                </div>
+
+                {/* Required Margin % */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Required Margin %:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatPercentage(results.requiredMargin)}</span>
+                </div>
+
+                {/* Your Price $ */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Your Price $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.yourPrice)}</span>
+                </div>
+
+                {/* Your Profit Margin is % */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Your Profit Margin is %:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
+                </div>
+
+                {/* You are currently at */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">You are currently at:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatPercentage(results.thisJobIs)}</span>
+                </div>
+
+                {/* Which is */}
+                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Which is:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }
