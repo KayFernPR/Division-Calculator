@@ -283,28 +283,6 @@ const Calculator = () => {
         <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 text-center">
           Calculate job profitability, track margins, and visualize trends for restoration contractors
         </p>
-        
-        {/* Navigation Bar - Updated */}
-        <div className="flex justify-center mb-8">
-          <div className="flex bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 p-1">
-            <button className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md">
-              <span>🧮</span>
-              Calculator
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md">
-              <span>📄</span>
-              History
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md">
-              <span>📊</span>
-              Charts
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md">
-              <span>📋</span>
-              Reference
-            </button>
-            </div>
-          </div>
 
         {/* Quick Tips and Status Indicators */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
