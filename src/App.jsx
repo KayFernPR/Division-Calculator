@@ -135,14 +135,6 @@ function App() {
                  onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           </div>
-          <div className="flex justify-center mb-6">
-            <h1 className="text-4xl font-bold font-header text-center whitespace-nowrap" style={{color: '#1F1F1F'}}>
-              Restoration Division: Profitability Calculator
-            </h1>
-          </div>
-          <p className="text-lg text-center" style={{color: '#1F1F1F'}}>
-            Calculate job profitability, track margins, and visualize trends for restoration contractors
-          </p>
         </header>
 
         {/* Tab Navigation */}
