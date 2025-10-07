@@ -617,6 +617,8 @@ const Calculator = () => {
               </h2>
               
               <div className="space-y-3">
+                {/* GROUP 1: Calculation Flow - with spacing */}
+                <div className="mt-8">
                 {/* Sales $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                 <div className="flex items-center gap-2">
@@ -649,19 +651,19 @@ const Calculator = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Gross Profit Margin %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-              </div>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
-              </div>
+            </div>
 
                 {/* Actual Mark-up % */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Mark-up %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-              </div>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.actualMarkup)}</span>
             </div>
-
+            
                 {/* Actual Gross Profit $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
@@ -676,16 +678,16 @@ const Calculator = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Variable Expenses $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionVariableExpensesDollars)}</span>
-            </div>
-            
+              </div>
+
                 {/* Royalty $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Royalty $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
             </div>
 
@@ -706,14 +708,15 @@ const Calculator = () => {
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
             </div>
-            
+
                 {/* Company Overhead Costs $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Company Overhead Costs $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-              </div>
+                  </div>
                   <span className="font-mono text-sm">{formatCurrency(results.companyOverheadsDollars)}</span>
+                </div>
             </div>
 
                 {/* GROUP 2: Net Profit - with spacing */}
@@ -725,8 +728,8 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.actualNetProfit)}</span>
-            </div>
                 </div>
+            </div>
 
                 {/* GROUP 3: Break-Even and Target Analysis - with spacing */}
                 <div className="mt-8">
@@ -800,8 +803,8 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
-              </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
