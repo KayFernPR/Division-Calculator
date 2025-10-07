@@ -719,10 +719,10 @@ const Calculator = () => {
                 </div>
             </div>
 
-                {/* GROUP 2: Net Profit - with spacing */}
-                <div className="mt-8">
+                {/* GROUP 2: Net Profit - with increased spacing */}
+                <div className="mt-12 mb-12">
                 {/* Actual Net Profit $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                <div className="flex justify-between items-center p-4 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Net Profit $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
