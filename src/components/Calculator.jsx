@@ -41,6 +41,13 @@ const Calculator = () => {
   const [isCalculated, setIsCalculated] = useState(false)
   const resultsRef = useRef(null)
 
+  // Real-time calculation updates
+  useEffect(() => {
+    if (formData.retailPrice && formData.jobCost) {
+      calculateResults()
+    }
+  }, [formData])
+
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -320,11 +327,55 @@ const Calculator = () => {
         </div>
       </div>
 
-        {/* Section 3: Job Calculator */}
+        {/* Section 3: Real-time Results */}
+        <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg p-6 mb-6">
+          <h2 className="text-xl font-semibold text-purple-900 dark:text-purple-100 mb-4 flex items-center gap-2">
+            <span className="text-2xl">⚡</span>
+            Real-time Results
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 text-center">
+              <div className="text-2xl mb-2">
+                {results.profitabilityStatus === 'excellent' && '🏆'}
+                {results.profitabilityStatus === 'good' && '🎯'}
+                {results.profitabilityStatus === 'neutral' && '✅'}
+                {results.profitabilityStatus === 'thin' && '⚠️'}
+                {results.profitabilityStatus === 'poor' && '🚨'}
+              </div>
+              <div className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                {results.profitabilityStatus === 'excellent' && 'Jackpot!'}
+                {results.profitabilityStatus === 'good' && 'You\'re Winning!'}
+                {results.profitabilityStatus === 'neutral' && 'Great Job!'}
+                {results.profitabilityStatus === 'thin' && 'Warning!'}
+                {results.profitabilityStatus === 'poor' && 'EXTREME WARNING!'}
+              </div>
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 text-center">
+              <div className="text-lg font-bold text-green-600 dark:text-green-400">
+                {formatCurrency(results.grossProfit)}
+              </div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400">Gross Profit</div>
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 text-center">
+              <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                {formatPercentage(results.yourProfitMargin)}
+              </div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400">Your Margin</div>
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 text-center">
+              <div className="text-lg font-bold text-purple-600 dark:text-purple-400">
+                {formatPercentage(results.requiredMargin)}
+              </div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400">Required Margin</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 4: Job Calculator */}
         <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6 mb-6">
           <h2 className="text-xl font-semibold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
             <span className="text-2xl">🧮</span>
-          Job Calculator
+            Job Calculator
           </h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -548,12 +599,12 @@ const Calculator = () => {
             </div>
           </form>
 
-        {/* Section 4: Results */}
+        {/* Section 5: Detailed Results */}
         {isCalculated && (
           <div ref={resultsRef} className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6">
             <h2 className="text-2xl font-bold text-green-900 dark:text-green-100 text-center mb-6 flex items-center justify-center gap-2">
               <span className="text-2xl">📊</span>
-              Results
+              Detailed Results
             </h2>
               
               {/* GROUP 1: Calculation Flow */}
