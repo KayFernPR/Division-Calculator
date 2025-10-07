@@ -5,6 +5,7 @@ const Calculator = () => {
     retailPrice: '',
     jobCost: '',
     royaltyRate: '',
+    divisionVariableExpenses: '',
     divisionOverheads: '5.00',
     companyOverheads: '10.00',
     targetNetProfit: '30.00',
@@ -13,6 +14,7 @@ const Calculator = () => {
 
   const [results, setResults] = useState({
     grossProfit: 0,
+    divisionVariableExpensesDollars: 0,
     divisionOverheadsDollars: 0,
     royaltyDollars: 0,
     contributionMargin: 0,
@@ -98,6 +100,7 @@ const Calculator = () => {
       const retailPrice = parseFloat(formData.retailPrice) || 0
       const jobCost = parseFloat(formData.jobCost) || 0
     const royaltyRate = parseFloat(formData.royaltyRate) || 0
+    const divisionVariableExpenses = parseFloat(formData.divisionVariableExpenses) || 0
       const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
       const companyOverheads = parseFloat(formData.companyOverheads) || 0
     const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
@@ -105,10 +108,11 @@ const Calculator = () => {
 
     // Calculation flow
     const grossProfit = retailPrice - jobCost
+    const divisionVariableExpensesDollars = retailPrice * (divisionVariableExpenses / 100)
       const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
     const royaltyDollars = retailPrice * (royaltyRate / 100)
-    const contributionMargin = grossProfit - divisionOverheadsDollars - royaltyDollars
-    const controllableMargin = contributionMargin
+    const contributionMargin = grossProfit - divisionVariableExpensesDollars - royaltyDollars
+    const controllableMargin = contributionMargin - divisionOverheadsDollars
       const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
     const operatingIncome = controllableMargin - companyOverheadsDollars
     const actualNetProfit = operatingIncome - interestTaxesDepreciationAmortization
@@ -134,23 +138,24 @@ const Calculator = () => {
     const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
     const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
 
-      setResults({
+    setResults({
       grossProfit,
-        divisionOverheadsDollars,
-        royaltyDollars,
+      divisionVariableExpensesDollars,
+      divisionOverheadsDollars,
+      royaltyDollars,
       contributionMargin,
       controllableMargin,
       companyOverheadsDollars,
       operatingIncome,
       interestTaxesDepreciationAmortization,
-        actualNetProfit,
+      actualNetProfit,
       yourPrice,
       yourProfitMargin,
-        divisionTotalBreakEven,
-        breakEvenPrice,
-        requiredMargin,
+      divisionTotalBreakEven,
+      breakEvenPrice,
+      requiredMargin,
       requiredPrice,
-        thisJobIs,
+      thisJobIs,
       yourJob,
       profitabilityStatus,
       coversOverhead,
@@ -174,8 +179,12 @@ const Calculator = () => {
       newErrors.royaltyRate = 'Royalty Rate must be 0 or greater'
     }
 
+    if (!formData.divisionVariableExpenses || parseFloat(formData.divisionVariableExpenses) < 0) {
+      newErrors.divisionVariableExpenses = 'Division Variable Expenses must be 0 or greater'
+    }
+
     if (!formData.divisionOverheads || parseFloat(formData.divisionOverheads) < 0) {
-      newErrors.divisionOverheads = 'Division Overhead Costs must be 0 or greater'
+      newErrors.divisionOverheads = 'Division Fixed Expenses must be 0 or greater'
     }
 
     if (!formData.companyOverheads || parseFloat(formData.companyOverheads) < 0) {
@@ -231,6 +240,7 @@ const Calculator = () => {
       retailPrice: '',
       jobCost: '',
       royaltyRate: '',
+      divisionVariableExpenses: '',
       divisionOverheads: '5.00',
       companyOverheads: '10.00',
       targetNetProfit: '30.00',
@@ -238,6 +248,7 @@ const Calculator = () => {
     })
     setResults({
       grossProfit: 0,
+      divisionVariableExpensesDollars: 0,
       divisionOverheadsDollars: 0,
       royaltyDollars: 0,
       contributionMargin: 0,
@@ -479,27 +490,49 @@ const Calculator = () => {
               )}
               </div>
 
-                    <div>
-                      <label htmlFor="divisionOverheads" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                        Division Fixed Expenses % *
+              <div>
+                      <label htmlFor="divisionVariableExpenses" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                        Division Variable Expenses % *
                       </label>
                       <input
                         type="number"
-                        id="divisionOverheads"
-                        name="divisionOverheads"
-                        value={formData.divisionOverheads}
+                        id="divisionVariableExpenses"
+                        name="divisionVariableExpenses"
+                        value={formData.divisionVariableExpenses}
                         onChange={handleInputChange}
                         step="0.01"
                         min="0"
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
-                          errors.divisionOverheads ? 'border-red-500' : 'border-neutral-300'
+                          errors.divisionVariableExpenses ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="5.00"
+                        placeholder="0.00"
                       />
-                      {errors.divisionOverheads && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.divisionOverheads}</p>
+                      {errors.divisionVariableExpenses && (
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.divisionVariableExpenses}</p>
                       )}
                     </div>
+                    
+                    <div>
+                      <label htmlFor="divisionOverheads" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+                        Division Fixed Expenses % *
+                </label>
+                <input
+                  type="number"
+                  id="divisionOverheads"
+                  name="divisionOverheads"
+                  value={formData.divisionOverheads}
+                  onChange={handleInputChange}
+                  step="0.01"
+                  min="0"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
+                          errors.divisionOverheads ? 'border-red-500' : 'border-neutral-300'
+                        }`}
+                  placeholder="5.00"
+                />
+                {errors.divisionOverheads && (
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.divisionOverheads}</p>
+                )}
+              </div>
 
               <div>
                       <label htmlFor="companyOverheads" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
@@ -586,21 +619,21 @@ const Calculator = () => {
               <div className="space-y-3">
                 {/* Sales $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Sales $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
-                  <span className="font-mono text-sm">{formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
                 </div>
+                  <span className="font-mono text-sm">{formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
+              </div>
 
                 {/* COGS $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">COGS $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
-                </div>
+              </div>
 
                 {/* COGS % */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
@@ -609,6 +642,15 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatPercentage(results.jobCostPercent)}</span>
+            </div>
+
+                {/* Division Variable Expenses $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Variable Expenses $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.divisionVariableExpensesDollars)}</span>
                 </div>
 
                 {/* Division Overhead Costs $ */}
@@ -627,8 +669,8 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.companyOverheadsDollars)}</span>
-                </div>
-
+            </div>
+            
                 {/* Royalty $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
@@ -636,25 +678,25 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
-                </div>
+            </div>
 
                 {/* Actual Contribution Margin % */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Contribution Margin %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
-                </div>
+              </div>
 
                 {/* Actual Mark-up % */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Mark-up %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatPercentage(results.actualMarkup)}</span>
-                </div>
+            </div>
 
                 {/* Contribution Margin $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
@@ -663,7 +705,7 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
-                </div>
+            </div>
 
                 {/* Total Controllable Margin $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
@@ -672,7 +714,7 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
-                </div>
+            </div>
 
                 {/* Actual Net Profit $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
@@ -681,25 +723,25 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.actualNetProfit)}</span>
-                </div>
+            </div>
 
                 {/* Break Even Price $ */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Break Even Price $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
-                </div>
+            </div>
 
                 {/* Division Total Break-Even % */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Total Break-Even %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatPercentage(results.divisionTotalBreakEven)}</span>
-                </div>
+            </div>
 
                 {/* Required Price $ */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
@@ -708,17 +750,17 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.requiredPrice)}</span>
-                </div>
+            </div>
 
                 {/* Required Margin % */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Required Margin %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatPercentage(results.requiredMargin)}</span>
-                </div>
-
+            </div>
+            
                 {/* Your Price $ */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
@@ -726,36 +768,36 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.yourPrice)}</span>
-                </div>
+            </div>
 
                 {/* Your Profit Margin is % */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Your Profit Margin is %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
-                </div>
+            </div>
 
                 {/* You are currently at */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">You are currently at:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.thisJobIs)}</span>
                 </div>
+                  <span className="font-mono text-sm">{formatPercentage(results.thisJobIs)}</span>
+            </div>
 
                 {/* Which is */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Which is:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
-                </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
