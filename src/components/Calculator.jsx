@@ -479,27 +479,27 @@ const Calculator = () => {
               )}
               </div>
 
-              <div>
+                    <div>
                       <label htmlFor="divisionOverheads" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                  Division Overhead Costs % *
-                </label>
-                <input
-                  type="number"
-                  id="divisionOverheads"
-                  name="divisionOverheads"
-                  value={formData.divisionOverheads}
-                  onChange={handleInputChange}
-                  step="0.01"
-                  min="0"
+                        Division Fixed Expenses % *
+                      </label>
+                      <input
+                        type="number"
+                        id="divisionOverheads"
+                        name="divisionOverheads"
+                        value={formData.divisionOverheads}
+                        onChange={handleInputChange}
+                        step="0.01"
+                        min="0"
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-white ${
                           errors.divisionOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="5.00"
-                />
-                {errors.divisionOverheads && (
+                        placeholder="5.00"
+                      />
+                      {errors.divisionOverheads && (
                         <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.divisionOverheads}</p>
-                )}
-              </div>
+                      )}
+                    </div>
 
               <div>
                       <label htmlFor="companyOverheads" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
