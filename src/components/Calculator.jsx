@@ -138,24 +138,24 @@ const Calculator = () => {
     const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
     const actualMarkup = jobCost > 0 ? ((retailPrice - jobCost) / jobCost) * 100 : 0
 
-    setResults({
+      setResults({
       grossProfit,
       divisionVariableExpensesDollars,
-      divisionOverheadsDollars,
-      royaltyDollars,
+        divisionOverheadsDollars,
+        royaltyDollars,
       contributionMargin,
       controllableMargin,
       companyOverheadsDollars,
       operatingIncome,
       interestTaxesDepreciationAmortization,
-      actualNetProfit,
+        actualNetProfit,
       yourPrice,
       yourProfitMargin,
-      divisionTotalBreakEven,
-      breakEvenPrice,
-      requiredMargin,
+        divisionTotalBreakEven,
+        breakEvenPrice,
+        requiredMargin,
       requiredPrice,
-      thisJobIs,
+        thisJobIs,
       yourJob,
       profitabilityStatus,
       coversOverhead,
@@ -651,7 +651,7 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionVariableExpensesDollars)}</span>
-                </div>
+            </div>
 
                 {/* Division Fixed Expenses $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
@@ -660,8 +660,8 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
-                </div>
-
+            </div>
+            
                 {/* Company Overhead Costs $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
@@ -670,15 +670,15 @@ const Calculator = () => {
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.companyOverheadsDollars)}</span>
             </div>
-            
+
                 {/* Royalty $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Royalty $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
-            </div>
+              </div>
 
                 {/* Actual Gross Profit Margin % */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
@@ -687,21 +687,21 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
               </div>
                   <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
-              </div>
+            </div>
 
                 {/* Actual Mark-up % */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Mark-up %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-              </div>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.actualMarkup)}</span>
             </div>
 
-                {/* Actual Gross Profit Margin $ */}
+                {/* Actual Gross Profit $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Gross Profit Margin $:</span>
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Gross Profit $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
@@ -721,7 +721,7 @@ const Calculator = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Net Profit $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.actualNetProfit)}</span>
             </div>
 
@@ -739,7 +739,7 @@ const Calculator = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Total Break-Even %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-              </div>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.divisionTotalBreakEven)}</span>
             </div>
 
@@ -748,25 +748,25 @@ const Calculator = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Required Price $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.requiredPrice)}</span>
             </div>
-
+            
                 {/* Required Margin % */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Required Margin %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-              </div>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.requiredMargin)}</span>
             </div>
-            
+
                 {/* Your Price $ */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Your Price $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-                  </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.yourPrice)}</span>
             </div>
 
@@ -775,7 +775,7 @@ const Calculator = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Your Profit Margin is %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
-              </div>
+                  </div>
                   <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
             </div>
 
