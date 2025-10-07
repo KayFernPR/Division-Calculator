@@ -653,10 +653,10 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.divisionVariableExpensesDollars)}</span>
                 </div>
 
-                {/* Division Overhead Costs $ */}
+                {/* Division Fixed Expenses $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Overhead Costs $:</span>
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Fixed Expenses $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
@@ -698,19 +698,19 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatPercentage(results.actualMarkup)}</span>
             </div>
 
-                {/* Contribution Margin $ */}
+                {/* Actual Gross Profit Margin $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Contribution Margin $:</span>
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Actual Gross Profit Margin $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
             </div>
 
-                {/* Total Controllable Margin $ */}
+                {/* Division Controllable Margin $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Total Controllable Margin $:</span>
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Division Controllable Margin $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
