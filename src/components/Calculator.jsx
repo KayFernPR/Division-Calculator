@@ -284,7 +284,7 @@ const Calculator = () => {
           Calculate job profitability, track margins, and visualize trends for restoration contractors
         </p>
         
-        {/* Navigation Bar */}
+        {/* Navigation Bar - Updated */}
         <div className="flex justify-center mb-8">
           <div className="flex bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 p-1">
             <button className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md">
