@@ -3,7 +3,6 @@ import JobTemplates from './JobTemplates'
 
 const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
-    jobName: '',
     retailPrice: '',
     jobCost: '',
     royaltyRate: '',
@@ -172,11 +171,6 @@ const Calculator = ({ onAddJob }) => {
   const validateForm = () => {
     const newErrors = {}
 
-    // Required field: Job Name or Number
-    if (!formData.jobName || formData.jobName.trim() === '') {
-      newErrors.jobName = 'Job Name or Number is required'
-    }
-
     if (!formData.retailPrice || parseFloat(formData.retailPrice) <= 0) {
       newErrors.retailPrice = 'Retail Price must be greater than 0'
     }
@@ -241,19 +235,28 @@ const Calculator = ({ onAddJob }) => {
   }
 
   const handleSaveJob = () => {
-    // Check if form is valid and results are calculated
-    const isValid = validateForm()
-    console.log('Form validation result:', isValid)
+    // Check if calculation fields are valid and results are calculated
+    const isCalculationValid = validateForm()
+    console.log('Calculation validation result:', isCalculationValid)
     console.log('Form data:', formData)
     console.log('Is calculated:', isCalculated)
     
-    if (!isValid) {
-      alert('Please fill in all required fields and calculate results before saving.')
+    if (!isCalculationValid) {
+      alert('Please fill in all required calculation fields and calculate results before saving.')
       return
     }
 
     if (!isCalculated) {
       alert('Please calculate results before saving the job.')
+      return
+    }
+
+    // Check if job name is provided (required for saving to history)
+    const jobNameInput = document.getElementById('jobName')
+    const jobName = jobNameInput ? jobNameInput.value.trim() : ''
+    
+    if (!jobName) {
+      alert('Please enter a Job Name or Number to save this job to history.')
       return
     }
 
@@ -264,6 +267,7 @@ const Calculator = ({ onAddJob }) => {
     // Prepare job data to save
     const jobData = {
       ...formData,
+      jobName: jobName,
       clientName: clientNameInput ? clientNameInput.value : '',
       division: divisionInput ? divisionInput.value : '',
       results: results,
@@ -335,7 +339,6 @@ const Calculator = ({ onAddJob }) => {
 
   const resetForm = () => {
     setFormData({
-      jobName: '',
       retailPrice: '',
       jobCost: '',
       royaltyRate: '',
@@ -419,16 +422,9 @@ const Calculator = ({ onAddJob }) => {
                   type="text"
                   id="jobName"
                   name="jobName"
-                  value={formData.jobName}
-                  onChange={handleInputChange}
-                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
-                          errors.jobName ? 'border-red-500' : 'border-neutral-300'
-                        }`}
+                        className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500   "
                 placeholder="Enter job name or number"
                 />
-                {errors.jobName && (
-                        <p className="mt-1 text-sm text-red-600">{errors.jobName}</p>
-                )}
               </div>
 
               <div>
