@@ -369,12 +369,6 @@ const Calculator = () => {
           </div>
         </div>
 
-        {/* Job Templates */}
-        <div className="mb-8">
-          <JobTemplates onApplyTemplate={applyTemplate} />
-        </div>
-      </div>
-
         {/* Calculator and Results */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" data-calculator-section>
           {/* Job Calculator */}
@@ -823,7 +817,13 @@ const Calculator = () => {
             </div>
           </div>
         </div>
+
+        {/* Job Templates */}
+        <div className="mb-8">
+          <JobTemplates onApplyTemplate={applyTemplate} />
+        </div>
       </div>
+    </div>
     </div>
     </div>
   )
