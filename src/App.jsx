@@ -128,7 +128,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-200">
-      <div className="container mx-auto px-4 py-8">
+      <div className="w-full px-4 py-8">
         {/* Header */}
         <header className="mb-8">
           <div className="flex justify-between items-start mb-4">
