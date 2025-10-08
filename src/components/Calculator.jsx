@@ -809,6 +809,15 @@ const Calculator = ({ onAddJob }) => {
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
                   </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.grossProfit)}</span>
+            </div>
+
+                {/* Division Contribution Margin $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Division Contribution Margin $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                  </div>
                   <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
             </div>
 
