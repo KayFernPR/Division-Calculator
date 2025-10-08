@@ -20,7 +20,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
 
   // Get unique carriers for filter
   const carriers = useMemo(() => {
-    const uniqueCarriers = [...new Set(jobs.map(job => job.insuranceCarrier).filter(Boolean))]
+    const uniqueCarriers = [...new Set(jobs.map(job => job.clientName).filter(Boolean))]
     return uniqueCarriers.sort()
   }, [jobs])
 
@@ -30,7 +30,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
 
     // Filter by carrier
     if (filterCarrier) {
-      filtered = filtered.filter(job => job.insuranceCarrier === filterCarrier)
+      filtered = filtered.filter(job => job.clientName === filterCarrier)
     }
 
     // Sort jobs
@@ -43,16 +43,16 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
           bValue = new Date(b.timestamp)
           break
         case 'margin':
-          aValue = a.actualMargin
-          bValue = b.actualMargin
+          aValue = a.results?.yourProfitMargin || 0
+          bValue = b.results?.yourProfitMargin || 0
           break
         case 'name':
           aValue = a.jobName.toLowerCase()
           bValue = b.jobName.toLowerCase()
           break
         case 'carrier':
-          aValue = (a.insuranceCarrier || '').toLowerCase()
-          bValue = (b.insuranceCarrier || '').toLowerCase()
+          aValue = (a.clientName || '').toLowerCase()
+          bValue = (b.clientName || '').toLowerCase()
           break
         default:
           aValue = new Date(a.timestamp)
@@ -73,8 +73,8 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
   const averages = useMemo(() => {
     if (!showAverages || filteredAndSortedJobs.length === 0) return null
 
-    const totalMargin = filteredAndSortedJobs.reduce((sum, job) => sum + job.actualMargin, 0)
-    const totalMarkup = filteredAndSortedJobs.reduce((sum, job) => sum + job.actualMarkup, 0)
+    const totalMargin = filteredAndSortedJobs.reduce((sum, job) => sum + (job.results?.yourProfitMargin || 0), 0)
+    const totalMarkup = filteredAndSortedJobs.reduce((sum, job) => sum + (job.results?.actualMarkup || 0), 0)
     const totalProfit = filteredAndSortedJobs.reduce((sum, job) => sum + (job.retailPrice - job.jobCost), 0)
 
     return {
