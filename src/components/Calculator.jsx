@@ -104,26 +104,26 @@ const Calculator = ({ onAddJob }) => {
       const companyOverheads = parseFloat(formData.companyOverheads) || 0
     const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
 
-    // Calculation flow
+    // Calculation flow - Updated to match Excel formulas
     const grossProfit = retailPrice - jobCost
-    const divisionVariableExpensesDollars = retailPrice * (divisionVariableExpenses / 100)
-      const divisionOverheadsDollars = retailPrice * (divisionOverheads / 100)
-    const royaltyDollars = retailPrice * (royaltyRate / 100)
-    const contributionMargin = grossProfit - divisionVariableExpensesDollars - royaltyDollars
-    const controllableMargin = contributionMargin - divisionOverheadsDollars
-      const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
-    const operatingIncome = controllableMargin - companyOverheadsDollars
+    const divisionVariableExpensesDollars = (divisionVariableExpenses / 100) * retailPrice
+    const divisionOverheadsDollars = (divisionOverheads / 100) * retailPrice
+    const royaltyDollars = (royaltyRate / 100) * retailPrice
+    const contributionMargin = (retailPrice - jobCost) - (divisionVariableExpenses / 100) * retailPrice - (royaltyRate / 100) * retailPrice
+    const controllableMargin = retailPrice * (1 - divisionVariableExpenses / 100 - royaltyRate / 100 - divisionOverheads / 100) - jobCost
+    const companyOverheadsDollars = (companyOverheads / 100) * retailPrice
+    const operatingIncome = retailPrice * (1 - divisionVariableExpenses / 100 - divisionOverheads / 100 - companyOverheads / 100 - royaltyRate / 100) - jobCost
     const actualNetProfit = operatingIncome
 
-    // Break-even and target analysis
-    const yourProfitMargin = retailPrice > 0 ? (contributionMargin / retailPrice) * 100 : 0
-    const divisionTotalBreakEven = companyOverheads + royaltyRate + divisionOverheads
-    const breakEvenPrice = jobCost / (1 - divisionTotalBreakEven / 100)
-    const requiredMargin = companyOverheads + royaltyRate + divisionOverheads + targetNetProfit
-    const requiredPrice = jobCost / (1 - requiredMargin / 100)
+    // Break-even and target analysis - Updated formulas
+    const yourProfitMargin = retailPrice > 0 ? ((retailPrice - jobCost) / retailPrice) * 100 : 0
+    const divisionTotalBreakEven = (jobCost / retailPrice) * 100 + divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate
+    const breakEvenPrice = jobCost / (1 - (divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate) / 100)
+    const requiredPrice = jobCost / (1 - (divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate + targetNetProfit) / 100)
+    const requiredMargin = ((requiredPrice - jobCost) / requiredPrice) * 100
     const yourPrice = retailPrice
     const thisJobIs = requiredMargin - yourProfitMargin
-      const yourJob = retailPrice - requiredPrice
+    const yourJob = retailPrice - requiredPrice
 
     // Profitability status - more refined thresholds
     let profitabilityStatus = 'neutral'
