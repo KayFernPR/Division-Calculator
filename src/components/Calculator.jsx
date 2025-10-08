@@ -592,7 +592,7 @@ const Calculator = () => {
             {/* Status Indicators */}
             <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
               <h2 className="text-xl font-semibold text-red-900 dark:text-red-100 mb-4 flex items-center gap-2">
-                <span className="text-red-500">📈</span>
+                <span className="text-red-500">🔍</span>
                 Status Indicators
               </h2>
               <div className="text-red-800 dark:text-red-200">
