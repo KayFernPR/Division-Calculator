@@ -345,7 +345,7 @@ const Calculator = () => {
                 Job Calculator
             </h2>
           
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 {/* Section 1: JOB DETAILS */}
             <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
