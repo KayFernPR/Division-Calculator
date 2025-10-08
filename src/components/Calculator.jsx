@@ -3,6 +3,7 @@ import JobTemplates from './JobTemplates'
 
 const Calculator = () => {
   const [formData, setFormData] = useState({
+    jobName: '',
     retailPrice: '',
     jobCost: '',
     royaltyRate: '',
@@ -168,6 +169,11 @@ const Calculator = () => {
   const validateForm = () => {
     const newErrors = {}
 
+    // Required field: Job Name or Number
+    if (!formData.jobName || formData.jobName.trim() === '') {
+      newErrors.jobName = 'Job Name or Number is required'
+    }
+
     if (!formData.retailPrice || parseFloat(formData.retailPrice) <= 0) {
       newErrors.retailPrice = 'Retail Price must be greater than 0'
     }
@@ -278,6 +284,7 @@ const Calculator = () => {
 
   const resetForm = () => {
     setFormData({
+      jobName: '',
       retailPrice: '',
       jobCost: '',
       royaltyRate: '',
@@ -361,9 +368,16 @@ const Calculator = () => {
                   type="text"
                   id="jobName"
                   name="jobName"
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500   "
+                  value={formData.jobName}
+                  onChange={handleInputChange}
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
+                          errors.jobName ? 'border-red-500' : 'border-neutral-300'
+                        }`}
                 placeholder="Enter job name or number"
                 />
+                {errors.jobName && (
+                        <p className="mt-1 text-sm text-red-600">{errors.jobName}</p>
+                )}
               </div>
 
               <div>
@@ -410,7 +424,7 @@ const Calculator = () => {
                 placeholder="10,400.00"
                 />
                 {errors.retailPrice && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.retailPrice}</p>
+                        <p className="mt-1 text-sm text-red-600">{errors.retailPrice}</p>
                 )}
               </div>
 
@@ -432,7 +446,7 @@ const Calculator = () => {
                 placeholder="8,400.00"
                 />
                 {errors.jobCost && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.jobCost}</p>
+                        <p className="mt-1 text-sm text-red-600">{errors.jobCost}</p>
                 )}
                     </div>
               </div>
@@ -463,7 +477,7 @@ const Calculator = () => {
                   placeholder="Enter 0 if you don't pay fees"
                 />
               {errors.royaltyRate && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.royaltyRate}</p>
+                        <p className="mt-1 text-sm text-red-600">{errors.royaltyRate}</p>
               )}
               </div>
 
@@ -485,7 +499,7 @@ const Calculator = () => {
                         placeholder="0.00"
                       />
                       {errors.divisionVariableExpenses && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.divisionVariableExpenses}</p>
+                        <p className="mt-1 text-sm text-red-600">{errors.divisionVariableExpenses}</p>
                       )}
                     </div>
                     
@@ -507,7 +521,7 @@ const Calculator = () => {
                   placeholder="5.00"
                 />
                 {errors.divisionOverheads && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.divisionOverheads}</p>
+                        <p className="mt-1 text-sm text-red-600">{errors.divisionOverheads}</p>
                 )}
               </div>
 
@@ -529,7 +543,7 @@ const Calculator = () => {
                   placeholder="10.00"
                 />
                 {errors.companyOverheads && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.companyOverheads}</p>
+                        <p className="mt-1 text-sm text-red-600">{errors.companyOverheads}</p>
                 )}
                     </div>
               </div>
@@ -560,7 +574,7 @@ const Calculator = () => {
                   placeholder="30.00"
                 />
               {errors.targetNetProfit && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.targetNetProfit}</p>
+                        <p className="mt-1 text-sm text-red-600">{errors.targetNetProfit}</p>
                 )}
                     </div>
               </div>
