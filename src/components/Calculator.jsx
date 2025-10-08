@@ -887,7 +887,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Gross profit amount: Sales minus COGS. This is your profit before overhead costs.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.grossProfit)}</span>
             </div>
@@ -896,7 +902,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Variable Expenses $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Variable expenses for this job: fuel, vehicle maintenance, job-specific supplies, temporary labor.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionVariableExpensesDollars)}</span>
               </div>
@@ -905,7 +917,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Royalty $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Royalty or franchise fees paid on this job based on your royalty rate percentage.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
             </div>
@@ -914,7 +932,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Contribution Margin $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Gross profit minus variable expenses and royalties. Shows contribution to fixed costs.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
             </div>
@@ -923,7 +947,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Fixed Expenses $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Fixed division expenses allocated to this job: rent, utilities, insurance, equipment leases, permanent staff.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
             </div>
@@ -932,7 +962,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Controllable Margin $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Profit after all division costs (variable, fixed, royalties). What division controls.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
             </div>
@@ -941,7 +977,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Company Overhead Costs $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Corporate overhead allocated to this job: admin staff, office rent, accounting, legal, marketing.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.companyOverheadsDollars)}</span>
                 </div>
@@ -953,7 +995,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating Income $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Final profit after all costs: gross profit minus all expenses and overhead. Your net operating income.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
               </div>
                   <span className="font-mono text-sm" style={{fontWeight: 'bold'}}>{formatCurrency(results.actualNetProfit)}</span>
                 </div>
