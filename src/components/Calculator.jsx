@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import JobTemplates from './JobTemplates'
 
-const Calculator = () => {
+const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
     jobName: '',
     retailPrice: '',
@@ -226,6 +226,32 @@ const Calculator = () => {
     }
   }
 
+  const handleSaveJob = () => {
+    // Check if form is valid and results are calculated
+    if (!validateForm()) {
+      alert('Please fill in all required fields and calculate results before saving.')
+      return
+    }
+
+    if (!isCalculated) {
+      alert('Please calculate results before saving the job.')
+      return
+    }
+
+    // Prepare job data to save
+    const jobData = {
+      ...formData,
+      results: results,
+      timestamp: new Date().toISOString()
+    }
+
+    // Call the onAddJob function passed from App component
+    if (onAddJob) {
+      onAddJob(jobData)
+      alert('Job saved successfully!')
+    }
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     let processedValue = value
@@ -329,27 +355,27 @@ const Calculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Left Column */}
           <div className="space-y-6">
-            {/* Quick Tips */}
+          {/* Quick Tips */}
             <div className="border rounded-lg p-6" style={{backgroundColor: '#e0f5d9', borderColor: '#CCF5BC'}}>
-              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
-                <span className="text-yellow-500">💡</span>
-                Quick Tips
-              </h2>
-              <ul className="space-y-2" style={{color: '#1F1F1F'}}>
-              <li>• Set your company's break-even percentage first</li>
-              <li>• Target margins should be above break-even</li>
-              <li>• Use the reference table to convert margin to markup</li>
-              <li>• Save jobs to track trends over time</li>
-              <li>• Print this page for your records</li>
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
+              <span className="text-yellow-500">💡</span>
+              Quick Tips
+            </h2>
+            <ul className="space-y-2" style={{color: '#1F1F1F'}}>
+            <li>• Set your company's break-even percentage first</li>
+            <li>• Target margins should be above break-even</li>
+            <li>• Use the reference table to convert margin to markup</li>
+            <li>• Save jobs to track trends over time</li>
+            <li>• Print this page for your records</li>
               <li>• Review status indicators for job profitability</li>
-            </ul>
-          </div>
-          
-            {/* Job Calculator */}
+          </ul>
+        </div>
+        
+          {/* Job Calculator */}
             <div className="bg-white rounded-lg shadow-lg p-6" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}} data-calculator-section>
               <h2 className="text-2xl font-bold text-neutral-900 mb-4 flex items-center gap-2">
                 <img src="/Calculator.png" alt="Calculator" className="w-6 h-6" />
-                Job Calculator
+              Job Calculator
             </h2>
           
               <form onSubmit={handleSubmit} className="space-y-3">
@@ -584,6 +610,7 @@ const Calculator = () => {
                 <div className="flex gap-4 pt-4">
               <button
                     type="button"
+                    onClick={handleSaveJob}
                     className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
                     style={{backgroundColor: '#63D43E', borderColor: '#63D43E', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
               >
@@ -637,9 +664,9 @@ const Calculator = () => {
                   <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
               </div>
             </div>
-          </div>
+        </div>
 
-            {/* Results */}
+          {/* Results */}
             <div className="bg-white  rounded-lg shadow-lg p-6">
             <h2 className="text-2xl font-bold text-neutral-900  mb-4 flex items-center gap-2">
               <span className="text-blue-600">💲</span>
@@ -835,7 +862,7 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
               </div>
             </div>
-            </div>
+          </div>
           </div>
         </div>
 

@@ -39,13 +39,13 @@ const JobCard = ({ job, onDelete, formatDate }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'success':
-        return 'text-success-600 dark:text-success-400'
+        return 'text-green-600'
       case 'warning':
-        return 'text-warning-600 dark:text-warning-400'
+        return 'text-yellow-600'
       case 'danger':
-        return 'text-danger-600 dark:text-danger-400'
+        return 'text-red-600'
       default:
-        return 'text-neutral-500 dark:text-neutral-400'
+        return 'text-neutral-500'
     }
   }
 
@@ -122,7 +122,7 @@ const JobCard = ({ job, onDelete, formatDate }) => {
             </div>
             <div class="result-row">
               <span class="label">Insurance Carrier:</span>
-              <span class="value">${job.insuranceCarrier || 'N/A'}</span>
+              <span class="value">${job.clientName || 'N/A'}</span>
             </div>
             <div class="result-row">
               <span class="label">Retail Price:</span>
@@ -209,15 +209,15 @@ const JobCard = ({ job, onDelete, formatDate }) => {
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-bold text-neutral-800 dark:text-neutral-200">
+          <h3 className="text-lg font-bold text-neutral-800">
             {job.jobName}
           </h3>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="text-sm text-neutral-500">
             {formatDate(job.timestamp)}
           </p>
-          {job.insuranceCarrier && (
-            <p className="text-sm text-neutral-600 dark:text-neutral-300">
-              📋 {job.insuranceCarrier}
+          {job.clientName && (
+            <p className="text-sm text-neutral-600">
+              📋 {job.clientName}
             </p>
           )}
         </div>
