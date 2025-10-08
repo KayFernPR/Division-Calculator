@@ -697,6 +697,9 @@ const Calculator = ({ onAddJob }) => {
           </button>
             </div>
           </form>
+          
+          {/* Additional padding to match Results box height */}
+          <div className="pt-8"></div>
             </div>
           </div>
 
