@@ -251,51 +251,61 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                 📋 {job.clientName}
               </p>
             )}
-            {/* Financial Overview */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-              <div>
-                <span className="text-sm text-neutral-500">Revenue:</span>
-                <span className="font-bold ml-2">${(job.retailPrice || 0).toLocaleString()}</span>
+            {/* Main Financial Summary - 2 columns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              
+              {/* Left Column: Revenue & Costs */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-neutral-700 border-b border-neutral-200 pb-1">💰 Revenue & Costs</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Revenue:</span>
+                    <span className="font-bold text-lg">${(job.retailPrice || 0).toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Job Cost:</span>
+                    <span className="font-bold text-lg">${(job.jobCost || 0).toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-neutral-100 pt-2">
+                    <span className="text-sm text-neutral-600">Gross Profit:</span>
+                    <span className="font-bold text-lg text-green-600">${(job.results?.grossProfit || 0).toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Net Profit:</span>
+                    <span className="font-bold text-lg text-blue-600">${(job.results?.actualNetProfit || 0).toLocaleString()}</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <span className="text-sm text-neutral-500">Job Cost:</span>
-                <span className="font-bold ml-2">${(job.jobCost || 0).toLocaleString()}</span>
-              </div>
-              <div>
-                <span className="text-sm text-neutral-500">Gross Profit:</span>
-                <span className="font-bold ml-2">${(job.results?.grossProfit || 0).toLocaleString()}</span>
-              </div>
-              <div>
-                <span className="text-sm text-neutral-500">Net Profit:</span>
-                <span className="font-bold ml-2">${(job.results?.actualNetProfit || 0).toLocaleString()}</span>
+
+              {/* Right Column: Margins & Performance */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold text-neutral-700 border-b border-neutral-200 pb-1">📊 Margins & Performance</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Actual Margin:</span>
+                    <span className="font-bold text-lg text-blue-600">{(parseFloat(job.results?.yourProfitMargin) || 0).toFixed(2)}%</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Target Margin:</span>
+                    <span className="font-bold text-lg">{(parseFloat(job.targetNetProfit) || 0).toFixed(2)}%</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Actual Markup:</span>
+                    <span className="font-bold text-lg text-green-600">{(parseFloat(job.results?.actualMarkup) || 0).toFixed(2)}%</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-neutral-600">Break-Even:</span>
+                    <span className="font-bold text-lg">{(parseFloat(job.results?.divisionTotalBreakEven) || 0).toFixed(2)}%</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Margin Analysis */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-              <div>
-                <span className="text-sm text-neutral-500">Actual Margin:</span>
-                <span className="font-bold ml-2 text-blue-600">{(parseFloat(job.results?.yourProfitMargin) || 0).toFixed(2)}%</span>
-              </div>
-              <div>
-                <span className="text-sm text-neutral-500">Actual Markup:</span>
-                <span className="font-bold ml-2 text-green-600">{(parseFloat(job.results?.actualMarkup) || 0).toFixed(2)}%</span>
-              </div>
-              <div>
-                <span className="text-sm text-neutral-500">Target Margin:</span>
-                <span className="font-bold ml-2">{(parseFloat(job.targetNetProfit) || 0).toFixed(2)}%</span>
-              </div>
-              <div>
-                <span className="text-sm text-neutral-500">Break-Even:</span>
-                <span className="font-bold ml-2">{(parseFloat(job.results?.divisionTotalBreakEven) || 0).toFixed(2)}%</span>
-              </div>
-            </div>
-
-            {/* Status and Impact */}
+            {/* Bottom Row: Status & Impact */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <div className="flex items-center">
-                <span className="text-sm text-neutral-500 mr-2">Status:</span>
-                <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+              <div className="text-center">
+                <div className="text-sm text-neutral-600 mb-1">Status</div>
+                <span className={`px-3 py-1 rounded-full text-sm font-bold ${
                   job.results?.profitabilityStatus === 'excellent' ? 'bg-green-100 text-green-800' :
                   job.results?.profitabilityStatus === 'good' ? 'bg-blue-100 text-blue-800' :
                   job.results?.profitabilityStatus === 'neutral' ? 'bg-gray-100 text-gray-800' :
@@ -305,13 +315,13 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                   {(job.results?.profitabilityStatus || 'neutral').toUpperCase()}
                 </span>
               </div>
-              <div>
-                <span className="text-sm text-neutral-500">Required Price:</span>
-                <span className="font-bold ml-2">${(job.results?.requiredPrice || 0).toLocaleString()}</span>
+              <div className="text-center">
+                <div className="text-sm text-neutral-600 mb-1">Required Price</div>
+                <div className="font-bold text-lg">${(job.results?.requiredPrice || 0).toLocaleString()}</div>
               </div>
-              <div>
-                <span className="text-sm text-neutral-500">Job Is:</span>
-                <span className="font-bold ml-2">{(parseFloat(job.results?.thisJobIs) || 0).toFixed(2)}%</span>
+              <div className="text-center">
+                <div className="text-sm text-neutral-600 mb-1">Performance vs Target</div>
+                <div className="font-bold text-lg">{(parseFloat(job.results?.thisJobIs) || 0).toFixed(2)}%</div>
               </div>
             </div>
             <div className="flex space-x-2">
