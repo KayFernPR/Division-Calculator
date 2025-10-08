@@ -125,7 +125,7 @@ const Calculator = ({ onAddJob }) => {
     const thisJobIs = yourProfitMargin - requiredMargin
     const yourJob = retailPrice - requiredPrice
 
-    // Profitability status - Corrected thresholds using marginDifference (yourProfitMargin - requiredMargin)
+    // Profitability status - Balanced thresholds using marginDifference (yourProfitMargin - requiredMargin)
     let profitabilityStatus = 'neutral'
     const marginDifference = yourProfitMargin - requiredMargin
     
@@ -137,12 +137,12 @@ const Calculator = ({ onAddJob }) => {
       profitabilityStatus = 'good' // ≥ 1% (1-5% above target)
     } else if (marginDifference >= -1) {
       profitabilityStatus = 'neutral' // ≥ -1% (within 1% of target)
-    } else if (marginDifference >= -5) {
-      profitabilityStatus = 'thin' // ≥ -5% (1-5% below target)
-    } else if (marginDifference >= -10) {
-      profitabilityStatus = 'poor' // ≥ -10% (5-10% below target)
+    } else if (marginDifference >= -3) {
+      profitabilityStatus = 'thin' // ≥ -3% (1-3% below target) - Warning
+    } else if (marginDifference >= -7) {
+      profitabilityStatus = 'poor' // ≥ -7% (3-7% below target) - Extreme Warning
     } else {
-      profitabilityStatus = 'loss' // < -10% (10%+ below target)
+      profitabilityStatus = 'loss' // < -7% (7%+ below target) - Stop
     }
 
     const coversOverhead = grossProfit >= companyOverheadsDollars
