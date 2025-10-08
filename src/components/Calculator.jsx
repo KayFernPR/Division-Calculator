@@ -278,7 +278,7 @@ const Calculator = ({ onAddJob }) => {
     let processedValue = value
     
     // Auto-format currency inputs
-    if (name === 'retailPrice' || name === 'jobCost' || name === 'interestTaxesDepreciationAmortization') {
+    if (name === 'retailPrice' || name === 'jobCost') {
       // Remove non-numeric characters except decimal point
       processedValue = value.replace(/[^0-9.]/g, '')
       // Ensure only one decimal point
