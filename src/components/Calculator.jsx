@@ -9,8 +9,7 @@ const Calculator = ({ onAddJob }) => {
     divisionVariableExpenses: '',
     divisionOverheads: '5.00',
     companyOverheads: '10.00',
-    targetNetProfit: '30.00',
-    interestTaxesDepreciationAmortization: ''
+    targetNetProfit: '30.00'
   })
 
   const [results, setResults] = useState({
@@ -22,7 +21,6 @@ const Calculator = ({ onAddJob }) => {
     controllableMargin: 0,
     companyOverheadsDollars: 0,
     operatingIncome: 0,
-    interestTaxesDepreciationAmortization: 0,
     actualNetProfit: 0,
     yourPrice: 0,
     yourProfitMargin: 0,
@@ -105,7 +103,6 @@ const Calculator = ({ onAddJob }) => {
       const divisionOverheads = parseFloat(formData.divisionOverheads) || 0
       const companyOverheads = parseFloat(formData.companyOverheads) || 0
     const targetNetProfit = parseFloat(formData.targetNetProfit) || 0
-    const interestTaxesDepreciationAmortization = parseFloat(formData.interestTaxesDepreciationAmortization) || 0
 
     // Calculation flow
     const grossProfit = retailPrice - jobCost
@@ -116,7 +113,7 @@ const Calculator = ({ onAddJob }) => {
     const controllableMargin = contributionMargin - divisionOverheadsDollars
       const companyOverheadsDollars = retailPrice * (companyOverheads / 100)
     const operatingIncome = controllableMargin - companyOverheadsDollars
-    const actualNetProfit = operatingIncome - interestTaxesDepreciationAmortization
+    const actualNetProfit = operatingIncome
 
     // Break-even and target analysis
     const yourProfitMargin = retailPrice > 0 ? (contributionMargin / retailPrice) * 100 : 0
@@ -148,7 +145,6 @@ const Calculator = ({ onAddJob }) => {
       controllableMargin,
       companyOverheadsDollars,
       operatingIncome,
-      interestTaxesDepreciationAmortization,
         actualNetProfit,
       yourPrice,
       yourProfitMargin,
@@ -209,10 +205,6 @@ const Calculator = ({ onAddJob }) => {
       newErrors.targetNetProfit = 'Target Net Profit must be 0 or greater'
     }
     
-    if (!formData.interestTaxesDepreciationAmortization || parseFloat(formData.interestTaxesDepreciationAmortization) < 0) {
-      newErrors.interestTaxesDepreciationAmortization = 'Interest, Taxes, Depreciation, and Amortization must be 0 or greater'
-    }
-
     console.log('Validation errors:', newErrors)
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -345,8 +337,7 @@ const Calculator = ({ onAddJob }) => {
       divisionVariableExpenses: '',
       divisionOverheads: '5.00',
       companyOverheads: '10.00',
-      targetNetProfit: '30.00',
-      interestTaxesDepreciationAmortization: ''
+      targetNetProfit: '30.00'
     })
     setResults({
       grossProfit: 0,
@@ -357,7 +348,6 @@ const Calculator = ({ onAddJob }) => {
       controllableMargin: 0,
       companyOverheadsDollars: 0,
       operatingIncome: 0,
-      interestTaxesDepreciationAmortization: 0,
       actualNetProfit: 0,
       yourPrice: 0,
       yourProfitMargin: 0,
