@@ -76,8 +76,8 @@ function App() {
   const tabs = [
     { id: 'calculator', label: 'Calculator', icon: '🔢' },
     { id: 'history', label: 'History', icon: '📋' },
-    { id: 'chart', label: 'Charts', icon: '📈' },
-    { id: 'reference', label: 'Reference', icon: '📊' }
+    { id: 'chart', label: 'Charts', icon: '📊' },
+    { id: 'reference', label: 'Reference', icon: '📈' }
   ]
 
   // Error boundary component
