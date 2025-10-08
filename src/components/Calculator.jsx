@@ -341,7 +341,7 @@ const Calculator = () => {
             {/* Job Calculator */}
             <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}} data-calculator-section>
               <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
-                <span className="text-green-600">🧮</span>
+                <span className="text-green-600">🔢</span>
                 Job Calculator
             </h2>
           
