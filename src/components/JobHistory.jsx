@@ -129,8 +129,8 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
         </button>
       </div>
 
-      {/* Export Tools - Temporarily disabled for testing */}
-      {/* <ExportTools jobs={filteredAndSortedJobs} /> */}
+      {/* Export Tools */}
+      <ExportTools jobs={filteredAndSortedJobs} />
 
       {/* Controls */}
       <div className="bg-white rounded-xl shadow-lg border border-neutral-200 p-6">
