@@ -941,7 +941,18 @@ const Calculator = ({ onAddJob }) => {
                     <span className="text-sm font-medium text-neutral-700 ">You are currently at:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
                 </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.thisJobIs)}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-sm">{formatPercentage(results.thisJobIs)}</span>
+                    <span className={`text-xs font-medium ${
+                      results.thisJobIs < -1 ? 'text-green-600' : // Above target (negative means above)
+                      results.thisJobIs > 1 ? 'text-red-600' : // Below target (positive means below)
+                      'text-neutral-800' // On target (within 1%)
+                    }`}>
+                      ({results.thisJobIs < -1 ? 'above target' : 
+                        results.thisJobIs > 1 ? 'below target' : 
+                        'on target'})
+                    </span>
+                  </div>
             </div>
 
                 {/* Which is */}
@@ -950,7 +961,18 @@ const Calculator = ({ onAddJob }) => {
                     <span className="text-sm font-medium text-neutral-700 ">Which is:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
                   </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
+                    <span className={`text-xs font-medium ${
+                      results.yourJob < -100 ? 'text-green-600' : // Above target (negative means above)
+                      results.yourJob > 100 ? 'text-red-600' : // Below target (positive means below)
+                      'text-neutral-800' // On target (within $100)
+                    }`}>
+                      ({results.yourJob < -100 ? 'above target' : 
+                        results.yourJob > 100 ? 'below target' : 
+                        'on target'})
+                    </span>
+                  </div>
               </div>
             </div>
           </div>
