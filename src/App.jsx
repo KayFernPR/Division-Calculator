@@ -3,26 +3,13 @@ import Calculator from './components/Calculator'
 import JobHistory from './components/JobHistory'
 import MarginMarkupTable from './components/MarginMarkupTable'
 import ProfitChart from './components/ProfitChart'
-import ThemeToggle from './components/ThemeToggle'
 import MobileEnhancements from './components/MobileEnhancements'
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false)
   const [jobs, setJobs] = useState([])
   const [activeTab, setActiveTab] = useState('calculator')
   const [error, setError] = useState(null)
 
-  // Load dark mode preference from localStorage
-  useEffect(() => {
-    try {
-      const savedDarkMode = localStorage.getItem('darkMode')
-      if (savedDarkMode !== null) {
-        setDarkMode(JSON.parse(savedDarkMode))
-      }
-    } catch (err) {
-      console.error('Error loading dark mode:', err)
-    }
-  }, [])
 
   // Load jobs from localStorage
   useEffect(() => {
@@ -36,19 +23,6 @@ function App() {
     }
   }, [])
 
-  // Save dark mode preference to localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem('darkMode', JSON.stringify(darkMode))
-      if (darkMode) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    } catch (err) {
-      console.error('Error saving dark mode:', err)
-    }
-  }, [darkMode])
 
   // Save jobs to localStorage whenever jobs change
   useEffect(() => {
@@ -127,23 +101,22 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors duration-200">
+    <div className="min-h-screen bg-neutral-50">
       <div className="w-full px-4 py-8">
         {/* Header */}
         <header className="mb-8">
           <div className="flex justify-between items-start mb-4">
             <img src="/logo.svg" alt="Brand Logo" className="h-16 w-auto"
                  onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
-            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
           </div>
         </header>
 
         {/* Main Title and Subtitle */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-neutral-900 mb-2">
             Restoration Division: Profitability Calculator
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+          <p className="text-lg text-neutral-600">
             Calculate job profitability, track margins, and visualize trends for restoration contractors
           </p>
         </div>
@@ -158,7 +131,7 @@ function App() {
                 className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 flex items-center ${
                   activeTab === tab.id
                     ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'
+                    : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300'
                 }`}
               >
                 <span className="mr-2 flex items-center justify-center w-5 h-5">
@@ -198,7 +171,7 @@ function App() {
         </div>
 
         {/* Footer */}
-        <footer className="text-center mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-700">
+        <footer className="text-center mt-12 pt-8 border-t border-neutral-200">
           <p style={{color: '#1F1F1F'}}>
             © 2024 Restoration Profitability Calculator. Built with React + Tailwind CSS
           </p>
