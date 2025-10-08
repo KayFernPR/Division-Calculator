@@ -499,8 +499,9 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
               <div>
-                      <label htmlFor="retailPrice" className="block text-sm font-medium text-neutral-700  mb-1">
+                      <label htmlFor="retailPrice" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                   Retail Price / Charge Out $ *
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help" title="The total amount you charge the customer for this job. This is your revenue before any costs are deducted.">i</span>
                 </label>
                 <input
                   type="number"
@@ -523,8 +524,9 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
               <div>
-                      <label htmlFor="jobCost" className="block text-sm font-medium text-neutral-700  mb-1">
+                      <label htmlFor="jobCost" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                 Job Cost / COGS $ *
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help" title="Direct costs to complete the job: materials, labor, equipment, subcontractors. This is your Cost of Goods Sold (COGS).">i</span>
                 </label>
                 <input
                   type="number"
@@ -556,8 +558,9 @@ const Calculator = ({ onAddJob }) => {
                   
                   <div className="space-y-3">
               <div>
-                      <label htmlFor="royaltyRate" className="block text-sm font-medium text-neutral-700  mb-1">
+                      <label htmlFor="royaltyRate" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                 Royalty Rate % *
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help" title="Percentage of revenue paid to franchisor, brand, or licensing fees. Enter 0 if you don't pay any royalties or fees.">i</span>
                 </label>
                 <input
                   type="number"
@@ -578,8 +581,9 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
               <div>
-                      <label htmlFor="divisionVariableExpenses" className="block text-sm font-medium text-neutral-700  mb-1">
+                      <label htmlFor="divisionVariableExpenses" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                         Division Variable Expenses % *
+                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help" title="Variable costs that change with job volume: fuel, vehicle maintenance, job-specific supplies, temporary labor.">i</span>
                       </label>
                       <input
                         type="number"
@@ -600,8 +604,9 @@ const Calculator = ({ onAddJob }) => {
                     </div>
                     
                     <div>
-                      <label htmlFor="divisionOverheads" className="block text-sm font-medium text-neutral-700  mb-1">
+                      <label htmlFor="divisionOverheads" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                         Division Fixed Expenses % *
+                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help" title="Fixed costs for your division: rent, utilities, insurance, equipment leases, permanent staff salaries.">i</span>
                 </label>
                 <input
                   type="number"
@@ -622,8 +627,9 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
               <div>
-                      <label htmlFor="companyOverheads" className="block text-sm font-medium text-neutral-700  mb-1">
+                      <label htmlFor="companyOverheads" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                   Company Overhead Costs % *
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help" title="Corporate overhead costs: administrative staff, office rent, accounting, legal, marketing, executive salaries.">i</span>
                 </label>
                 <input
                   type="number"
@@ -653,8 +659,9 @@ const Calculator = ({ onAddJob }) => {
                   
                   <div className="space-y-3">
               <div>
-                      <label htmlFor="targetNetProfit" className="block text-sm font-medium text-neutral-700  mb-1">
+                      <label htmlFor="targetNetProfit" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                   Target Operating Profit % *
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help" title="Your desired profit margin percentage. This is the minimum profit you want to achieve on each job to meet business goals.">i</span>
                 </label>
                 <input
                   type="number"
