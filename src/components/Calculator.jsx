@@ -166,6 +166,9 @@ const Calculator = ({ onAddJob }) => {
       jobCostPercent,
       actualMarkup
     })
+    
+    // Set isCalculated to true when results are calculated
+    setIsCalculated(true)
   }
 
   const validateForm = () => {
