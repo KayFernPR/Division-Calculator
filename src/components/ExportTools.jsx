@@ -79,7 +79,7 @@ const ExportTools = ({ jobs, selectedJob }) => {
             </div>
             <div class="row">
               <span class="label">Insurance Carrier:</span>
-              <span class="value">${job.insuranceCarrier || 'N/A'}</span>
+              <span class="value">${job.clientName || 'N/A'}</span>
             </div>
             <div class="row">
               <span class="label">Date:</span>
@@ -99,16 +99,16 @@ const ExportTools = ({ jobs, selectedJob }) => {
             </div>
             <div class="row">
               <span class="label">Gross Profit:</span>
-              <span class="value">${formatCurrency(job.grossProfit)}</span>
+              <span class="value">${formatCurrency(job.results?.contributionMargin || 0)}</span>
             </div>
             <div class="row">
               <span class="label">Actual Net Profit:</span>
-              <span class="value">${formatCurrency(job.actualNetProfit)}</span>
+              <span class="value">${formatCurrency(job.results?.actualNetProfit || 0)}</span>
             </div>
             <div class="row">
               <span class="label">Profitability Status:</span>
               <span class="value">
-                <span class="status ${job.profitabilityStatus}">${job.profitabilityStatus.toUpperCase()}</span>
+                <span class="status ${job.results?.profitabilityStatus || 'neutral'}">${(job.results?.profitabilityStatus || 'neutral').toUpperCase()}</span>
               </span>
             </div>
           </div>
@@ -117,19 +117,19 @@ const ExportTools = ({ jobs, selectedJob }) => {
             <h3>Margin Analysis</h3>
             <div class="row">
               <span class="label">Actual Margin:</span>
-              <span class="value">${formatPercentage(job.yourProfitMargin)}</span>
+              <span class="value">${formatPercentage(job.results?.yourProfitMargin || 0)}</span>
             </div>
             <div class="row">
               <span class="label">Target Margin:</span>
-              <span class="value">${formatPercentage(job.targetNetProfit)}</span>
+              <span class="value">${formatPercentage(job.targetNetProfit || 0)}</span>
             </div>
             <div class="row">
               <span class="label">Margin Difference:</span>
-              <span class="value">${formatPercentage(job.thisJobIs)}</span>
+              <span class="value">${formatPercentage(job.results?.thisJobIs || 0)}</span>
             </div>
             <div class="row">
               <span class="label">Required Price:</span>
-              <span class="value">${formatCurrency(job.requiredPrice)}</span>
+              <span class="value">${formatCurrency(job.results?.requiredPrice || 0)}</span>
             </div>
           </div>
         </body>
@@ -140,8 +140,8 @@ const ExportTools = ({ jobs, selectedJob }) => {
   const generateAllJobsPDF = (jobs) => {
     const totalRevenue = jobs.reduce((sum, job) => sum + (job.retailPrice || 0), 0)
     const totalCosts = jobs.reduce((sum, job) => sum + (job.jobCost || 0), 0)
-    const totalProfit = jobs.reduce((sum, job) => sum + (job.actualNetProfit || 0), 0)
-    const avgMargin = jobs.length > 0 ? jobs.reduce((sum, job) => sum + (job.yourProfitMargin || 0), 0) / jobs.length : 0
+    const totalProfit = jobs.reduce((sum, job) => sum + (job.results?.actualNetProfit || 0), 0)
+    const avgMargin = jobs.length > 0 ? jobs.reduce((sum, job) => sum + (job.results?.yourProfitMargin || 0), 0) / jobs.length : 0
 
     return `
       <!DOCTYPE html>
@@ -219,12 +219,12 @@ const ExportTools = ({ jobs, selectedJob }) => {
                 <tr>
                   <td>${job.jobName}</td>
                   <td>${new Date(job.timestamp).toLocaleDateString()}</td>
-                  <td>${job.insuranceCarrier || 'N/A'}</td>
+                  <td>${job.clientName || 'N/A'}</td>
                   <td>${formatCurrency(job.retailPrice)}</td>
                   <td>${formatCurrency(job.jobCost)}</td>
-                  <td>${formatCurrency(job.actualNetProfit)}</td>
-                  <td>${formatPercentage(job.yourProfitMargin)}</td>
-                  <td><span class="status ${job.profitabilityStatus}">${job.profitabilityStatus.toUpperCase()}</span></td>
+                  <td>${formatCurrency(job.results?.actualNetProfit || 0)}</td>
+                  <td>${formatPercentage(job.results?.yourProfitMargin || 0)}</td>
+                  <td><span class="status ${job.results?.profitabilityStatus || 'neutral'}">${(job.results?.profitabilityStatus || 'neutral').toUpperCase()}</span></td>
                 </tr>
               `).join('')}
             </tbody>
@@ -257,15 +257,15 @@ const ExportTools = ({ jobs, selectedJob }) => {
       ...data.map(job => [
         `"${job.jobName}"`,
         new Date(job.timestamp).toLocaleDateString(),
-        `"${job.insuranceCarrier || ''}"`,
+        `"${job.clientName || ''}"`,
         job.retailPrice || 0,
         job.jobCost || 0,
-        job.grossProfit || 0,
-        job.actualNetProfit || 0,
-        job.yourProfitMargin || 0,
+        job.results?.contributionMargin || 0,
+        job.results?.actualNetProfit || 0,
+        job.results?.yourProfitMargin || 0,
         job.targetNetProfit || 0,
-        job.requiredPrice || 0,
-        `"${job.profitabilityStatus}"`
+        job.results?.requiredPrice || 0,
+        `"${job.results?.profitabilityStatus || 'neutral'}"`
       ].join(','))
     ].join('\n')
     
