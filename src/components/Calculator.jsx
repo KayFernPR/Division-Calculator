@@ -137,12 +137,12 @@ const Calculator = ({ onAddJob }) => {
       profitabilityStatus = 'good' // ≥ 1% (1-5% above target)
     } else if (marginDifference >= -1) {
       profitabilityStatus = 'neutral' // ≥ -1% (within 1% of target)
-    } else if (marginDifference >= -3) {
-      profitabilityStatus = 'thin' // ≥ -3% (1-3% below target) - Warning
-    } else if (marginDifference >= -7) {
-      profitabilityStatus = 'poor' // ≥ -7% (3-7% below target) - Extreme Warning
+    } else if (marginDifference >= -5) {
+      profitabilityStatus = 'thin' // ≥ -5% (1-5% below target) - Warning
+    } else if (marginDifference >= -10) {
+      profitabilityStatus = 'poor' // ≥ -10% (5-10% below target) - Extreme Warning
     } else {
-      profitabilityStatus = 'loss' // < -7% (7%+ below target) - Stop
+      profitabilityStatus = 'loss' // < -10% (10%+ below target) - Stop
     }
 
     const coversOverhead = grossProfit >= companyOverheadsDollars
