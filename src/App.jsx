@@ -137,7 +137,7 @@ function App() {
           </div>
         </header>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation - Updated */}
         <div className="mb-8">
           <div className="flex gap-2 justify-center overflow-x-auto pb-2">
             {tabs.map((tab) => (
