@@ -275,19 +275,19 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div>
                 <span className="text-sm text-neutral-500">Actual Margin:</span>
-                <span className="font-bold ml-2 text-blue-600">{(job.results?.yourProfitMargin || 0).toFixed(2)}%</span>
+                <span className="font-bold ml-2 text-blue-600">{(parseFloat(job.results?.yourProfitMargin) || 0).toFixed(2)}%</span>
               </div>
               <div>
                 <span className="text-sm text-neutral-500">Actual Markup:</span>
-                <span className="font-bold ml-2 text-green-600">{(job.results?.actualMarkup || 0).toFixed(2)}%</span>
+                <span className="font-bold ml-2 text-green-600">{(parseFloat(job.results?.actualMarkup) || 0).toFixed(2)}%</span>
               </div>
               <div>
                 <span className="text-sm text-neutral-500">Target Margin:</span>
-                <span className="font-bold ml-2">{(job.targetNetProfit || 0).toFixed(2)}%</span>
+                <span className="font-bold ml-2">{(parseFloat(job.targetNetProfit) || 0).toFixed(2)}%</span>
               </div>
               <div>
                 <span className="text-sm text-neutral-500">Break-Even:</span>
-                <span className="font-bold ml-2">{(job.results?.divisionTotalBreakEven || 0).toFixed(2)}%</span>
+                <span className="font-bold ml-2">{(parseFloat(job.results?.divisionTotalBreakEven) || 0).toFixed(2)}%</span>
               </div>
             </div>
 
@@ -311,7 +311,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
               </div>
               <div>
                 <span className="text-sm text-neutral-500">Job Is:</span>
-                <span className="font-bold ml-2">{(job.results?.thisJobIs || 0).toFixed(2)}%</span>
+                <span className="font-bold ml-2">{(parseFloat(job.results?.thisJobIs) || 0).toFixed(2)}%</span>
               </div>
             </div>
             <div className="flex space-x-2">
@@ -385,19 +385,19 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                           </div>
                           <div class="row">
                             <span class="label">Actual Margin:</span>
-                            <span class="value">${(job.results?.yourProfitMargin || 0).toFixed(2)}%</span>
+                            <span class="value">${(parseFloat(job.results?.yourProfitMargin) || 0).toFixed(2)}%</span>
                           </div>
                           <div class="row">
                             <span class="label">Actual Markup:</span>
-                            <span class="value">${(job.results?.actualMarkup || 0).toFixed(2)}%</span>
+                            <span class="value">${(parseFloat(job.results?.actualMarkup) || 0).toFixed(2)}%</span>
                           </div>
                           <div class="row">
                             <span class="label">Target Margin:</span>
-                            <span class="value">${(job.targetNetProfit || 0).toFixed(2)}%</span>
+                            <span class="value">${(parseFloat(job.targetNetProfit) || 0).toFixed(2)}%</span>
                           </div>
                           <div class="row">
                             <span class="label">Break-Even %:</span>
-                            <span class="value">${(job.results?.divisionTotalBreakEven || 0).toFixed(2)}%</span>
+                            <span class="value">${(parseFloat(job.results?.divisionTotalBreakEven) || 0).toFixed(2)}%</span>
                           </div>
                         </div>
                         
@@ -409,7 +409,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                           </div>
                           <div class="row">
                             <span class="label">Your Job Is:</span>
-                            <span class="value">${(job.results?.thisJobIs || 0).toFixed(2)}%</span>
+                            <span class="value">${(parseFloat(job.results?.thisJobIs) || 0).toFixed(2)}%</span>
                           </div>
                           <div class="row">
                             <span class="label">Which Is:</span>
