@@ -943,7 +943,11 @@ const Calculator = ({ onAddJob }) => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
                 </div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm">{formatPercentage(results.thisJobIs)}</span>
+                    <span className={`font-mono text-sm ${
+                      results.thisJobIs > 1 ? 'text-green-600' : // Above target (positive means above)
+                      results.thisJobIs < -1 ? 'text-red-600' : // Below target (negative means below)
+                      'text-neutral-800' // On target (within 1%) or default black
+                    }`}>{formatPercentage(results.thisJobIs)}</span>
                     <span className={`text-xs font-medium ${
                       results.thisJobIs > 1 ? 'text-green-600' : // Above target (positive means above)
                       results.thisJobIs < -1 ? 'text-red-600' : // Below target (negative means below)
@@ -963,7 +967,11 @@ const Calculator = ({ onAddJob }) => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
+                    <span className={`font-mono text-sm ${
+                      results.yourJob > 100 ? 'text-green-600' : // Above target (positive means above)
+                      results.yourJob < -100 ? 'text-red-600' : // Below target (negative means below)
+                      'text-neutral-800' // On target (within $100) or default black
+                    }`}>{formatCurrency(results.yourJob)}</span>
                     <span className={`text-xs font-medium ${
                       results.yourJob > 100 ? 'text-green-600' : // Above target (positive means above)
                       results.yourJob < -100 ? 'text-red-600' : // Below target (negative means below)
