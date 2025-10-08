@@ -345,14 +345,14 @@ const Calculator = () => {
                 Job Calculator
             </h2>
           
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Section 1: JOB DETAILS */}
-            <div className="space-y-3">
+            <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     JOB DETAILS
                   </h3>
                   
-                  <div className="space-y-3">
+                  <div className="space-y-4">
               <div>
                       <label htmlFor="jobName" className="block text-sm font-medium text-neutral-700  mb-1">
                 Job Name or Number *
@@ -439,12 +439,12 @@ const Calculator = () => {
             </div>
 
                 {/* Section 2: OVERHEAD COSTS */}
-            <div className="space-y-3">
+            <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     OVERHEAD COSTS
                   </h3>
                   
-                  <div className="space-y-3">
+                  <div className="space-y-4">
               <div>
                       <label htmlFor="royaltyRate" className="block text-sm font-medium text-neutral-700  mb-1">
                 Royalty Rate % *
@@ -536,12 +536,12 @@ const Calculator = () => {
             </div>
 
                 {/* Section 3: TARGET PROFIT */}
-            <div className="space-y-3">
+            <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     TARGET PROFIT
                   </h3>
                   
-                  <div className="space-y-3">
+                  <div className="space-y-4">
               <div>
                       <label htmlFor="targetNetProfit" className="block text-sm font-medium text-neutral-700  mb-1">
                   Target Operating Profit % *
