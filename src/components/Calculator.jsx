@@ -699,7 +699,7 @@ const Calculator = ({ onAddJob }) => {
           </form>
           
           {/* Additional padding to match Results box height */}
-          <div className="pt-12"></div>
+          <div className="pt-16"></div>
             </div>
           </div>
 
