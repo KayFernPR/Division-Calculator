@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import JobCard from './JobCard'
+import ExportTools from './ExportTools'
 
 const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
   const [sortBy, setSortBy] = useState('date')
@@ -125,6 +126,9 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
           🗑️ Clear All
         </button>
       </div>
+
+      {/* Export Tools */}
+      <ExportTools jobs={filteredAndSortedJobs} />
 
       {/* Controls */}
       <div className="card">

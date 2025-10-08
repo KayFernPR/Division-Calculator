@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import JobTemplates from './JobTemplates'
 
 const Calculator = () => {
   const [formData, setFormData] = useState({
@@ -221,9 +222,42 @@ const Calculator = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
+    let processedValue = value
+    
+    // Auto-format currency inputs
+    if (name === 'retailPrice' || name === 'jobCost' || name === 'interestTaxesDepreciationAmortization') {
+      // Remove non-numeric characters except decimal point
+      processedValue = value.replace(/[^0-9.]/g, '')
+      // Ensure only one decimal point
+      const parts = processedValue.split('.')
+      if (parts.length > 2) {
+        processedValue = parts[0] + '.' + parts.slice(1).join('')
+      }
+    }
+    
+    // Auto-format percentage inputs
+    if (name === 'royaltyRate' || name === 'divisionVariableExpenses' || 
+        name === 'divisionOverheads' || name === 'companyOverheads' || 
+        name === 'targetNetProfit') {
+      // Remove non-numeric characters except decimal point
+      processedValue = value.replace(/[^0-9.]/g, '')
+      // Ensure only one decimal point
+      const parts = processedValue.split('.')
+      if (parts.length > 2) {
+        processedValue = parts[0] + '.' + parts.slice(1).join('')
+      }
+      // Limit to 2 decimal places
+      if (processedValue.includes('.')) {
+        const [integer, decimal] = processedValue.split('.')
+        if (decimal && decimal.length > 2) {
+          processedValue = integer + '.' + decimal.substring(0, 2)
+        }
+      }
+    }
+    
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: processedValue
     }))
     
     // Clear error when user starts typing
@@ -233,6 +267,13 @@ const Calculator = () => {
         [name]: ''
       }))
     }
+  }
+
+  const applyTemplate = (templateValues) => {
+    setFormData(prev => ({
+      ...prev,
+      ...templateValues
+    }))
   }
 
   const resetForm = () => {
@@ -327,10 +368,15 @@ const Calculator = () => {
             </div>
           </div>
         </div>
+
+        {/* Job Templates */}
+        <div className="mb-8">
+          <JobTemplates onApplyTemplate={applyTemplate} />
+        </div>
       </div>
 
         {/* Calculator and Results */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" data-calculator-section>
           {/* Job Calculator */}
           <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}}>
             <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">

@@ -4,6 +4,7 @@ import JobHistory from './components/JobHistory'
 import MarginMarkupTable from './components/MarginMarkupTable'
 import ProfitChart from './components/ProfitChart'
 import ThemeToggle from './components/ThemeToggle'
+import MobileEnhancements from './components/MobileEnhancements'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -206,6 +207,9 @@ function App() {
           </p>
         </footer>
       </div>
+      
+      {/* Mobile Enhancements */}
+      <MobileEnhancements />
     </div>
   )
 }
