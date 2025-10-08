@@ -4,6 +4,8 @@ import JobTemplates from './JobTemplates'
 const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
     jobName: '',
+    clientName: '',
+    division: '',
     retailPrice: '',
     jobCost: '',
     royaltyRate: '',
@@ -182,23 +184,28 @@ const Calculator = ({ onAddJob }) => {
       newErrors.jobCost = 'Job Cost must be greater than 0'
     }
 
-    if (!formData.royaltyRate || parseFloat(formData.royaltyRate) < 0) {
+    // Royalty Rate is required (has asterisk) - must be 0 or greater
+    if (formData.royaltyRate === '' || formData.royaltyRate === null || formData.royaltyRate === undefined || parseFloat(formData.royaltyRate) < 0) {
       newErrors.royaltyRate = 'Royalty Rate must be 0 or greater'
     }
 
-    if (!formData.divisionVariableExpenses || parseFloat(formData.divisionVariableExpenses) < 0) {
+    // Division Variable Expenses is required (has asterisk) - must be 0 or greater
+    if (formData.divisionVariableExpenses === '' || formData.divisionVariableExpenses === null || formData.divisionVariableExpenses === undefined || parseFloat(formData.divisionVariableExpenses) < 0) {
       newErrors.divisionVariableExpenses = 'Division Variable Expenses must be 0 or greater'
     }
 
-    if (!formData.divisionOverheads || parseFloat(formData.divisionOverheads) < 0) {
+    // Division Fixed Expenses is required (has asterisk) - must be 0 or greater
+    if (formData.divisionOverheads === '' || formData.divisionOverheads === null || formData.divisionOverheads === undefined || parseFloat(formData.divisionOverheads) < 0) {
       newErrors.divisionOverheads = 'Division Fixed Expenses must be 0 or greater'
     }
 
-    if (!formData.companyOverheads || parseFloat(formData.companyOverheads) < 0) {
+    // Company Overhead Costs is required (has asterisk) - must be 0 or greater
+    if (formData.companyOverheads === '' || formData.companyOverheads === null || formData.companyOverheads === undefined || parseFloat(formData.companyOverheads) < 0) {
       newErrors.companyOverheads = 'Company Overhead Costs must be 0 or greater'
     }
     
-    if (!formData.targetNetProfit || parseFloat(formData.targetNetProfit) < 0) {
+    // Target Net Profit is required (has asterisk) - must be 0 or greater
+    if (formData.targetNetProfit === '' || formData.targetNetProfit === null || formData.targetNetProfit === undefined || parseFloat(formData.targetNetProfit) < 0) {
       newErrors.targetNetProfit = 'Target Net Profit must be 0 or greater'
     }
     
@@ -311,6 +318,8 @@ const Calculator = ({ onAddJob }) => {
   const resetForm = () => {
     setFormData({
       jobName: '',
+      clientName: '',
+      division: '',
       retailPrice: '',
       jobCost: '',
       royaltyRate: '',
@@ -414,6 +423,8 @@ const Calculator = ({ onAddJob }) => {
                   type="text"
                         id="clientName"
                         name="clientName"
+                        value={formData.clientName}
+                        onChange={handleInputChange}
                         className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500   "
                 placeholder="Enter carrier or client name"
                 />
@@ -427,6 +438,8 @@ const Calculator = ({ onAddJob }) => {
                   type="text"
                   id="division"
                   name="division"
+                  value={formData.division}
+                  onChange={handleInputChange}
                         className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500   "
                   placeholder="Enter division name"
                 />
