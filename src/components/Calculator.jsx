@@ -277,13 +277,6 @@ const Calculator = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2 text-center">
-          Restoration Division: Profitability Calculator
-        </h1>
-        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 text-center">
-          Calculate job profitability, track margins, and visualize trends for restoration contractors
-        </p>
-
         {/* Quick Tips and Status Indicators */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Quick Tips */}

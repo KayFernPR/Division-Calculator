@@ -137,6 +137,16 @@ function App() {
           </div>
         </header>
 
+        {/* Main Title and Subtitle */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
+            Restoration Division: Profitability Calculator
+          </h1>
+          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+            Calculate job profitability, track margins, and visualize trends for restoration contractors
+          </p>
+        </div>
+
         {/* Tab Navigation - Positioned below title and subtitle */}
         <div className="mb-8">
           <div className="flex gap-2 justify-center overflow-x-auto pb-2">
