@@ -968,17 +968,17 @@ const Calculator = ({ onAddJob }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`font-mono text-sm ${
-                      results.yourJob > 100 ? 'text-green-600' : // Above target (positive means above)
-                      results.yourJob < -100 ? 'text-red-600' : // Below target (negative means below)
-                      'text-neutral-800' // On target (within $100) or default black
+                      results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
+                      results.yourJob < -200 ? 'text-red-600' : // Below target (negative means below)
+                      'text-neutral-800' // On target (within $200) or default black
                     }`}>{formatCurrency(results.yourJob)}</span>
                     <span className={`text-xs font-medium ${
-                      results.yourJob > 100 ? 'text-green-600' : // Above target (positive means above)
-                      results.yourJob < -100 ? 'text-red-600' : // Below target (negative means below)
-                      'text-neutral-800' // On target (within $100)
+                      results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
+                      results.yourJob < -200 ? 'text-red-600' : // Below target (negative means below)
+                      'text-neutral-800' // On target (within $200)
                     }`}>
-                      ({results.yourJob > 100 ? 'above target' : 
-                        results.yourJob < -100 ? 'below target' : 
+                      ({results.yourJob > 200 ? 'above target' : 
+                        results.yourJob < -200 ? 'below target' : 
                         'on target'})
                     </span>
                   </div>
