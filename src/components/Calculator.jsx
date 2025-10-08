@@ -125,12 +125,23 @@ const Calculator = ({ onAddJob }) => {
     const thisJobIs = requiredMargin - yourProfitMargin
       const yourJob = retailPrice - requiredPrice
 
-    // Profitability status
-      let profitabilityStatus = 'neutral'
-    if (yourProfitMargin > requiredMargin + 5) profitabilityStatus = 'excellent'
-    else if (yourProfitMargin > requiredMargin + 2) profitabilityStatus = 'good'
-    else if (yourProfitMargin > requiredMargin - 2) profitabilityStatus = 'thin'
-    else profitabilityStatus = 'poor'
+    // Profitability status - more refined thresholds
+    let profitabilityStatus = 'neutral'
+    const marginDifference = yourProfitMargin - requiredMargin
+    
+    if (actualNetProfit < 0) {
+      profitabilityStatus = 'loss' // Special case for negative profit
+    } else if (marginDifference >= 10) {
+      profitabilityStatus = 'excellent' // 10%+ above target
+    } else if (marginDifference >= 5) {
+      profitabilityStatus = 'good' // 5-10% above target
+    } else if (marginDifference >= -2) {
+      profitabilityStatus = 'neutral' // Within 2% of target (above or below)
+    } else if (marginDifference >= -5) {
+      profitabilityStatus = 'thin' // 2-5% below target
+    } else {
+      profitabilityStatus = 'poor' // More than 5% below target
+    }
 
     const coversOverhead = grossProfit >= companyOverheadsDollars
     const jobCostPercent = retailPrice > 0 ? (jobCost / retailPrice) * 100 : 0
@@ -167,42 +178,84 @@ const Calculator = ({ onAddJob }) => {
   const validateForm = () => {
     const newErrors = {}
 
-    if (!formData.retailPrice || parseFloat(formData.retailPrice) <= 0) {
-      newErrors.retailPrice = 'Retail Price must be greater than 0'
+    // Retail Price validation
+    if (!formData.retailPrice || formData.retailPrice.trim() === '') {
+      newErrors.retailPrice = 'Retail Price is required'
+    } else {
+      const retailPrice = parseFloat(formData.retailPrice)
+      if (isNaN(retailPrice)) {
+        newErrors.retailPrice = 'Retail Price must be a valid number'
+      } else if (retailPrice <= 0) {
+        newErrors.retailPrice = 'Retail Price must be greater than 0'
+      } else if (retailPrice > 10000000) {
+        newErrors.retailPrice = 'Retail Price seems unusually high (>$10M)'
+      }
     }
 
-    if (!formData.jobCost || parseFloat(formData.jobCost) <= 0) {
-      newErrors.jobCost = 'Job Cost must be greater than 0'
+    // Job Cost validation
+    if (!formData.jobCost || formData.jobCost.trim() === '') {
+      newErrors.jobCost = 'Job Cost is required'
+    } else {
+      const jobCost = parseFloat(formData.jobCost)
+      if (isNaN(jobCost)) {
+        newErrors.jobCost = 'Job Cost must be a valid number'
+      } else if (jobCost <= 0) {
+        newErrors.jobCost = 'Job Cost must be greater than 0'
+      } else if (jobCost > 10000000) {
+        newErrors.jobCost = 'Job Cost seems unusually high (>$10M)'
+      } else if (parseFloat(formData.retailPrice) > 0 && jobCost >= parseFloat(formData.retailPrice)) {
+        newErrors.jobCost = 'Job Cost should be less than Retail Price'
+      }
     }
 
-    // Royalty Rate is required (has asterisk) - must be 0 or greater
+    // Royalty Rate validation
     const royaltyRate = parseFloat(formData.royaltyRate)
-    if (isNaN(royaltyRate) || royaltyRate < 0) {
+    if (isNaN(royaltyRate)) {
+      newErrors.royaltyRate = 'Royalty Rate must be a valid number'
+    } else if (royaltyRate < 0) {
       newErrors.royaltyRate = 'Royalty Rate must be 0 or greater'
+    } else if (royaltyRate > 50) {
+      newErrors.royaltyRate = 'Royalty Rate seems unusually high (>50%)'
     }
 
-    // Division Variable Expenses is required (has asterisk) - must be 0 or greater
+    // Division Variable Expenses validation
     const divisionVariableExpenses = parseFloat(formData.divisionVariableExpenses)
-    if (isNaN(divisionVariableExpenses) || divisionVariableExpenses < 0) {
+    if (isNaN(divisionVariableExpenses)) {
+      newErrors.divisionVariableExpenses = 'Division Variable Expenses must be a valid number'
+    } else if (divisionVariableExpenses < 0) {
       newErrors.divisionVariableExpenses = 'Division Variable Expenses must be 0 or greater'
+    } else if (divisionVariableExpenses > 30) {
+      newErrors.divisionVariableExpenses = 'Division Variable Expenses seems unusually high (>30%)'
     }
 
-    // Division Fixed Expenses is required (has asterisk) - must be 0 or greater
+    // Division Fixed Expenses validation
     const divisionOverheads = parseFloat(formData.divisionOverheads)
-    if (isNaN(divisionOverheads) || divisionOverheads < 0) {
+    if (isNaN(divisionOverheads)) {
+      newErrors.divisionOverheads = 'Division Fixed Expenses must be a valid number'
+    } else if (divisionOverheads < 0) {
       newErrors.divisionOverheads = 'Division Fixed Expenses must be 0 or greater'
+    } else if (divisionOverheads > 20) {
+      newErrors.divisionOverheads = 'Division Fixed Expenses seems unusually high (>20%)'
     }
 
-    // Company Overhead Costs is required (has asterisk) - must be 0 or greater
+    // Company Overhead Costs validation
     const companyOverheads = parseFloat(formData.companyOverheads)
-    if (isNaN(companyOverheads) || companyOverheads < 0) {
+    if (isNaN(companyOverheads)) {
+      newErrors.companyOverheads = 'Company Overhead Costs must be a valid number'
+    } else if (companyOverheads < 0) {
       newErrors.companyOverheads = 'Company Overhead Costs must be 0 or greater'
+    } else if (companyOverheads > 25) {
+      newErrors.companyOverheads = 'Company Overhead Costs seems unusually high (>25%)'
     }
     
-    // Target Net Profit is required (has asterisk) - must be 0 or greater
+    // Target Net Profit validation
     const targetNetProfit = parseFloat(formData.targetNetProfit)
-    if (isNaN(targetNetProfit) || targetNetProfit < 0) {
+    if (isNaN(targetNetProfit)) {
+      newErrors.targetNetProfit = 'Target Net Profit must be a valid number'
+    } else if (targetNetProfit < 0) {
       newErrors.targetNetProfit = 'Target Net Profit must be 0 or greater'
+    } else if (targetNetProfit > 50) {
+      newErrors.targetNetProfit = 'Target Net Profit seems unusually high (>50%)'
     }
     
     console.log('Validation errors:', newErrors)
@@ -455,8 +508,12 @@ const Calculator = ({ onAddJob }) => {
                   onChange={handleInputChange}
                   step="0.01"
                   min="0"
-                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
-                          errors.retailPrice ? 'border-red-500' : 'border-neutral-300'
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
+                          errors.retailPrice 
+                            ? 'border-red-500 focus:ring-red-500 bg-red-50' 
+                            : formData.retailPrice && !errors.retailPrice
+                            ? 'border-green-500 focus:ring-green-500 bg-green-50'
+                            : 'border-neutral-300 focus:ring-blue-500'
                         }`}
                 placeholder="10,400.00"
                 />
@@ -477,8 +534,12 @@ const Calculator = ({ onAddJob }) => {
                   onChange={handleInputChange}
                   step="0.01"
                   min="0"
-                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
-                          errors.jobCost ? 'border-red-500' : 'border-neutral-300'
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
+                          errors.jobCost 
+                            ? 'border-red-500 focus:ring-red-500 bg-red-50' 
+                            : formData.jobCost && !errors.jobCost
+                            ? 'border-green-500 focus:ring-green-500 bg-green-50'
+                            : 'border-neutral-300 focus:ring-blue-500'
                         }`}
                 placeholder="8,400.00"
                 />
@@ -650,32 +711,97 @@ const Calculator = ({ onAddJob }) => {
                 Status Indicators
               </h2>
               <div style={{color: '#1F1F1F'}}>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🏆</span>
-                  <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🎯</span>
-                  <span className="text-sm"><strong>You're Winning!</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">✅</span>
-                  <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">⚠️</span>
-                  <span className="text-sm"><strong>Warning! You're Cutting Into Profits</strong></span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🚨</span>
-                  <span className="text-sm"><strong>EXTREME WARNING! You're Almost Paying For The Job</strong></span>
-              </div>
-              <div className="flex items-center gap-2 -mb-2">
-                <span className="text-2xl">⛔</span>
-                  <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
+                {/* Excellent Status */}
+                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
+                  results.profitabilityStatus === 'excellent' 
+                    ? 'bg-green-100 border-2 border-green-300 shadow-md' 
+                    : 'hover:bg-neutral-50'
+                }`}>
+                  <span className="text-2xl">🏆</span>
+                  <span className="text-sm">
+                    <strong>Jackpot! Above Target Profit</strong>
+                    {results.profitabilityStatus === 'excellent' && (
+                      <span className="ml-2 text-green-700 font-bold">← CURRENT STATUS</span>
+                    )}
+                  </span>
+                </div>
+
+                {/* Good Status */}
+                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
+                  results.profitabilityStatus === 'good' 
+                    ? 'bg-blue-100 border-2 border-blue-300 shadow-md' 
+                    : 'hover:bg-neutral-50'
+                }`}>
+                  <span className="text-2xl">🎯</span>
+                  <span className="text-sm">
+                    <strong>You're Winning!</strong>
+                    {results.profitabilityStatus === 'good' && (
+                      <span className="ml-2 text-blue-700 font-bold">← CURRENT STATUS</span>
+                    )}
+                  </span>
+                </div>
+
+                {/* Neutral Status */}
+                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
+                  results.profitabilityStatus === 'neutral' 
+                    ? 'bg-gray-100 border-2 border-gray-300 shadow-md' 
+                    : 'hover:bg-neutral-50'
+                }`}>
+                  <span className="text-2xl">✅</span>
+                  <span className="text-sm">
+                    <strong>Great Job You're At Target!</strong>
+                    {results.profitabilityStatus === 'neutral' && (
+                      <span className="ml-2 text-gray-700 font-bold">← CURRENT STATUS</span>
+                    )}
+                  </span>
+                </div>
+
+                {/* Thin Status */}
+                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
+                  results.profitabilityStatus === 'thin' 
+                    ? 'bg-yellow-100 border-2 border-yellow-300 shadow-md' 
+                    : 'hover:bg-neutral-50'
+                }`}>
+                  <span className="text-2xl">⚠️</span>
+                  <span className="text-sm">
+                    <strong>Warning! You're Cutting Into Profits</strong>
+                    {results.profitabilityStatus === 'thin' && (
+                      <span className="ml-2 text-yellow-700 font-bold">← CURRENT STATUS</span>
+                    )}
+                  </span>
+                </div>
+
+                {/* Poor Status */}
+                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
+                  results.profitabilityStatus === 'poor' 
+                    ? 'bg-red-100 border-2 border-red-300 shadow-md' 
+                    : 'hover:bg-neutral-50'
+                }`}>
+                  <span className="text-2xl">🚨</span>
+                  <span className="text-sm">
+                    <strong>EXTREME WARNING! You're Almost Paying For The Job</strong>
+                    {results.profitabilityStatus === 'poor' && (
+                      <span className="ml-2 text-red-700 font-bold">← CURRENT STATUS</span>
+                    )}
+                  </span>
+                </div>
+
+                {/* Loss Status - for when actual net profit is negative */}
+                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
+                  results.profitabilityStatus === 'loss' 
+                    ? 'bg-red-200 border-2 border-red-400 shadow-md' 
+                    : 'hover:bg-neutral-50'
+                }`}>
+                  <span className="text-2xl">⛔</span>
+                  <span className="text-sm">
+                    <strong>STOP! DON'T PAY TO DO THE WORK!</strong>
+                    {results.profitabilityStatus === 'loss' && (
+                      <span className="ml-2 text-red-800 font-bold">← CURRENT STATUS</span>
+                    )}
+                  </span>
+                </div>
               </div>
             </div>
-        </div>
 
           {/* Results */}
             <div className="bg-white  rounded-lg shadow-lg p-6">
