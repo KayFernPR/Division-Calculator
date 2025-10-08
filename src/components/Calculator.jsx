@@ -625,14 +625,14 @@ const Calculator = () => {
 
             {/* Results */}
             <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
               <span className="text-blue-600">📊</span>
               RESULTS
             </h2>
               
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {/* GROUP 1: Calculation Flow - with spacing */}
-                <div className="mt-8">
+                <div className="mt-4">
                 {/* Sales $ */}
                 <div className="flex justify-between items-center p-3 border border-neutral-400 bg-neutral-100 dark:bg-neutral-700 rounded-lg">
                 <div className="flex items-center gap-2">
@@ -734,7 +734,7 @@ const Calculator = () => {
             </div>
 
                 {/* GROUP 2: Net Profit - with increased spacing */}
-                <div className="mt-16 mb-16">
+                <div className="mt-6 mb-6">
                 {/* Actual Net Profit $ */}
                 <div className="flex justify-between items-center p-6 border-2 border-green-500 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="flex items-center gap-2">
@@ -746,7 +746,7 @@ const Calculator = () => {
             </div>
 
                 {/* GROUP 3: Break-Even and Target Analysis - with spacing */}
-                <div className="mt-8">
+                <div className="mt-4">
                 {/* Break Even Price $ */}
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white dark:bg-neutral-800 rounded-lg">
                   <div className="flex items-center gap-2">
