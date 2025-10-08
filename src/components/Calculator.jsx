@@ -290,6 +290,7 @@ const Calculator = () => {
             <li>• Target margins should be above break-even</li>
             <li>• Use the reference table to convert margin to markup</li>
             <li>• Save jobs to track trends over time</li>
+            <li>• Print this page for your records</li>
           </ul>
         </div>
         
