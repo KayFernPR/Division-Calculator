@@ -812,15 +812,6 @@ const Calculator = ({ onAddJob }) => {
                   <span className="font-mono text-sm">{formatCurrency(results.grossProfit)}</span>
             </div>
 
-                {/* Division Contribution Margin $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Division Contribution Margin $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
-                  </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
-            </div>
-
                 {/* Division Variable Expenses $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50  rounded-lg">
                   <div className="flex items-center gap-2">
@@ -839,13 +830,13 @@ const Calculator = ({ onAddJob }) => {
                   <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
             </div>
 
-                {/* Division Controllable Margin $ */}
+                {/* Division Contribution Margin $ */}
                 <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Division Controllable Margin $:</span>
+                    <span className="text-sm font-medium text-neutral-700 ">Division Contribution Margin $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
                   </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
+                  <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
             </div>
 
                 {/* Division Fixed Expenses $ */}
@@ -855,6 +846,15 @@ const Calculator = ({ onAddJob }) => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
+            </div>
+
+                {/* Division Controllable Margin $ */}
+                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Division Controllable Margin $:</span>
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                  </div>
+                  <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
             </div>
 
                 {/* Company Overhead Costs $ */}
