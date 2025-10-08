@@ -280,12 +280,12 @@ const Calculator = () => {
         {/* Quick Tips and Status Indicators */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Quick Tips */}
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-4 flex items-center gap-2">
+          <div className="border rounded-lg p-6" style={{backgroundColor: '#CCF5BC', borderColor: '#63D43E'}}>
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
               <span className="text-yellow-500">💡</span>
               Quick Tips
             </h2>
-            <ul className="space-y-2 text-blue-800 dark:text-blue-200">
+            <ul className="space-y-2" style={{color: '#1F1F1F'}}>
             <li>• Set your company's break-even percentage first</li>
             <li>• Target margins should be above break-even</li>
             <li>• Use the reference table to convert margin to markup</li>
