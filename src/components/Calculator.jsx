@@ -318,64 +318,30 @@ const Calculator = () => {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 py-8">
       <div className="w-full px-4">
-        {/* Quick Tips and Status Indicators */}
+        {/* Main Layout - Two Column Structure */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Quick Tips */}
-          <div className="border rounded-lg p-6" style={{backgroundColor: '#CCF5BC', borderColor: '#63D43E'}}>
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
-              <span className="text-yellow-500">💡</span>
-              Quick Tips
-            </h2>
-            <ul className="space-y-2" style={{color: '#1F1F1F'}}>
-            <li>• Set your company's break-even percentage first</li>
-            <li>• Target margins should be above break-even</li>
-            <li>• Use the reference table to convert margin to markup</li>
-            <li>• Save jobs to track trends over time</li>
-            <li>• Print this page for your records</li>
-          </ul>
-        </div>
-        
-          {/* Status Indicators */}
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-red-900 dark:text-red-100 mb-4 flex items-center gap-2">
-              <span className="text-red-500">📈</span>
-              Status Indicators
-            </h2>
-            <div className="space-y-3 text-red-800 dark:text-red-200">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🏆</span>
-                <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🎯</span>
-                <span className="text-sm"><strong>You're Winning!</strong></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✅</span>
-                <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">⚠️</span>
-                <span className="text-sm"><strong>Warning! You're Cutting Into Profits</strong></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🚨</span>
-                <span className="text-sm"><strong>EXTREME WARNING! You're Almost Paying For The Job</strong></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">⛔</span>
-                <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
-            </div>
+          {/* Left Column */}
+          <div className="space-y-6">
+            {/* Quick Tips */}
+            <div className="border rounded-lg p-6" style={{backgroundColor: '#CCF5BC', borderColor: '#63D43E'}}>
+              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
+                <span className="text-yellow-500">💡</span>
+                Quick Tips
+              </h2>
+              <ul className="space-y-2" style={{color: '#1F1F1F'}}>
+              <li>• Set your company's break-even percentage first</li>
+              <li>• Target margins should be above break-even</li>
+              <li>• Use the reference table to convert margin to markup</li>
+              <li>• Save jobs to track trends over time</li>
+              <li>• Print this page for your records</li>
+            </ul>
           </div>
-        </div>
-
-        {/* Calculator and Results */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" data-calculator-section>
-          {/* Job Calculator */}
-          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}}>
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
-              <span className="text-green-600">🧮</span>
-              Job Calculator
+          
+            {/* Job Calculator */}
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}} data-calculator-section>
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
+                <span className="text-green-600">🧮</span>
+                Job Calculator
             </h2>
           
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -617,10 +583,47 @@ const Calculator = () => {
           </button>
             </div>
           </form>
-        </div>
+            </div>
+          </div>
 
-          {/* Results */}
-          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6">
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Status Indicators */}
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-red-900 dark:text-red-100 mb-4 flex items-center gap-2">
+                <span className="text-red-500">📈</span>
+                Status Indicators
+              </h2>
+              <div className="space-y-3 text-red-800 dark:text-red-200">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🏆</span>
+                  <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🎯</span>
+                  <span className="text-sm"><strong>You're Winning!</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">✅</span>
+                  <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">⚠️</span>
+                  <span className="text-sm"><strong>Warning! You're Cutting Into Profits</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🚨</span>
+                  <span className="text-sm"><strong>EXTREME WARNING! You're Almost Paying For The Job</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">⛔</span>
+                  <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
+              </div>
+            </div>
+          </div>
+
+            {/* Results */}
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6">
             <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
               <span className="text-blue-600">📊</span>
               RESULTS
@@ -815,6 +818,7 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
               </div>
             </div>
+            </div>
           </div>
         </div>
 
@@ -823,7 +827,6 @@ const Calculator = () => {
           <JobTemplates onApplyTemplate={applyTemplate} />
         </div>
       </div>
-    </div>
     </div>
     </div>
   )
