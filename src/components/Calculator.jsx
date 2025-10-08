@@ -626,7 +626,7 @@ const Calculator = () => {
             {/* Results */}
             <div className="bg-white  rounded-lg shadow-lg p-6">
             <h2 className="text-2xl font-bold text-neutral-900  mb-4 flex items-center gap-2">
-              <span className="text-blue-600">📊</span>
+              <span className="text-blue-600">💲</span>
               RESULTS
             </h2>
               
