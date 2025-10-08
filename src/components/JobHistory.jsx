@@ -251,30 +251,189 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                 📋 {job.clientName}
               </p>
             )}
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            {/* Financial Overview */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div>
                 <span className="text-sm text-neutral-500">Revenue:</span>
-                <span className="font-bold ml-2">${job.retailPrice || 0}</span>
+                <span className="font-bold ml-2">${(job.retailPrice || 0).toLocaleString()}</span>
               </div>
               <div>
-                <span className="text-sm text-neutral-500">Cost:</span>
-                <span className="font-bold ml-2">${job.jobCost || 0}</span>
+                <span className="text-sm text-neutral-500">Job Cost:</span>
+                <span className="font-bold ml-2">${(job.jobCost || 0).toLocaleString()}</span>
               </div>
               <div>
-                <span className="text-sm text-neutral-500">Margin:</span>
-                <span className="font-bold ml-2">{job.results?.yourProfitMargin?.toFixed(2) || 0}%</span>
+                <span className="text-sm text-neutral-500">Gross Profit:</span>
+                <span className="font-bold ml-2">${(job.results?.grossProfit || 0).toLocaleString()}</span>
               </div>
               <div>
                 <span className="text-sm text-neutral-500">Net Profit:</span>
-                <span className="font-bold ml-2">${job.results?.actualNetProfit?.toFixed(2) || 0}</span>
+                <span className="font-bold ml-2">${(job.results?.actualNetProfit || 0).toLocaleString()}</span>
               </div>
             </div>
-            <button
-              onClick={() => onDeleteJob(job.id)}
-              className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
-            >
-              🗑️ Delete
-            </button>
+
+            {/* Margin Analysis */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              <div>
+                <span className="text-sm text-neutral-500">Actual Margin:</span>
+                <span className="font-bold ml-2 text-blue-600">{(job.results?.yourProfitMargin || 0).toFixed(2)}%</span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Actual Markup:</span>
+                <span className="font-bold ml-2 text-green-600">{(job.results?.actualMarkup || 0).toFixed(2)}%</span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Target Margin:</span>
+                <span className="font-bold ml-2">{(job.targetNetProfit || 0).toFixed(2)}%</span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Break-Even:</span>
+                <span className="font-bold ml-2">{(job.results?.divisionTotalBreakEven || 0).toFixed(2)}%</span>
+              </div>
+            </div>
+
+            {/* Status and Impact */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              <div className="flex items-center">
+                <span className="text-sm text-neutral-500 mr-2">Status:</span>
+                <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                  job.results?.profitabilityStatus === 'excellent' ? 'bg-green-100 text-green-800' :
+                  job.results?.profitabilityStatus === 'good' ? 'bg-blue-100 text-blue-800' :
+                  job.results?.profitabilityStatus === 'neutral' ? 'bg-gray-100 text-gray-800' :
+                  job.results?.profitabilityStatus === 'thin' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {(job.results?.profitabilityStatus || 'neutral').toUpperCase()}
+                </span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Required Price:</span>
+                <span className="font-bold ml-2">${(job.results?.requiredPrice || 0).toLocaleString()}</span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Job Is:</span>
+                <span className="font-bold ml-2">{(job.results?.thisJobIs || 0).toFixed(2)}%</span>
+              </div>
+            </div>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => {
+                  const printWindow = window.open('', '_blank')
+                  printWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                      <head>
+                        <title>Job Report - ${job.jobName}</title>
+                        <style>
+                          body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; color: #333; }
+                          .header { text-align: center; border-bottom: 2px solid #249100; padding-bottom: 20px; margin-bottom: 30px; }
+                          .section { margin-bottom: 30px; }
+                          .row { display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px 0; border-bottom: 1px solid #ebe6e3; }
+                          .row:last-child { border-bottom: none; }
+                          .label { font-weight: bold; color: #907c6d; }
+                          .value { font-family: monospace; font-weight: bold; }
+                          .status-excellent { color: #249100; }
+                          .status-good { color: #3b82f6; }
+                          .status-neutral { color: #6b7280; }
+                          .status-thin { color: #f59e0b; }
+                          .status-poor { color: #ef4444; }
+                        </style>
+                      </head>
+                      <body>
+                        <div class="header">
+                          <h1>Restoration Job Profitability Report</h1>
+                          <h2>${job.jobName}</h2>
+                          <p>Generated on ${new Date().toLocaleDateString()}</p>
+                        </div>
+                        
+                        <div class="section">
+                          <h3>Job Details</h3>
+                          <div class="row">
+                            <span class="label">Job Name:</span>
+                            <span class="value">${job.jobName}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Insurance Carrier:</span>
+                            <span class="value">${job.clientName || 'N/A'}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Division:</span>
+                            <span class="value">${job.division || 'N/A'}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Retail Price:</span>
+                            <span class="value">$${(job.retailPrice || 0).toLocaleString()}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Job Cost:</span>
+                            <span class="value">$${(job.jobCost || 0).toLocaleString()}</span>
+                          </div>
+                        </div>
+                        
+                        <div class="section">
+                          <h3>Profitability Results</h3>
+                          <div class="row">
+                            <span class="label">Status:</span>
+                            <span class="value status-${job.results?.profitabilityStatus || 'neutral'}">${(job.results?.profitabilityStatus || 'neutral').toUpperCase()}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Gross Profit:</span>
+                            <span class="value">$${(job.results?.grossProfit || 0).toLocaleString()}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Actual Net Profit:</span>
+                            <span class="value">$${(job.results?.actualNetProfit || 0).toLocaleString()}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Actual Margin:</span>
+                            <span class="value">${(job.results?.yourProfitMargin || 0).toFixed(2)}%</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Actual Markup:</span>
+                            <span class="value">${(job.results?.actualMarkup || 0).toFixed(2)}%</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Target Margin:</span>
+                            <span class="value">${(job.targetNetProfit || 0).toFixed(2)}%</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Break-Even %:</span>
+                            <span class="value">${(job.results?.divisionTotalBreakEven || 0).toFixed(2)}%</span>
+                          </div>
+                        </div>
+                        
+                        <div class="section">
+                          <h3>Financial Impact</h3>
+                          <div class="row">
+                            <span class="label">Required Price:</span>
+                            <span class="value">$${(job.results?.requiredPrice || 0).toLocaleString()}</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Your Job Is:</span>
+                            <span class="value">${(job.results?.thisJobIs || 0).toFixed(2)}%</span>
+                          </div>
+                          <div class="row">
+                            <span class="label">Which Is:</span>
+                            <span class="value">$${(job.results?.yourJob || 0).toLocaleString()}</span>
+                          </div>
+                        </div>
+                      </body>
+                    </html>
+                  `)
+                  printWindow.document.close()
+                  printWindow.focus()
+                  printWindow.print()
+                }}
+                className="px-3 py-1 bg-neutral-200 text-neutral-700 rounded hover:bg-neutral-300 text-sm"
+              >
+                🖨️ Print
+              </button>
+              <button
+                onClick={() => onDeleteJob(job.id)}
+                className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+              >
+                🗑️ Delete
+              </button>
+            </div>
           </div>
         ))}
       </div>
