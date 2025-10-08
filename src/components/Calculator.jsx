@@ -570,14 +570,16 @@ const Calculator = () => {
                 <div className="flex gap-4 pt-4">
               <button
                     type="button"
-                    className="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+                    style={{backgroundColor: '#63D43E', borderColor: '#63D43E', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
               >
                     <span>💾</span>
                     Save Job
               </button>
           <button
             type="button"
-                    className="flex-1 bg-neutral-500 text-white py-2 px-4 rounded-md hover:bg-neutral-600 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+                    style={{backgroundColor: '#EBE6E3', borderColor: '#EBE6E3', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
           >
                     <span>🖨️</span>
                     Print
