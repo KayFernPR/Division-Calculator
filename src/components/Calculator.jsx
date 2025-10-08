@@ -741,7 +741,7 @@ const Calculator = () => {
                     <span className="text-sm font-medium text-neutral-700 ">Actual Net Profit $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
               </div>
-                  <span className="font-mono text-sm font-bold">{formatCurrency(results.actualNetProfit)}</span>
+                  <span className="font-mono text-sm" style={{fontWeight: 'bold'}}>{formatCurrency(results.actualNetProfit)}</span>
                 </div>
             </div>
 
