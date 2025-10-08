@@ -711,94 +711,29 @@ const Calculator = ({ onAddJob }) => {
                 Status Indicators
               </h2>
               <div style={{color: '#1F1F1F'}}>
-                {/* Excellent Status */}
-                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
-                  results.profitabilityStatus === 'excellent' 
-                    ? 'bg-green-100 border-2 border-green-300 shadow-md' 
-                    : 'hover:bg-neutral-50'
-                }`}>
+                <div className="flex items-center gap-2">
                   <span className="text-2xl">🏆</span>
-                  <span className="text-sm">
-                    <strong>Jackpot! Above Target Profit</strong>
-                    {results.profitabilityStatus === 'excellent' && (
-                      <span className="ml-2 text-green-700 font-bold">← CURRENT STATUS</span>
-                    )}
-                  </span>
+                  <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
                 </div>
-
-                {/* Good Status */}
-                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
-                  results.profitabilityStatus === 'good' 
-                    ? 'bg-blue-100 border-2 border-blue-300 shadow-md' 
-                    : 'hover:bg-neutral-50'
-                }`}>
+                <div className="flex items-center gap-2">
                   <span className="text-2xl">🎯</span>
-                  <span className="text-sm">
-                    <strong>You're Winning!</strong>
-                    {results.profitabilityStatus === 'good' && (
-                      <span className="ml-2 text-blue-700 font-bold">← CURRENT STATUS</span>
-                    )}
-                  </span>
+                  <span className="text-sm"><strong>You're Winning!</strong></span>
                 </div>
-
-                {/* Neutral Status */}
-                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
-                  results.profitabilityStatus === 'neutral' 
-                    ? 'bg-gray-100 border-2 border-gray-300 shadow-md' 
-                    : 'hover:bg-neutral-50'
-                }`}>
+                <div className="flex items-center gap-2">
                   <span className="text-2xl">✅</span>
-                  <span className="text-sm">
-                    <strong>Great Job You're At Target!</strong>
-                    {results.profitabilityStatus === 'neutral' && (
-                      <span className="ml-2 text-gray-700 font-bold">← CURRENT STATUS</span>
-                    )}
-                  </span>
+                  <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
                 </div>
-
-                {/* Thin Status */}
-                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
-                  results.profitabilityStatus === 'thin' 
-                    ? 'bg-yellow-100 border-2 border-yellow-300 shadow-md' 
-                    : 'hover:bg-neutral-50'
-                }`}>
+                <div className="flex items-center gap-2">
                   <span className="text-2xl">⚠️</span>
-                  <span className="text-sm">
-                    <strong>Warning! You're Cutting Into Profits</strong>
-                    {results.profitabilityStatus === 'thin' && (
-                      <span className="ml-2 text-yellow-700 font-bold">← CURRENT STATUS</span>
-                    )}
-                  </span>
+                  <span className="text-sm"><strong>Warning! You're Cutting Into Profits</strong></span>
                 </div>
-
-                {/* Poor Status */}
-                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
-                  results.profitabilityStatus === 'poor' 
-                    ? 'bg-red-100 border-2 border-red-300 shadow-md' 
-                    : 'hover:bg-neutral-50'
-                }`}>
+                <div className="flex items-center gap-2">
                   <span className="text-2xl">🚨</span>
-                  <span className="text-sm">
-                    <strong>EXTREME WARNING! You're Almost Paying For The Job</strong>
-                    {results.profitabilityStatus === 'poor' && (
-                      <span className="ml-2 text-red-700 font-bold">← CURRENT STATUS</span>
-                    )}
-                  </span>
+                  <span className="text-sm"><strong>EXTREME WARNING! You're Almost Paying For The Job</strong></span>
                 </div>
-
-                {/* Loss Status - for when actual net profit is negative */}
-                <div className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-200 ${
-                  results.profitabilityStatus === 'loss' 
-                    ? 'bg-red-200 border-2 border-red-400 shadow-md' 
-                    : 'hover:bg-neutral-50'
-                }`}>
+                <div className="flex items-center gap-2 -mb-2">
                   <span className="text-2xl">⛔</span>
-                  <span className="text-sm">
-                    <strong>STOP! DON'T PAY TO DO THE WORK!</strong>
-                    {results.profitabilityStatus === 'loss' && (
-                      <span className="ml-2 text-red-800 font-bold">← CURRENT STATUS</span>
-                    )}
-                  </span>
+                  <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
                 </div>
               </div>
             </div>
@@ -808,6 +743,16 @@ const Calculator = ({ onAddJob }) => {
             <h2 className="text-2xl font-bold text-neutral-900  mb-4 flex items-center gap-2">
               <span className="text-blue-600">💲</span>
               Results
+              {isCalculated && (
+                <span className="ml-2 text-lg font-semibold">
+                  {results.profitabilityStatus === 'excellent' && '🏆 Jackpot! Above Target Profit'}
+                  {results.profitabilityStatus === 'good' && '🎯 You\'re Winning!'}
+                  {results.profitabilityStatus === 'neutral' && '✅ Great Job You\'re At Target!'}
+                  {results.profitabilityStatus === 'thin' && '⚠️ Warning! You\'re Cutting Into Profits'}
+                  {results.profitabilityStatus === 'poor' && '🚨 EXTREME WARNING! You\'re Almost Paying For The Job'}
+                  {results.profitabilityStatus === 'loss' && '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
+                </span>
+              )}
             </h2>
               
               <div className="space-y-2">
