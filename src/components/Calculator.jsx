@@ -302,27 +302,27 @@ const Calculator = () => {
             <div className="space-y-3 text-red-800 dark:text-red-200">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🏆</span>
-                <span className="text-sm"><strong>5% or More — Above Target Profit - Jackpot</strong></span>
+                <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🎯</span>
-                <span className="text-sm"><strong>0 - 5% — You're Winning</strong></span>
+                <span className="text-sm"><strong>You're Winning!</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">✅</span>
-                <span className="text-sm"><strong>0 At Margin — Great Job You're At Target</strong></span>
+                <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⚠️</span>
-                <span className="text-sm"><strong>0 to (Net Profit)% — Warning — You're Cutting Into Profits</strong></span>
+                <span className="text-sm"><strong>Warning! You're Cutting Into Profits</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🚨</span>
-                <span className="text-sm"><strong>0 to (Net profit/2) — EXTREME WARNING — You're Almost Paying For The Job</strong></span>
+                <span className="text-sm"><strong>EXTREME WARNING! You're Almost Paying For The Job</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">⛔</span>
-                <span className="text-sm"><strong>0 - net profit (negative) — Below Break-Even - STOP - DON'T PAY TO DO THE WORK</strong></span>
+                <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
             </div>
           </div>
         </div>
