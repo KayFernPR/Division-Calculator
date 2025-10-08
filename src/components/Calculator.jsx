@@ -368,7 +368,7 @@ const Calculator = () => {
 
               <div>
                       <label htmlFor="clientName" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                Insurance Carrier or Client Name (Optional)
+                Insurance Carrier or Client Name
                 </label>
                 <input
                   type="text"
@@ -381,7 +381,7 @@ const Calculator = () => {
 
               <div>
                       <label htmlFor="division" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
-                Division (Optional)
+                Division
                 </label>
                 <input
                   type="text"
