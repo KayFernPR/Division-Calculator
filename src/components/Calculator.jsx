@@ -4,8 +4,6 @@ import JobTemplates from './JobTemplates'
 const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
     jobName: '',
-    clientName: '',
-    division: '',
     retailPrice: '',
     jobCost: '',
     royaltyRate: '',
@@ -259,9 +257,15 @@ const Calculator = ({ onAddJob }) => {
       return
     }
 
+    // Get optional field values directly from DOM
+    const clientNameInput = document.getElementById('clientName')
+    const divisionInput = document.getElementById('division')
+    
     // Prepare job data to save
     const jobData = {
       ...formData,
+      clientName: clientNameInput ? clientNameInput.value : '',
+      division: divisionInput ? divisionInput.value : '',
       results: results,
       timestamp: new Date().toISOString()
     }
@@ -332,8 +336,6 @@ const Calculator = ({ onAddJob }) => {
   const resetForm = () => {
     setFormData({
       jobName: '',
-      clientName: '',
-      division: '',
       retailPrice: '',
       jobCost: '',
       royaltyRate: '',
@@ -437,8 +439,6 @@ const Calculator = ({ onAddJob }) => {
                   type="text"
                         id="clientName"
                         name="clientName"
-                        value={formData.clientName}
-                        onChange={handleInputChange}
                         className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500   "
                 placeholder="Enter carrier or client name"
                 />
@@ -452,8 +452,6 @@ const Calculator = ({ onAddJob }) => {
                   type="text"
                   id="division"
                   name="division"
-                  value={formData.division}
-                  onChange={handleInputChange}
                         className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500   "
                   placeholder="Enter division name"
                 />
