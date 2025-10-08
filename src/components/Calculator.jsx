@@ -616,7 +616,7 @@ const Calculator = () => {
                 <span className="text-2xl">🚨</span>
                   <span className="text-sm"><strong>EXTREME WARNING! You're Almost Paying For The Job</strong></span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 -mb-2">
                 <span className="text-2xl">⛔</span>
                   <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
               </div>
