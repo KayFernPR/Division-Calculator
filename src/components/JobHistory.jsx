@@ -8,6 +8,8 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
   const [filterCarrier, setFilterCarrier] = useState('')
   const [showAverages, setShowAverages] = useState(false)
 
+  console.log('JobHistory component rendered with jobs:', jobs)
+
   const formatDate = (timestamp) => {
     return new Date(timestamp).toLocaleDateString('en-US', {
       year: 'numeric',

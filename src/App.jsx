@@ -152,11 +152,20 @@ function App() {
 
           {/* History Tab */}
           {activeTab === 'history' && (
-            <JobHistory 
-              jobs={jobs} 
-              onDeleteJob={deleteJob} 
-              onClearHistory={clearHistory}
-            />
+            <div>
+              <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+                <p className="text-sm">Debug: Jobs count: {jobs.length}</p>
+                <p className="text-sm">Debug: Active tab: {activeTab}</p>
+                {jobs.length > 0 && (
+                  <p className="text-sm">Debug: First job: {JSON.stringify(jobs[0], null, 2)}</p>
+                )}
+              </div>
+              <JobHistory 
+                jobs={jobs} 
+                onDeleteJob={deleteJob} 
+                onClearHistory={clearHistory}
+              />
+            </div>
           )}
 
           {/* Chart Tab */}
