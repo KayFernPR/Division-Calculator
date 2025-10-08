@@ -125,22 +125,24 @@ const Calculator = ({ onAddJob }) => {
     const thisJobIs = yourProfitMargin - requiredMargin
     const yourJob = retailPrice - requiredPrice
 
-    // Profitability status - more refined thresholds
+    // Profitability status - Excel style thresholds using marginDifference (yourProfitMargin - requiredMargin)
     let profitabilityStatus = 'neutral'
     const marginDifference = yourProfitMargin - requiredMargin
     
     if (actualNetProfit < 0) {
       profitabilityStatus = 'loss' // Special case for negative profit
-    } else if (marginDifference >= 10) {
-      profitabilityStatus = 'excellent' // 10%+ above target
-    } else if (marginDifference >= 5) {
-      profitabilityStatus = 'good' // 5-10% above target
-    } else if (marginDifference >= -2) {
-      profitabilityStatus = 'neutral' // Within 2% of target (above or below)
-    } else if (marginDifference >= -5) {
-      profitabilityStatus = 'thin' // 2-5% below target
+    } else if (marginDifference <= -0.05) {
+      profitabilityStatus = 'excellent' // ≤ -5% (5%+ above target)
+    } else if (marginDifference <= -0.01) {
+      profitabilityStatus = 'good' // ≤ -1% (1-5% above target)
+    } else if (marginDifference <= 0.0099) {
+      profitabilityStatus = 'neutral' // ≤ 0.99% (within 1% of target)
+    } else if (marginDifference <= 0.0499) {
+      profitabilityStatus = 'thin' // ≤ 4.99% (1-5% below target)
+    } else if (marginDifference <= 0.0999) {
+      profitabilityStatus = 'poor' // ≤ 9.99% (5-10% below target)
     } else {
-      profitabilityStatus = 'poor' // More than 5% below target
+      profitabilityStatus = 'loss' // > 9.99% (10%+ below target)
     }
 
     const coversOverhead = grossProfit >= companyOverheadsDollars
