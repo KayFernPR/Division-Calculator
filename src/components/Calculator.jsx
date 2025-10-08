@@ -185,27 +185,32 @@ const Calculator = ({ onAddJob }) => {
     }
 
     // Royalty Rate is required (has asterisk) - must be 0 or greater
-    if (formData.royaltyRate === '' || formData.royaltyRate === null || formData.royaltyRate === undefined || parseFloat(formData.royaltyRate) < 0) {
+    const royaltyRate = parseFloat(formData.royaltyRate)
+    if (isNaN(royaltyRate) || royaltyRate < 0) {
       newErrors.royaltyRate = 'Royalty Rate must be 0 or greater'
     }
 
     // Division Variable Expenses is required (has asterisk) - must be 0 or greater
-    if (formData.divisionVariableExpenses === '' || formData.divisionVariableExpenses === null || formData.divisionVariableExpenses === undefined || parseFloat(formData.divisionVariableExpenses) < 0) {
+    const divisionVariableExpenses = parseFloat(formData.divisionVariableExpenses)
+    if (isNaN(divisionVariableExpenses) || divisionVariableExpenses < 0) {
       newErrors.divisionVariableExpenses = 'Division Variable Expenses must be 0 or greater'
     }
 
     // Division Fixed Expenses is required (has asterisk) - must be 0 or greater
-    if (formData.divisionOverheads === '' || formData.divisionOverheads === null || formData.divisionOverheads === undefined || parseFloat(formData.divisionOverheads) < 0) {
+    const divisionOverheads = parseFloat(formData.divisionOverheads)
+    if (isNaN(divisionOverheads) || divisionOverheads < 0) {
       newErrors.divisionOverheads = 'Division Fixed Expenses must be 0 or greater'
     }
 
     // Company Overhead Costs is required (has asterisk) - must be 0 or greater
-    if (formData.companyOverheads === '' || formData.companyOverheads === null || formData.companyOverheads === undefined || parseFloat(formData.companyOverheads) < 0) {
+    const companyOverheads = parseFloat(formData.companyOverheads)
+    if (isNaN(companyOverheads) || companyOverheads < 0) {
       newErrors.companyOverheads = 'Company Overhead Costs must be 0 or greater'
     }
     
     // Target Net Profit is required (has asterisk) - must be 0 or greater
-    if (formData.targetNetProfit === '' || formData.targetNetProfit === null || formData.targetNetProfit === undefined || parseFloat(formData.targetNetProfit) < 0) {
+    const targetNetProfit = parseFloat(formData.targetNetProfit)
+    if (isNaN(targetNetProfit) || targetNetProfit < 0) {
       newErrors.targetNetProfit = 'Target Net Profit must be 0 or greater'
     }
     
@@ -213,6 +218,7 @@ const Calculator = ({ onAddJob }) => {
       newErrors.interestTaxesDepreciationAmortization = 'Interest, Taxes, Depreciation, and Amortization must be 0 or greater'
     }
 
+    console.log('Validation errors:', newErrors)
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -235,7 +241,12 @@ const Calculator = ({ onAddJob }) => {
 
   const handleSaveJob = () => {
     // Check if form is valid and results are calculated
-    if (!validateForm()) {
+    const isValid = validateForm()
+    console.log('Form validation result:', isValid)
+    console.log('Form data:', formData)
+    console.log('Is calculated:', isCalculated)
+    
+    if (!isValid) {
       alert('Please fill in all required fields and calculate results before saving.')
       return
     }
