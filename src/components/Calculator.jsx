@@ -330,13 +330,11 @@ const Calculator = () => {
       </div>
 
         {/* Calculator and Results */}
-        <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* Left Panel - Job Calculator */}
-            <div>
-              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
-                <span className="text-green-600">🧮</span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Job Calculator */}
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6">
+            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
+              <span className="text-green-600">🧮</span>
           Job Calculator
           </h2>
           
@@ -581,12 +579,12 @@ const Calculator = () => {
           </form>
         </div>
 
-            {/* Right Panel - Results */}
-            <div>
-              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
-                <span className="text-blue-600">📊</span>
-                RESULTS
-              </h2>
+          {/* Results */}
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg p-6">
+            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
+              <span className="text-blue-600">📊</span>
+              RESULTS
+            </h2>
               
               <div className="space-y-3">
                 {/* GROUP 1: Calculation Flow - with spacing */}
