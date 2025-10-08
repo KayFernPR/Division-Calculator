@@ -590,12 +590,12 @@ const Calculator = () => {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Status Indicators */}
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
-              <h2 className="text-xl font-semibold text-red-900 dark:text-red-100 mb-4 flex items-center gap-2">
-                <span className="text-red-500">🔍</span>
+            <div className="rounded-lg p-6" style={{backgroundColor: '#F9F9F8', borderColor: '#E4E4E3', borderWidth: '1px', borderStyle: 'solid'}}>
+              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
+                <span style={{color: '#1F1F1F'}}>🔍</span>
                 Status Indicators
               </h2>
-              <div className="text-red-800 dark:text-red-200">
+              <div style={{color: '#1F1F1F'}}>
               <div className="flex items-center gap-2">
                 <span className="text-2xl">🏆</span>
                   <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
