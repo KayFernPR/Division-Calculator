@@ -769,7 +769,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
                 {/* COGS $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-red-500 bg-red-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">COGS $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -778,7 +778,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
                 {/* COGS % */}
-                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-red-500 bg-red-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">COGS %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -787,7 +787,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Actual Gross Profit Margin % */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-green-500 bg-green-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit Margin %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -796,7 +796,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Actual Mark-up % */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-green-500 bg-green-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Mark-up %:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -805,7 +805,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
             
                 {/* Actual Gross Profit $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-green-500 bg-green-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -814,7 +814,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Division Variable Expenses $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-red-500 bg-red-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Variable Expenses $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -823,7 +823,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
                 {/* Royalty $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-red-500 bg-red-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Royalty $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -832,7 +832,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Division Contribution Margin $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-green-500 bg-green-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Contribution Margin $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -841,7 +841,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Division Fixed Expenses $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-red-500 bg-red-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Fixed Expenses $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -850,7 +850,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Division Controllable Margin $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-green-500 bg-green-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Controllable Margin $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -859,7 +859,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Company Overhead Costs $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-red-500 bg-red-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-red-500 bg-red-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Company Overhead Costs $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
@@ -871,7 +871,7 @@ const Calculator = ({ onAddJob }) => {
                 {/* GROUP 2: Net Profit - with increased spacing */}
                 <div className="mt-6 mb-6">
                 {/* Operating Income $ */}
-                <div className="flex justify-between items-center p-3 border-2 border-green-500 bg-green-50  rounded-lg">
+                <div className="flex justify-between items-center px-3 py-4 border border-green-500 bg-green-50  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating Income $:</span>
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
