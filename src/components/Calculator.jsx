@@ -595,7 +595,7 @@ const Calculator = () => {
                 <span className="text-red-500">📈</span>
                 Status Indicators
               </h2>
-              <div className="space-y-2 text-red-800 dark:text-red-200">
+              <div className="text-red-800 dark:text-red-200">
               <div className="flex items-center gap-2">
                 <span className="text-2xl">🏆</span>
                   <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
