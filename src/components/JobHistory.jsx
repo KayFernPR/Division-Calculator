@@ -129,8 +129,8 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
         </button>
       </div>
 
-      {/* Export Tools */}
-      <ExportTools jobs={filteredAndSortedJobs} />
+      {/* Export Tools - Temporarily disabled for testing */}
+      {/* <ExportTools jobs={filteredAndSortedJobs} /> */}
 
       {/* Controls */}
       <div className="bg-white rounded-xl shadow-lg border border-neutral-200 p-6">
@@ -236,15 +236,46 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
         </div>
       )}
 
-      {/* Jobs List */}
+      {/* Jobs List - Temporarily simplified for testing */}
       <div className="space-y-4">
         {filteredAndSortedJobs.map((job) => (
-          <JobCard
-            key={job.id}
-            job={job}
-            onDelete={() => onDeleteJob(job.id)}
-            formatDate={formatDate}
-          />
+          <div key={job.id} className="bg-white rounded-xl shadow-lg border border-neutral-200 p-6">
+            <h3 className="text-lg font-bold text-neutral-800 mb-2">
+              {job.jobName || 'Unnamed Job'}
+            </h3>
+            <p className="text-sm text-neutral-500 mb-2">
+              {formatDate(job.timestamp)}
+            </p>
+            {job.clientName && (
+              <p className="text-sm text-neutral-600 mb-2">
+                📋 {job.clientName}
+              </p>
+            )}
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <span className="text-sm text-neutral-500">Revenue:</span>
+                <span className="font-bold ml-2">${job.retailPrice || 0}</span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Cost:</span>
+                <span className="font-bold ml-2">${job.jobCost || 0}</span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Margin:</span>
+                <span className="font-bold ml-2">{job.results?.yourProfitMargin?.toFixed(2) || 0}%</span>
+              </div>
+              <div>
+                <span className="text-sm text-neutral-500">Net Profit:</span>
+                <span className="font-bold ml-2">${job.results?.actualNetProfit?.toFixed(2) || 0}</span>
+              </div>
+            </div>
+            <button
+              onClick={() => onDeleteJob(job.id)}
+              className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+            >
+              🗑️ Delete
+            </button>
+          </div>
         ))}
       </div>
 
