@@ -773,7 +773,6 @@ const Calculator = () => {
                     <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 text-xs cursor-help">i</span>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.yourJob)}</span>
-                </div>
               </div>
             </div>
           </div>
