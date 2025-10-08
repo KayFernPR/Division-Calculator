@@ -137,7 +137,7 @@ function App() {
           </div>
         </header>
 
-        {/* Tab Navigation - Updated */}
+        {/* Tab Navigation - Positioned below title and subtitle */}
         <div className="mb-8">
           <div className="flex gap-2 justify-center overflow-x-auto pb-2">
             {tabs.map((tab) => (
