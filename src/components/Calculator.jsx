@@ -7,9 +7,9 @@ const Calculator = ({ onAddJob }) => {
     jobCost: '',
     royaltyRate: '',
     divisionVariableExpenses: '',
-    divisionOverheads: '5.00',
-    companyOverheads: '10.00',
-    targetNetProfit: '30.00'
+    divisionOverheads: '',
+    companyOverheads: '',
+    targetNetProfit: ''
   })
 
   const [results, setResults] = useState({
@@ -511,8 +511,6 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
                           errors.retailPrice 
                             ? 'border-red-500 focus:ring-red-500 bg-red-50' 
-                            : formData.retailPrice && !errors.retailPrice
-                            ? 'border-green-500 focus:ring-green-500 bg-green-50'
                             : 'border-neutral-300 focus:ring-blue-500'
                         }`}
                 placeholder="10,400.00"
@@ -537,8 +535,6 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
                           errors.jobCost 
                             ? 'border-red-500 focus:ring-red-500 bg-red-50' 
-                            : formData.jobCost && !errors.jobCost
-                            ? 'border-green-500 focus:ring-green-500 bg-green-50'
                             : 'border-neutral-300 focus:ring-blue-500'
                         }`}
                 placeholder="8,400.00"
@@ -594,7 +590,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.divisionVariableExpenses ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="0.00"
+                        placeholder="5"
                       />
                       {errors.divisionVariableExpenses && (
                         <p className="mt-1 text-sm text-red-600">{errors.divisionVariableExpenses}</p>
@@ -616,7 +612,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.divisionOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="5.00"
+                  placeholder="5"
                 />
                 {errors.divisionOverheads && (
                         <p className="mt-1 text-sm text-red-600">{errors.divisionOverheads}</p>
@@ -638,7 +634,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.companyOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="10.00"
+                  placeholder="10"
                 />
                 {errors.companyOverheads && (
                         <p className="mt-1 text-sm text-red-600">{errors.companyOverheads}</p>
@@ -669,7 +665,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.targetNetProfit ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="30.00"
+                  placeholder="30"
                 />
               {errors.targetNetProfit && (
                         <p className="mt-1 text-sm text-red-600">{errors.targetNetProfit}</p>
