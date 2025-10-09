@@ -451,14 +451,14 @@ const Calculator = ({ onAddJob }) => {
               Job Calculator
             </h2>
           
-              <form onSubmit={handleSubmit} className="space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Section 1: JOB DETAILS */}
-            <div className="space-y-4">
+            <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     JOB DETAILS
                   </h3>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-3">
               <div>
                       <label htmlFor="jobName" className="block text-sm font-medium text-neutral-700  mb-1">
                 Job Name or Number *
@@ -563,12 +563,12 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 2: OVERHEAD COSTS */}
-            <div className="space-y-4">
+            <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     OVERHEAD COSTS
                   </h3>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-3">
               <div>
                       <label htmlFor="royaltyRate" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                 Royalty Rate % *
@@ -688,12 +688,12 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 3: TARGET PROFIT */}
-            <div className="space-y-4">
+            <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     TARGET PROFIT
                   </h3>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-3">
               <div>
                       <label htmlFor="targetNetProfit" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                   Target Operating Profit % *
@@ -726,7 +726,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-20">
+                <div className="flex gap-4 pt-6">
               <button
                     type="button"
                     onClick={handleSaveJob}
