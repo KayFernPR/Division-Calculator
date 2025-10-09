@@ -748,7 +748,7 @@ const Calculator = ({ onAddJob }) => {
           </form>
           
           {/* Additional padding to match Results box height */}
-          <div className="pt-4"></div>
+          <div className="pt-8"></div>
             </div>
         </div>
 
@@ -805,11 +805,11 @@ const Calculator = ({ onAddJob }) => {
               )}
             </h2>
               
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {/* GROUP 1: Calculation Flow - with spacing */}
                 <div className="mt-4">
                 {/* Sales $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-400 bg-neutral-100  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-400 bg-neutral-100  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Sales $:</span>
                 <div className="relative group">
@@ -824,7 +824,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
                 {/* COGS $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">COGS $:</span>
                 <div className="relative group">
@@ -839,7 +839,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* COGS % */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">COGS %:</span>
                 <div className="relative group">
@@ -854,7 +854,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Actual Gross Profit Margin % */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit Margin %:</span>
                 <div className="relative group">
@@ -869,7 +869,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
             
                 {/* Actual Mark-up % */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Mark-up %:</span>
                 <div className="relative group">
@@ -884,7 +884,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Actual Gross Profit $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit $:</span>
                 <div className="relative group">
@@ -899,7 +899,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
                 {/* Division Variable Expenses $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Variable Expenses $:</span>
                 <div className="relative group">
@@ -914,7 +914,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Royalty $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Royalty $:</span>
                 <div className="relative group">
@@ -929,7 +929,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Division Contribution Margin $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Contribution Margin $:</span>
                 <div className="relative group">
@@ -944,7 +944,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Division Fixed Expenses $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Fixed Expenses $:</span>
                 <div className="relative group">
@@ -959,7 +959,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Division Controllable Margin $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Controllable Margin $:</span>
                 <div className="relative group">
@@ -974,7 +974,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Company Overhead Costs $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Company Overhead Costs $:</span>
                 <div className="relative group">
@@ -992,7 +992,7 @@ const Calculator = ({ onAddJob }) => {
                 {/* GROUP 2: Net Profit - with increased spacing */}
                 <div className="mt-6 mb-6">
                 {/* Operating Income $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating Income $:</span>
                 <div className="relative group">
@@ -1010,7 +1010,7 @@ const Calculator = ({ onAddJob }) => {
                 {/* GROUP 3: Break-Even and Target Analysis - with spacing */}
                 <div className="mt-4">
                 {/* Break Even Price $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Break Even Price $:</span>
                 <div className="relative group">
@@ -1025,7 +1025,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
             
                 {/* Division Total Break-Even % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Total Break-Even %:</span>
                 <div className="relative group">
@@ -1040,7 +1040,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
                 {/* Required Price $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Required Price $:</span>
                     <div className="relative group">
@@ -1055,7 +1055,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Required Margin % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Required Margin %:</span>
                 <div className="relative group">
@@ -1070,7 +1070,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Your Price $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Price $:</span>
                 <div className="relative group">
@@ -1085,7 +1085,7 @@ const Calculator = ({ onAddJob }) => {
               </div>
 
                 {/* Your Profit Margin is % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Profit Margin is %:</span>
                     <div className="relative group">
@@ -1100,7 +1100,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* You are currently at */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">You are currently at:</span>
                 <div className="relative group">
@@ -1130,7 +1130,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Which is */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Which is:</span>
                 <div className="relative group">
@@ -1166,7 +1166,7 @@ const Calculator = ({ onAddJob }) => {
         {/* Job Templates */}
         <div className="mb-8">
           <JobTemplates onApplyTemplate={applyTemplate} />
-        </div>
+          </div>
         </div>
       </div>
     </div>
