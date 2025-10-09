@@ -1174,6 +1174,4 @@ const Calculator = ({ onAddJob }) => {
 }
 
 export default Calculator
-}
 
-export default Calculator
