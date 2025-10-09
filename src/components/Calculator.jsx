@@ -451,7 +451,7 @@ const Calculator = ({ onAddJob }) => {
               Job Calculator
             </h2>
           
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Section 1: JOB DETAILS */}
             <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
@@ -726,7 +726,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-16">
+                <div className="flex gap-4 pt-20">
               <button
                     type="button"
                     onClick={handleSaveJob}
