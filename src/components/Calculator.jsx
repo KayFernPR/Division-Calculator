@@ -726,7 +726,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-4">
+                <div className="flex gap-4 pt-12">
               <button
                     type="button"
                     onClick={handleSaveJob}
@@ -748,7 +748,7 @@ const Calculator = ({ onAddJob }) => {
           </form>
           
           {/* Additional padding to match Results box height */}
-          <div className="pt-20"></div>
+          <div className="pt-8"></div>
             </div>
           </div>
 
