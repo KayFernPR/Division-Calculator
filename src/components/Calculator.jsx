@@ -123,10 +123,10 @@ const Calculator = ({ onAddJob }) => {
     const requiredMargin = ((requiredPrice - jobCost) / requiredPrice) * 100
     const yourPrice = retailPrice
     const thisJobIs = yourProfitMargin - requiredMargin
-    const yourJob = retailPrice - requiredPrice
+      const yourJob = retailPrice - requiredPrice
 
     // Profitability status - Balanced thresholds using marginDifference (yourProfitMargin - requiredMargin)
-    let profitabilityStatus = 'neutral'
+      let profitabilityStatus = 'neutral'
     const marginDifference = yourProfitMargin - requiredMargin
     
     if (actualNetProfit < 0) {
@@ -188,7 +188,7 @@ const Calculator = ({ onAddJob }) => {
       if (isNaN(retailPrice)) {
         newErrors.retailPrice = 'Retail Price must be a valid number'
       } else if (retailPrice <= 0) {
-        newErrors.retailPrice = 'Retail Price must be greater than 0'
+      newErrors.retailPrice = 'Retail Price must be greater than 0'
       } else if (retailPrice > 10000000) {
         newErrors.retailPrice = 'Retail Price seems unusually high (>$10M)'
       }
@@ -202,7 +202,7 @@ const Calculator = ({ onAddJob }) => {
       if (isNaN(jobCost)) {
         newErrors.jobCost = 'Job Cost must be a valid number'
       } else if (jobCost <= 0) {
-        newErrors.jobCost = 'Job Cost must be greater than 0'
+      newErrors.jobCost = 'Job Cost must be greater than 0'
       } else if (jobCost > 10000000) {
         newErrors.jobCost = 'Job Cost seems unusually high (>$10M)'
       } else if (parseFloat(formData.retailPrice) > 0 && jobCost >= parseFloat(formData.retailPrice)) {
@@ -786,7 +786,7 @@ const Calculator = ({ onAddJob }) => {
                   <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
                 </div>
               </div>
-            </div>
+        </div>
 
           {/* Results */}
             <div className="bg-white  rounded-lg shadow-lg p-6">
@@ -892,7 +892,7 @@ const Calculator = ({ onAddJob }) => {
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Gross profit amount: Sales minus COGS. This is your profit before overhead costs.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
+                  </div>
                     </div>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.grossProfit)}</span>
@@ -937,7 +937,7 @@ const Calculator = ({ onAddJob }) => {
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Gross profit minus variable expenses and royalties. Shows contribution to fixed costs.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
+                  </div>
                     </div>
                   </div>
                   <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
@@ -1000,7 +1000,7 @@ const Calculator = ({ onAddJob }) => {
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Final profit after all costs: gross profit minus all expenses and overhead. Your net operating income.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
+              </div>
                     </div>
               </div>
                   <span className="font-mono text-sm" style={{fontWeight: 'bold'}}>{formatCurrency(results.actualNetProfit)}</span>
@@ -1013,7 +1013,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Break Even Price $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Minimum price needed to cover all costs with zero profit. Break-even point.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
             </div>
@@ -1022,7 +1028,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Total Break-Even %:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Total percentage of sales needed to cover all division costs (COGS + variable + fixed + royalties).
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatPercentage(results.divisionTotalBreakEven)}</span>
             </div>
@@ -1031,7 +1043,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Required Price $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Price needed to achieve your target profit margin. Minimum price for target profitability.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.requiredPrice)}</span>
             </div>
@@ -1040,7 +1058,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Required Margin %:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Profit margin percentage needed to achieve your target profit. Based on required price.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatPercentage(results.requiredMargin)}</span>
             </div>
@@ -1049,7 +1073,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Price $:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Your actual selling price for this job (same as Retail Price).
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.yourPrice)}</span>
             </div>
@@ -1058,7 +1088,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Profit Margin is %:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Your actual profit margin: (Sales - COGS) divided by Sales times 100. Your current performance.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                      </div>
+                    </div>
                   </div>
                   <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
             </div>
@@ -1067,7 +1103,13 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">You are currently at:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        How much above or below your target profit margin. Positive = above target, negative = below target.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                </div>
+                    </div>
                 </div>
                   <div className="flex items-center gap-2">
                     <span className={`font-mono text-sm ${
@@ -1091,8 +1133,14 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Which is:</span>
-                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600   text-xs cursor-help">i</span>
+                    <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Dollar amount above or below your required price. Positive = above target, negative = below target.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
                   </div>
+              </div>
+            </div>
                   <div className="flex items-center gap-2">
                     <span className={`font-mono text-sm ${
                       results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
@@ -1108,9 +1156,9 @@ const Calculator = ({ onAddJob }) => {
                         results.yourJob < -200 ? 'below target' : 
                         'on target'})
                     </span>
-                  </div>
-              </div>
+          </div>
             </div>
+          </div>
           </div>
           </div>
         </div>
