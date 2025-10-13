@@ -501,43 +501,37 @@ const Calculator = ({ onAddJob }) => {
           
           <div class="section">
             <h2>Job Details</h2>
-            <div class="two-column">
-              <div class="compact-section">
-                <div class="field">
-                  <span class="field-label">Job Name:</span>
-                  <span class="field-value">${jobName || ''}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Insurance Carrier:</span>
-                  <span class="field-value">${clientName || 'N/A'}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Retail Price:</span>
-                  <span class="field-value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Job Cost:</span>
-                  <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
-                </div>
-              </div>
-              <div class="compact-section">
-                <div class="field">
-                  <span class="field-label">Target Net Margin:</span>
-                  <span class="field-value">${formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Target Gross Margin:</span>
-                  <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Overhead Cost (%):</span>
-                  <span class="field-value">${formatPercentage((parseFloat(formData.divisionOverheads) || 0) + (parseFloat(formData.companyOverheads) || 0))}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Break-Even %:</span>
-                  <span class="field-value">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
-                </div>
-              </div>
+            <div class="field">
+              <span class="field-label">Job Name:</span>
+              <span class="field-value">${jobName || ''}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Insurance Carrier:</span>
+              <span class="field-value">${clientName || 'N/A'}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Retail Price:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Job Cost:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Target Net Margin:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Target Gross Margin:</span>
+              <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Overhead Cost (%):</span>
+              <span class="field-value">${formatPercentage((parseFloat(formData.divisionOverheads) || 0) + (parseFloat(formData.companyOverheads) || 0))}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Break-Even %:</span>
+              <span class="field-value">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
             </div>
           </div>
           
@@ -554,99 +548,81 @@ const Calculator = ({ onAddJob }) => {
                   'STOP - DON\'T PAY TO DO THE WORK!!'}
               </span>
             </div>
-            <div class="two-column">
-              <div class="compact-section">
-                <div class="field">
-                  <span class="field-label">Sales $:</span>
-                  <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">COGS $:</span>
-                  <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">COGS %:</span>
-                  <span class="field-value">${formatPercentage(results.jobCostPercent || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Gross Profit $:</span>
-                  <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Contribution Margin %:</span>
-                  <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Mark-up %:</span>
-                  <span class="field-value">${formatPercentage(results.actualMarkup || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Variable Costs $:</span>
-                  <span class="field-value">${formatCurrency(results.divisionVariableExpensesDollars || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Fixed Costs $:</span>
-                  <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Controllable Margin $:</span>
-                  <span class="field-value ${(results.controllableMargin || 0) < 0 ? 'negative-value' : ''}">${formatCurrency(results.controllableMargin || 0)}</span>
-                </div>
-              </div>
-              <div class="compact-section">
-                <div class="field">
-                  <span class="field-label">Royalty $:</span>
-                  <span class="field-value">${formatCurrency(results.royaltyDollars || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Operating Profit $:</span>
-                  <span class="field-value ${(results.operatingIncome || 0) < 0 ? 'negative-value' : ''}">${formatCurrency(results.operatingIncome || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Break Even Price $:</span>
-                  <span class="field-value">${formatCurrency(results.breakEvenPrice || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Total Break-Even %:</span>
-                  <span class="field-value">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Required Price $:</span>
-                  <span class="field-value">${formatCurrency(results.requiredPrice || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Required Margin %:</span>
-                  <span class="field-value">${formatPercentage(results.requiredMargin || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Your Price $:</span>
-                  <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Your Profit Margin %:</span>
-                  <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">You are currently at:</span>
-                  <span class="field-value ${results.thisJobIs < 0 ? 'below-target' : ''}">${formatPercentage(results.thisJobIs || 0)} (${results.thisJobIs > 1 ? 'Above Target' : results.thisJobIs < -1 ? 'Below Target' : 'On Target'})</span>
-                </div>
-                <div class="field">
-                  <span class="field-label">Which is:</span>
-                  <span class="field-value ${results.yourJob < 0 ? 'below-target' : ''}">${formatCurrency(results.yourJob || 0)} (${results.yourJob > 200 ? 'Above Target' : results.yourJob < -200 ? 'Below Target' : 'On Target'})</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="section">
-            <h2>Impact to Business</h2>
             <div class="field">
-              <span class="field-label">Revenue needed at 10% margin:</span>
-              <span class="field-value">$0.00</span>
+              <span class="field-label">Sales $:</span>
+              <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Revenue needed at current margin:</span>
-              <span class="field-value">$0.00</span>
+              <span class="field-label">COGS $:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">COGS %:</span>
+              <span class="field-value">${formatPercentage(results.jobCostPercent || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Gross Profit $:</span>
+              <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Contribution Margin %:</span>
+              <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Mark-up %:</span>
+              <span class="field-value">${formatPercentage(results.actualMarkup || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Variable Costs $:</span>
+              <span class="field-value">${formatCurrency(results.divisionVariableExpensesDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Fixed Costs $:</span>
+              <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Controllable Margin $:</span>
+              <span class="field-value ${(results.controllableMargin || 0) < 0 ? 'negative-value' : ''}">${formatCurrency(results.controllableMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Royalty $:</span>
+              <span class="field-value">${formatCurrency(results.royaltyDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Operating Profit $:</span>
+              <span class="field-value ${(results.operatingIncome || 0) < 0 ? 'negative-value' : ''}">${formatCurrency(results.operatingIncome || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Break Even Price $:</span>
+              <span class="field-value">${formatCurrency(results.breakEvenPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Total Break-Even %:</span>
+              <span class="field-value">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Required Price $:</span>
+              <span class="field-value">${formatCurrency(results.requiredPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Required Margin %:</span>
+              <span class="field-value">${formatPercentage(results.requiredMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Your Price $:</span>
+              <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Your Profit Margin %:</span>
+              <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">You are currently at:</span>
+              <span class="field-value ${results.thisJobIs < 0 ? 'below-target' : ''}">${formatPercentage(results.thisJobIs || 0)} (${results.thisJobIs > 1 ? 'Above Target' : results.thisJobIs < -1 ? 'Below Target' : 'On Target'})</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Which is:</span>
+              <span class="field-value ${results.yourJob < 0 ? 'below-target' : ''}">${formatCurrency(results.yourJob || 0)} (${results.yourJob > 200 ? 'Above Target' : results.yourJob < -200 ? 'Below Target' : 'On Target'})</span>
             </div>
           </div>
           
