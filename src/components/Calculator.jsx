@@ -348,124 +348,216 @@ const Calculator = ({ onAddJob }) => {
         <head>
           <title>Job Calculation Report - ${jobName}</title>
           <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            .header { text-align: center; margin-bottom: 30px; }
-            .section { margin-bottom: 25px; }
-            .section h2 { color: #333; border-bottom: 2px solid #63D43E; padding-bottom: 5px; }
-            .field { display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; }
-            .field-label { font-weight: bold; }
-            .field-value { font-family: monospace; }
+            body { 
+              font-family: Arial, sans-serif; 
+              margin: 0; 
+              padding: 20px; 
+              line-height: 1.6;
+              color: #333;
+            }
+            .header { 
+              text-align: center; 
+              margin-bottom: 40px; 
+              border-bottom: 3px solid #63D43E;
+              padding-bottom: 20px;
+            }
+            .logo {
+              font-size: 32px;
+              font-weight: bold;
+              color: #63D43E;
+              margin-bottom: 10px;
+            }
+            .company-name {
+              font-size: 24px;
+              font-weight: bold;
+              color: #1F1F1F;
+              margin-bottom: 5px;
+            }
+            .report-title {
+              font-size: 18px;
+              color: #666;
+              margin-bottom: 15px;
+            }
+            .section { 
+              margin-bottom: 30px; 
+              text-align: left;
+            }
+            .section h2 { 
+              color: #1F1F1F; 
+              border-bottom: 2px solid #63D43E; 
+              padding-bottom: 8px; 
+              margin-bottom: 15px;
+              font-size: 18px;
+            }
+            .field { 
+              display: flex; 
+              justify-content: space-between; 
+              margin: 10px 0; 
+              padding: 8px 0; 
+              border-bottom: 1px solid #f0f0f0;
+            }
+            .field-label { 
+              font-weight: bold; 
+              color: #333;
+              flex: 1;
+            }
+            .field-value { 
+              font-family: monospace; 
+              font-weight: bold;
+              color: #1F1F1F;
+              text-align: right;
+              flex: 1;
+            }
             .status-excellent { color: #16a34a; }
             .status-good { color: #16a34a; }
             .status-neutral { color: #374151; }
             .status-thin { color: #dc2626; }
             .status-poor { color: #dc2626; }
             .status-loss { color: #dc2626; }
-            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-            @media print { body { margin: 0; } }
+            .status-indicator {
+              font-size: 20px;
+              font-weight: bold;
+              padding: 15px;
+              border-radius: 8px;
+              text-align: center;
+              margin: 15px 0;
+            }
+            .status-excellent-bg { background-color: #dcfce7; border: 2px solid #16a34a; }
+            .status-good-bg { background-color: #dcfce7; border: 2px solid #16a34a; }
+            .status-neutral-bg { background-color: #f3f4f6; border: 2px solid #374151; }
+            .status-thin-bg { background-color: #fef2f2; border: 2px solid #dc2626; }
+            .status-poor-bg { background-color: #fef2f2; border: 2px solid #dc2626; }
+            .status-loss-bg { background-color: #fef2f2; border: 2px solid #dc2626; }
+            @media print { 
+              body { margin: 0; padding: 15px; }
+              .section { page-break-inside: avoid; }
+            }
           </style>
         </head>
         <body>
           <div class="header">
-            <h1>Job Calculation Report</h1>
-            <p><strong>Job Name:</strong> ${jobName}</p>
-            ${clientName ? `<p><strong>Client:</strong> ${clientName}</p>` : ''}
-            ${division ? `<p><strong>Division:</strong> ${division}</p>` : ''}
-            <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-          </div>
-          
-          <div class="grid">
-            <div class="section">
-              <h2>Input Data</h2>
-              <div class="field">
-                <span class="field-label">Retail Price / Charge Out $:</span>
-                <span class="field-value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Job Cost / COGS $:</span>
-                <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Royalty Rate %:</span>
-                <span class="field-value">${formatPercentage(parseFloat(formData.royaltyRate) || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Division Variable Expenses %:</span>
-                <span class="field-value">${formatPercentage(parseFloat(formData.divisionVariableExpenses) || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Division Fixed Expenses %:</span>
-                <span class="field-value">${formatPercentage(parseFloat(formData.divisionOverheads) || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Company Overhead Costs %:</span>
-                <span class="field-value">${formatPercentage(parseFloat(formData.companyOverheads) || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Target Operating Profit %:</span>
-                <span class="field-value">${formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
-              </div>
-            </div>
-            
-            <div class="section">
-              <h2>Calculation Results</h2>
-              <div class="field">
-                <span class="field-label">Sales $:</span>
-                <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">COGS $:</span>
-                <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">COGS %:</span>
-                <span class="field-value">${formatPercentage(results.jobCostPercent || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Actual Gross Profit Margin %:</span>
-                <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Actual Mark-up %:</span>
-                <span class="field-value">${formatPercentage(results.actualMarkup || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Actual Gross Profit $:</span>
-                <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Division Variable Expenses $:</span>
-                <span class="field-value">${formatCurrency(results.divisionVariableExpensesDollars || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Royalty $:</span>
-                <span class="field-value">${formatCurrency(results.royaltyDollars || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Division Contribution Margin $:</span>
-                <span class="field-value">${formatCurrency(results.contributionMargin || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Division Fixed Expenses $:</span>
-                <span class="field-value">${formatCurrency(results.divisionOverheadsDollars || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Division Controllable Margin $:</span>
-                <span class="field-value">${formatCurrency(results.controllableMargin || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Company Overhead Costs $:</span>
-                <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
-              </div>
-              <div class="field">
-                <span class="field-label">Operating Income $:</span>
-                <span class="field-value">${formatCurrency(results.operatingIncome || 0)}</span>
-              </div>
+            <div class="logo">📊</div>
+            <div class="company-name">Division Calculator</div>
+            <div class="report-title">Job Profitability Analysis Report</div>
+            <div style="font-size: 14px; color: #666;">
+              Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
             </div>
           </div>
           
           <div class="section">
-            <h2>Break-Even & Target Analysis</h2>
+            <h2>Job Details</h2>
+            <div class="field">
+              <span class="field-label">Job Name/Number:</span>
+              <span class="field-value">${jobName}</span>
+            </div>
+            ${clientName ? `
+            <div class="field">
+              <span class="field-label">Client Name:</span>
+              <span class="field-value">${clientName}</span>
+            </div>
+            ` : ''}
+            ${division ? `
+            <div class="field">
+              <span class="field-label">Division:</span>
+              <span class="field-value">${division}</span>
+            </div>
+            ` : ''}
+            <div class="field">
+              <span class="field-label">Retail Price / Charge Out $:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Job Cost / COGS $:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Royalty Rate %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.royaltyRate) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Variable Expenses %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.divisionVariableExpenses) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Fixed Expenses %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.divisionOverheads) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Company Overhead Costs %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.companyOverheads) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Target Operating Profit %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h2>Status Indicator</h2>
+            <div class="status-indicator status-${results.profitabilityStatus || 'neutral'}-bg status-${results.profitabilityStatus || 'neutral'}">
+              ${results.profitabilityStatus === 'excellent' ? '🏆 Jackpot! Above Target Profit' :
+                results.profitabilityStatus === 'good' ? '🎯 You\'re Winning!' :
+                results.profitabilityStatus === 'neutral' ? '✅ Great Job You\'re At Target!' :
+                results.profitabilityStatus === 'thin' ? '⚠️ Warning! You\'re Cutting Into Profits' :
+                results.profitabilityStatus === 'poor' ? '🚨 EXTREME WARNING! You\'re Almost Paying For The Job' :
+                '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
+            </div>
+          </div>
+          
+          <div class="section">
+            <h2>Profit Results</h2>
+            <div class="field">
+              <span class="field-label">Sales $:</span>
+              <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">COGS $:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">COGS %:</span>
+              <span class="field-value">${formatPercentage(results.jobCostPercent || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Actual Gross Profit Margin %:</span>
+              <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Actual Mark-up %:</span>
+              <span class="field-value">${formatPercentage(results.actualMarkup || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Actual Gross Profit $:</span>
+              <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Variable Expenses $:</span>
+              <span class="field-value">${formatCurrency(results.divisionVariableExpensesDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Royalty $:</span>
+              <span class="field-value">${formatCurrency(results.royaltyDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Contribution Margin $:</span>
+              <span class="field-value">${formatCurrency(results.contributionMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Fixed Expenses $:</span>
+              <span class="field-value">${formatCurrency(results.divisionOverheadsDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Controllable Margin $:</span>
+              <span class="field-value">${formatCurrency(results.controllableMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Company Overhead Costs $:</span>
+              <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Operating Income $:</span>
+              <span class="field-value">${formatCurrency(results.operatingIncome || 0)}</span>
+            </div>
             <div class="field">
               <span class="field-label">Break Even Price $:</span>
               <span class="field-value">${formatCurrency(results.breakEvenPrice || 0)}</span>
@@ -489,21 +581,6 @@ const Calculator = ({ onAddJob }) => {
             <div class="field">
               <span class="field-label">Which is:</span>
               <span class="field-value status-${results.profitabilityStatus || 'neutral'}">${formatCurrency(results.yourJob || 0)} (${results.yourJob > 200 ? 'above target' : results.yourJob < -200 ? 'below target' : 'on target'})</span>
-            </div>
-          </div>
-          
-          <div class="section">
-            <h2>Profitability Status</h2>
-            <div class="field">
-              <span class="field-label">Status:</span>
-              <span class="field-value status-${results.profitabilityStatus || 'neutral'}">
-                ${results.profitabilityStatus === 'excellent' ? '🏆 Jackpot! Above Target Profit' :
-                  results.profitabilityStatus === 'good' ? '🎯 You\'re Winning!' :
-                  results.profitabilityStatus === 'neutral' ? '✅ Great Job You\'re At Target!' :
-                  results.profitabilityStatus === 'thin' ? '⚠️ Warning! You\'re Cutting Into Profits' :
-                  results.profitabilityStatus === 'poor' ? '🚨 EXTREME WARNING! You\'re Almost Paying For The Job' :
-                  '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
-              </span>
             </div>
           </div>
         </body>
