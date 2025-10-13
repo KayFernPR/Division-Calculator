@@ -328,6 +328,199 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
+  const handlePrint = () => {
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank')
+    
+    // Get current form data and results
+    const jobNameInput = document.getElementById('jobName')
+    const clientNameInput = document.getElementById('clientName')
+    const divisionInput = document.getElementById('division')
+    
+    const jobName = jobNameInput ? jobNameInput.value.trim() : 'Unnamed Job'
+    const clientName = clientNameInput ? clientNameInput.value.trim() : ''
+    const division = divisionInput ? divisionInput.value.trim() : ''
+    
+    // Create print content
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Job Calculation Report - ${jobName}</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; margin-bottom: 30px; }
+            .section { margin-bottom: 25px; }
+            .section h2 { color: #333; border-bottom: 2px solid #63D43E; padding-bottom: 5px; }
+            .field { display: flex; justify-content: space-between; margin: 8px 0; padding: 5px 0; }
+            .field-label { font-weight: bold; }
+            .field-value { font-family: monospace; }
+            .status-excellent { color: #16a34a; }
+            .status-good { color: #16a34a; }
+            .status-neutral { color: #374151; }
+            .status-thin { color: #dc2626; }
+            .status-poor { color: #dc2626; }
+            .status-loss { color: #dc2626; }
+            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+            @media print { body { margin: 0; } }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>Job Calculation Report</h1>
+            <p><strong>Job Name:</strong> ${jobName}</p>
+            ${clientName ? `<p><strong>Client:</strong> ${clientName}</p>` : ''}
+            ${division ? `<p><strong>Division:</strong> ${division}</p>` : ''}
+            <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+          </div>
+          
+          <div class="grid">
+            <div class="section">
+              <h2>Input Data</h2>
+              <div class="field">
+                <span class="field-label">Retail Price / Charge Out $:</span>
+                <span class="field-value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Job Cost / COGS $:</span>
+                <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Royalty Rate %:</span>
+                <span class="field-value">${formatPercentage(parseFloat(formData.royaltyRate) || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Division Variable Expenses %:</span>
+                <span class="field-value">${formatPercentage(parseFloat(formData.divisionVariableExpenses) || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Division Fixed Expenses %:</span>
+                <span class="field-value">${formatPercentage(parseFloat(formData.divisionOverheads) || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Company Overhead Costs %:</span>
+                <span class="field-value">${formatPercentage(parseFloat(formData.companyOverheads) || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Target Operating Profit %:</span>
+                <span class="field-value">${formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
+              </div>
+            </div>
+            
+            <div class="section">
+              <h2>Calculation Results</h2>
+              <div class="field">
+                <span class="field-label">Sales $:</span>
+                <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">COGS $:</span>
+                <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">COGS %:</span>
+                <span class="field-value">${formatPercentage(results.jobCostPercent || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Actual Gross Profit Margin %:</span>
+                <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Actual Mark-up %:</span>
+                <span class="field-value">${formatPercentage(results.actualMarkup || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Actual Gross Profit $:</span>
+                <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Division Variable Expenses $:</span>
+                <span class="field-value">${formatCurrency(results.divisionVariableExpensesDollars || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Royalty $:</span>
+                <span class="field-value">${formatCurrency(results.royaltyDollars || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Division Contribution Margin $:</span>
+                <span class="field-value">${formatCurrency(results.contributionMargin || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Division Fixed Expenses $:</span>
+                <span class="field-value">${formatCurrency(results.divisionOverheadsDollars || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Division Controllable Margin $:</span>
+                <span class="field-value">${formatCurrency(results.controllableMargin || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Company Overhead Costs $:</span>
+                <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
+              </div>
+              <div class="field">
+                <span class="field-label">Operating Income $:</span>
+                <span class="field-value">${formatCurrency(results.operatingIncome || 0)}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h2>Break-Even & Target Analysis</h2>
+            <div class="field">
+              <span class="field-label">Break Even Price $:</span>
+              <span class="field-value">${formatCurrency(results.breakEvenPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Total Break-Even %:</span>
+              <span class="field-value">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Required Price $:</span>
+              <span class="field-value">${formatCurrency(results.requiredPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Required Margin %:</span>
+              <span class="field-value">${formatPercentage(results.requiredMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">You are currently at:</span>
+              <span class="field-value status-${results.profitabilityStatus || 'neutral'}">${formatPercentage(results.thisJobIs || 0)} (${results.thisJobIs > 1 ? 'above target' : results.thisJobIs < -1 ? 'below target' : 'on target'})</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Which is:</span>
+              <span class="field-value status-${results.profitabilityStatus || 'neutral'}">${formatCurrency(results.yourJob || 0)} (${results.yourJob > 200 ? 'above target' : results.yourJob < -200 ? 'below target' : 'on target'})</span>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h2>Profitability Status</h2>
+            <div class="field">
+              <span class="field-label">Status:</span>
+              <span class="field-value status-${results.profitabilityStatus || 'neutral'}">
+                ${results.profitabilityStatus === 'excellent' ? '🏆 Jackpot! Above Target Profit' :
+                  results.profitabilityStatus === 'good' ? '🎯 You\'re Winning!' :
+                  results.profitabilityStatus === 'neutral' ? '✅ Great Job You\'re At Target!' :
+                  results.profitabilityStatus === 'thin' ? '⚠️ Warning! You\'re Cutting Into Profits' :
+                  results.profitabilityStatus === 'poor' ? '🚨 EXTREME WARNING! You\'re Almost Paying For The Job' :
+                  '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
+              </span>
+            </div>
+          </div>
+        </body>
+      </html>
+    `
+    
+    // Write content to print window
+    printWindow.document.write(printContent)
+    printWindow.document.close()
+    
+    // Wait for content to load, then print
+    printWindow.onload = () => {
+      printWindow.print()
+      printWindow.close()
+    }
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     let processedValue = value
@@ -738,6 +931,7 @@ const Calculator = ({ onAddJob }) => {
               </button>
           <button
             type="button"
+            onClick={handlePrint}
                     className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
                     style={{backgroundColor: '#EBE6E3', borderColor: '#EBE6E3', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
           >
