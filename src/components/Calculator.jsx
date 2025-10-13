@@ -377,26 +377,10 @@ const Calculator = ({ onAddJob }) => {
               align-items: center;
               margin-bottom: 20px;
             }
-            .logo-icon {
-              font-size: 24px;
-              color: #63D43E;
-              margin-right: 8px;
-            }
-            .company-logo {
-              display: flex;
-              flex-direction: column;
-            }
-            .profitable {
-              font-size: 16px;
-              font-weight: bold;
-              color: #63D43E;
-              line-height: 1;
-            }
-            .restorer {
-              font-size: 16px;
-              font-weight: bold;
-              color: #000;
-              line-height: 1;
+            .logo-image {
+              height: 64px;
+              width: auto;
+              margin-right: 15px;
             }
             .main-title {
               text-align: center;
@@ -491,11 +475,8 @@ const Calculator = ({ onAddJob }) => {
           </div>
           
           <div class="logo-section">
-            <div class="logo-icon">🔥</div>
-            <div class="company-logo">
-              <div class="profitable">PROFITABLE</div>
-              <div class="restorer">RESTORER</div>
-            </div>
+            <img src="/logo.svg" alt="Company Logo" class="logo-image" 
+                 onerror="this.onerror=null; this.src='/logo.png.png'; this.style.display='none';" />
           </div>
           
           <div class="main-title">
