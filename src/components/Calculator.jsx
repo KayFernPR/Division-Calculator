@@ -351,90 +351,90 @@ const Calculator = ({ onAddJob }) => {
             body {
               font-family: Arial, sans-serif;
               margin: 0; 
-              padding: 10px; 
-              line-height: 1.2;
+              padding: 15px; 
+              line-height: 1.4;
               color: #000;
-              font-size: 10px;
+              font-size: 12px;
               background: white;
             }
             .header-top {
               display: flex;
               justify-content: space-between;
               align-items: flex-start;
-              margin-bottom: 8px;
+              margin-bottom: 12px;
             }
             .date-time {
-              font-size: 10px;
+              font-size: 12px;
               color: #000;
             }
             .job-report-title {
-              font-size: 10px;
+              font-size: 12px;
               color: #000;
               font-weight: bold;
             }
             .logo-section {
               display: flex;
               align-items: center;
-              margin-bottom: 8px;
+              margin-bottom: 15px;
             }
             .logo-image {
-              height: 40px;
+              height: 50px;
               width: auto;
-              margin-right: 10px;
+              margin-right: 12px;
             }
             .main-title {
               text-align: center;
-              margin: 8px 0;
+              margin: 15px 0;
             }
             .job-number {
+              font-size: 20px;
+              font-weight: bold;
+              color: #000;
+              margin-bottom: 5px;
+            }
+            .profitability-report {
               font-size: 16px;
               font-weight: bold;
               color: #000;
-              margin-bottom: 2px;
-            }
-            .profitability-report {
-              font-size: 12px;
-              font-weight: bold;
-              color: #000;
-              margin-bottom: 2px;
+              margin-bottom: 5px;
             }
             .generated-date {
-              font-size: 9px;
+              font-size: 11px;
               color: #000;
             }
             .separator {
               border-bottom: 1px solid #63D43E;
-              margin: 8px 0;
+              margin: 15px 0;
             }
             .section { 
-              margin-bottom: 8px;
+              margin-bottom: 15px;
             }
             .section h2 { 
               color: #63D43E; 
               border-bottom: 1px solid #63D43E; 
-              padding-bottom: 2px; 
-              margin-bottom: 4px;
-              font-size: 11px;
+              padding-bottom: 5px; 
+              margin-bottom: 8px;
+              font-size: 14px;
               font-weight: bold;
             }
             .field { 
-              display: flex; 
-              justify-content: space-between; 
-              margin: 2px 0; 
-              padding: 1px 0; 
+              display: flex;
+              justify-content: space-between;
+              margin: 6px 0; 
+              padding: 3px 0; 
             }
             .field-label { 
               font-weight: normal; 
               color: #000;
               flex: 1;
-              font-size: 9px;
+              font-size: 11px;
             }
             .field-value { 
               font-weight: normal;
               color: #000;
               text-align: right;
               flex: 1;
-              font-size: 9px;
+              font-size: 11px;
             }
             .status-excellent { color: #16a34a; }
             .status-good { color: #16a34a; }
@@ -443,10 +443,10 @@ const Calculator = ({ onAddJob }) => {
             .status-poor { color: #dc2626; }
             .status-loss { color: #dc2626; }
             .status-indicator {
-              font-size: 9px;
+              font-size: 11px;
               font-weight: bold;
               color: #dc2626;
-              margin: 2px 0;
+              margin: 6px 0;
             }
             .negative-value {
               color: #dc2626;
@@ -456,27 +456,27 @@ const Calculator = ({ onAddJob }) => {
             }
             .footer {
               text-align: center;
-              margin-top: 10px;
-              font-size: 8px;
+              margin-top: 20px;
+              font-size: 10px;
               color: #666;
             }
             .copyright {
-              font-size: 8px;
+              font-size: 10px;
               color: #666;
             }
             .two-column {
               display: grid;
               grid-template-columns: 1fr 1fr;
-              gap: 10px;
+              gap: 15px;
             }
             .compact-section {
-              margin-bottom: 4px;
+              margin-bottom: 8px;
             }
             @media print { 
-              body { margin: 0; padding: 8px; font-size: 9px; }
-              .section { page-break-inside: avoid; margin-bottom: 6px; }
-              .field { margin: 1px 0; padding: 0; }
-              .logo-image { height: 35px; }
+              body { margin: 0; padding: 12px; font-size: 11px; }
+              .section { page-break-inside: avoid; margin-bottom: 12px; }
+              .field { margin: 4px 0; padding: 2px 0; }
+              .logo-image { height: 45px; }
             }
           </style>
         </head>
