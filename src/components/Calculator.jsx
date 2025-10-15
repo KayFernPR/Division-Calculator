@@ -740,12 +740,12 @@ const Calculator = ({ onAddJob }) => {
           {/* Left Column */}
     <div className="space-y-6">
           {/* Quick Tips */}
-            <div className="border rounded-lg p-6" style={{backgroundColor: '#e0f5d9', borderColor: '#CCF5BC'}}>
+            <div className="border rounded-lg p-4" style={{backgroundColor: '#e0f5d9', borderColor: '#CCF5BC'}}>
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
               <span className="text-yellow-500">💡</span>
               Quick Tips
             </h2>
-            <ul className="space-y-2" style={{color: '#1F1F1F'}}>
+            <ul className="space-y-1" style={{color: '#1F1F1F'}}>
             <li>• Set your company's break-even percentage first</li>
             <li>• Target margins should be above break-even</li>
             <li>• Use the reference table to convert margin to markup</li>
@@ -756,20 +756,20 @@ const Calculator = ({ onAddJob }) => {
         </div>
         
           {/* Job Calculator */}
-            <div className="bg-white rounded-lg shadow-lg p-6" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}} data-calculator-section>
-              <h2 className="text-2xl font-bold text-neutral-900 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-lg shadow-lg p-4" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}} data-calculator-section>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-2 flex items-center gap-2">
                 <img src="/Calculator.png" alt="Calculator" className="w-6 h-6" />
           Job Calculator
           </h2>
           
-              <form onSubmit={handleSubmit} className="space-y-2">
+              <form onSubmit={handleSubmit} className="space-y-1">
                 {/* Section 1: JOB DETAILS */}
-            <div className="space-y-2">
+            <div className="space-y-1">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     JOB DETAILS
                   </h3>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-1">
               <div>
                       <label htmlFor="jobName" className="block text-sm font-medium text-neutral-700  mb-1">
                 Job Name or Number *
@@ -874,12 +874,12 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 2: OVERHEAD COSTS */}
-            <div className="space-y-2">
+            <div className="space-y-1">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     OVERHEAD COSTS
                   </h3>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-1">
               <div>
                       <label htmlFor="royaltyRate" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                 Royalty Rate % *
@@ -999,12 +999,12 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 3: TARGET PROFIT */}
-            <div className="space-y-2">
+            <div className="space-y-1">
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     TARGET PROFIT
                   </h3>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-1">
               <div>
                       <label htmlFor="targetNetProfit" className="block text-sm font-medium text-neutral-700  mb-1 flex items-center gap-2">
                   Target Operating Profit % *
