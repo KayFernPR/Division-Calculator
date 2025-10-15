@@ -21,7 +21,7 @@ const ProfitChart = ({ jobs }) => {
     return uniqueMonths.sort().reverse()
   }, [jobs])
 
-  // Prepare chart data
+  // Prepare chart data - each job becomes its own line
   const chartData = useMemo(() => {
     let filteredJobs = jobs
 
@@ -39,20 +39,43 @@ const ProfitChart = ({ jobs }) => {
       })
     }
 
-    // Transform data for chart
-    return filteredJobs.map(job => ({
-      name: job.jobName.length > 15 ? job.jobName.substring(0, 15) + '...' : job.jobName,
-      fullName: job.jobName,
-      profit: job.retailPrice - job.jobCost,
-      margin: parseFloat(job.results?.yourProfitMargin) || 0,
-      markup: parseFloat(job.results?.actualMarkup) || 0,
-      retailPrice: job.retailPrice,
-      jobCost: job.jobCost,
-      carrier: job.clientName || 'N/A',
-      date: new Date(job.timestamp).toLocaleDateString(),
-      status: job.results?.profitabilityStatus
-    }))
+    // Create data structure for multi-line chart
+    const dataPoints = []
+    filteredJobs.forEach((job, index) => {
+      dataPoints.push({
+        name: `Job ${index + 1}`,
+        fullName: job.jobName,
+        profit: job.retailPrice - job.jobCost,
+        margin: parseFloat(job.results?.yourProfitMargin) || 0,
+        markup: parseFloat(job.results?.actualMarkup) || 0,
+        retailPrice: job.retailPrice,
+        jobCost: job.jobCost,
+        carrier: job.clientName || 'N/A',
+        date: new Date(job.timestamp).toLocaleDateString(),
+        status: job.results?.profitabilityStatus,
+        jobId: job.id
+      })
+    })
+
+    return dataPoints
   }, [jobs, filterCarrier, filterMonth])
+
+  // Generate colors for each job line
+  const getJobColor = (index) => {
+    const colors = [
+      '#249100', // Green
+      '#3b82f6', // Blue
+      '#f59e0b', // Orange
+      '#ef4444', // Red
+      '#8b5cf6', // Purple
+      '#06b6d4', // Cyan
+      '#84cc16', // Lime
+      '#f97316', // Orange
+      '#ec4899', // Pink
+      '#6366f1'  // Indigo
+    ]
+    return colors[index % colors.length]
+  }
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {
@@ -204,14 +227,18 @@ const ProfitChart = ({ jobs }) => {
               />
               <Tooltip content={<CustomTooltip />} />
               <Legend />
-              <Line 
-                type="monotone" 
-                dataKey="profit" 
-                stroke="#249100" 
-                strokeWidth={3}
-                name="Gross Profit"
-                dot={{ fill: '#249100', strokeWidth: 2, r: 4 }}
-              />
+              {chartData.map((job, index) => (
+                <Line 
+                  key={job.jobId}
+                  type="monotone" 
+                  dataKey="profit" 
+                  stroke={getJobColor(index)}
+                  strokeWidth={3}
+                  name={job.fullName.length > 20 ? job.fullName.substring(0, 20) + '...' : job.fullName}
+                  dot={{ fill: getJobColor(index), strokeWidth: 2, r: 4 }}
+                  connectNulls={false}
+                />
+              ))}
             </LineChart>
           ) : (
             <LineChart data={chartData}>
@@ -229,14 +256,18 @@ const ProfitChart = ({ jobs }) => {
               />
               <Tooltip content={<CustomTooltip />} />
               <Legend />
-              <Line 
-                type="monotone" 
-                dataKey="margin" 
-                stroke="#249100" 
-                strokeWidth={3}
-                name="Margin %"
-                dot={{ fill: '#249100', strokeWidth: 2, r: 4 }}
-              />
+              {chartData.map((job, index) => (
+                <Line 
+                  key={job.jobId}
+                  type="monotone" 
+                  dataKey="margin" 
+                  stroke={getJobColor(index)}
+                  strokeWidth={3}
+                  name={job.fullName.length > 20 ? job.fullName.substring(0, 20) + '...' : job.fullName}
+                  dot={{ fill: getJobColor(index), strokeWidth: 2, r: 4 }}
+                  connectNulls={false}
+                />
+              ))}
             </LineChart>
           )}
         </ResponsiveContainer>
