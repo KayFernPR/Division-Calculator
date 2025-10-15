@@ -1475,11 +1475,12 @@ const Calculator = ({ onAddJob }) => {
             </div>
           </div>
 
-        {/* Job Templates */}
-        <div className="mb-8">
-          <JobTemplates onApplyTemplate={applyTemplate} />
-          </div>
         </div>
+      </div>
+
+      {/* Job Templates - Full Width Below Both Columns */}
+      <div className="mb-8">
+        <JobTemplates onApplyTemplate={applyTemplate} />
       </div>
     </div>
   )
