@@ -8,7 +8,7 @@ const ProfitChart = ({ jobs }) => {
 
   // Get unique carriers for filter
   const carriers = useMemo(() => {
-    const uniqueCarriers = [...new Set(jobs.map(job => job.insuranceCarrier).filter(Boolean))]
+    const uniqueCarriers = [...new Set(jobs.map(job => job.clientName).filter(Boolean))]
     return uniqueCarriers.sort()
   }, [jobs])
 
@@ -27,7 +27,7 @@ const ProfitChart = ({ jobs }) => {
 
     // Filter by carrier
     if (filterCarrier) {
-      filteredJobs = filteredJobs.filter(job => job.insuranceCarrier === filterCarrier)
+      filteredJobs = filteredJobs.filter(job => job.clientName === filterCarrier)
     }
 
     // Filter by month
@@ -44,13 +44,13 @@ const ProfitChart = ({ jobs }) => {
       name: job.jobName.length > 15 ? job.jobName.substring(0, 15) + '...' : job.jobName,
       fullName: job.jobName,
       profit: job.retailPrice - job.jobCost,
-      margin: job.actualMargin,
-      markup: job.actualMarkup,
+      margin: parseFloat(job.results?.yourProfitMargin) || 0,
+      markup: parseFloat(job.results?.actualMarkup) || 0,
       retailPrice: job.retailPrice,
       jobCost: job.jobCost,
-      carrier: job.insuranceCarrier || 'N/A',
+      carrier: job.clientName || 'N/A',
       date: new Date(job.timestamp).toLocaleDateString(),
-      status: job.profitabilityStatus
+      status: job.results?.profitabilityStatus
     }))
   }, [jobs, filterCarrier, filterMonth])
 
@@ -62,7 +62,7 @@ const ProfitChart = ({ jobs }) => {
   }
 
   const formatPercentage = (value) => {
-    return `${value.toFixed(2)}%`
+    return `${(value || 0).toFixed(2)}%`
   }
 
   const CustomTooltip = ({ active, payload, label }) => {

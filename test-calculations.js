@@ -111,3 +111,4 @@ console.log('Profit Margin Check: $4,000 / $10,000 = 40% ✓', Math.abs(yourProf
 console.log('Markup Check: $4,000 / $6,000 = 66.67% ✓', Math.abs(actualMarkup - 66.67) < 0.01 ? 'PASS' : 'FAIL')
 
 
+
