@@ -189,7 +189,7 @@ const ProfitChart = ({ jobs }) => {
       <div className="h-96">
         <ResponsiveContainer width="100%" height="100%">
           {chartType === 'profit' ? (
-            <BarChart data={chartData}>
+            <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ebe6e3" />
               <XAxis 
                 dataKey="name" 
@@ -204,12 +204,15 @@ const ProfitChart = ({ jobs }) => {
               />
               <Tooltip content={<CustomTooltip />} />
               <Legend />
-              <Bar 
+              <Line 
+                type="monotone" 
                 dataKey="profit" 
-                fill="#249100"
+                stroke="#249100" 
+                strokeWidth={3}
                 name="Gross Profit"
+                dot={{ fill: '#249100', strokeWidth: 2, r: 4 }}
               />
-            </BarChart>
+            </LineChart>
           ) : (
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ebe6e3" />
