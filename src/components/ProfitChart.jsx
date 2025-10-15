@@ -284,19 +284,47 @@ const ProfitChart = ({ jobs }) => {
                 dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
                 connectNulls={false}
               />
-              {/* Net Profit Margin */}
+              {/* Net Profit Margin - Color coded by performance */}
               <Line 
                 type="monotone" 
                 dataKey="netProfitMargin" 
                 stroke="#249100" 
                 strokeWidth={3}
                 name="Net Profit Margin %"
-                dot={{ fill: '#249100', strokeWidth: 2, r: 4 }}
+                dot={(props) => {
+                  const { cx, cy, payload } = props
+                  return (
+                    <circle 
+                      cx={cx} 
+                      cy={cy} 
+                      r={4} 
+                      fill={payload.performanceColor} 
+                      stroke={payload.performanceColor}
+                      strokeWidth={2}
+                    />
+                  )
+                }}
                 connectNulls={false}
               />
             </LineChart>
           )}
         </ResponsiveContainer>
+      </div>
+
+      {/* Performance Legend */}
+      <div className="flex justify-center mt-4 text-sm text-neutral-600">
+        <span className="flex items-center mr-6">
+          <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+          Above Target
+        </span>
+        <span className="flex items-center mr-6">
+          <div className="w-3 h-3 bg-gray-500 rounded-full mr-2"></div>
+          On Target
+        </span>
+        <span className="flex items-center">
+          <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+          Below Target
+        </span>
       </div>
 
       {/* Summary Stats */}
