@@ -51,6 +51,8 @@ const ProfitChart = ({ jobs }) => {
         fullName: job.jobName,
         actualGrossMargin: actualGrossMargin,
         netProfitMargin: netProfitMargin,
+        netProfitMarginAbove: netProfitMargin >= targetMargin ? netProfitMargin : null,
+        netProfitMarginBelow: netProfitMargin < targetMargin ? netProfitMargin : null,
         targetMargin: targetMargin,
         profit: job.retailPrice - job.jobCost,
         markup: parseFloat(job.results?.actualMarkup) || 0,
@@ -284,25 +286,53 @@ const ProfitChart = ({ jobs }) => {
                 dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
                 connectNulls={false}
               />
-              {/* Net Profit Margin - Color coded by performance */}
+              {/* Net Profit Margin - Above Target (Green) */}
               <Line 
                 type="monotone" 
-                dataKey="netProfitMargin" 
+                dataKey="netProfitMarginAbove" 
                 stroke="#249100" 
                 strokeWidth={3}
-                name="Net Profit Margin %"
+                name="Net Profit Margin % (Above Target)"
                 dot={(props) => {
                   const { cx, cy, payload } = props
-                  return (
-                    <circle 
-                      cx={cx} 
-                      cy={cy} 
-                      r={4} 
-                      fill={payload.performanceColor} 
-                      stroke={payload.performanceColor}
-                      strokeWidth={2}
-                    />
-                  )
+                  if (payload.netProfitMarginAbove !== null) {
+                    return (
+                      <circle 
+                        cx={cx} 
+                        cy={cy} 
+                        r={4} 
+                        fill="#249100" 
+                        stroke="#249100"
+                        strokeWidth={2}
+                      />
+                    )
+                  }
+                  return null
+                }}
+                connectNulls={false}
+              />
+              {/* Net Profit Margin - Below Target (Red) */}
+              <Line 
+                type="monotone" 
+                dataKey="netProfitMarginBelow" 
+                stroke="#ef4444" 
+                strokeWidth={3}
+                name="Net Profit Margin % (Below Target)"
+                dot={(props) => {
+                  const { cx, cy, payload } = props
+                  if (payload.netProfitMarginBelow !== null) {
+                    return (
+                      <circle 
+                        cx={cx} 
+                        cy={cy} 
+                        r={4} 
+                        fill="#ef4444" 
+                        stroke="#ef4444"
+                        strokeWidth={2}
+                      />
+                    )
+                  }
+                  return null
                 }}
                 connectNulls={false}
               />
