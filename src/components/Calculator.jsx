@@ -867,7 +867,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 2: OVERHEAD COSTS */}
-            <div className="space-y-2">
+            <div className="space-y-2" style={{marginTop: '29.5px'}}>
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     OVERHEAD COSTS
                   </h3>
@@ -992,7 +992,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 3: TARGET PROFIT */}
-            <div className="space-y-2">
+            <div className="space-y-2" style={{marginTop: '29.5px'}}>
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     TARGET PROFIT
                   </h3>
