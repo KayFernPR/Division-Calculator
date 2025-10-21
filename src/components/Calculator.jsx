@@ -1075,7 +1075,7 @@ const Calculator = ({ onAddJob }) => {
                   <span className="text-sm"><strong>You're Winning!</strong></span>
                   </div>
                 <div className="flex items-center gap-2">
-                  <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
+                  <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
                   <span className="text-sm"><strong>Great Job You are a Profitable Restorer!</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1104,7 +1104,7 @@ const Calculator = ({ onAddJob }) => {
                   {results.profitabilityStatus === 'good' && '🎯 You\'re Winning!'}
                   {results.profitabilityStatus === 'neutral' && (
                     <span className="flex items-center gap-2">
-                      <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
+                      <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
                       Great Job You are a Profitable Restorer!
                     </span>
                   )}
