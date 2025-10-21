@@ -1076,7 +1076,7 @@ const Calculator = ({ onAddJob }) => {
                   </div>
                 <div className="flex items-center gap-2">
                   <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-6" />
-                  <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
+                  <span className="text-sm"><strong>Great Job You are a Profitable Restorer!</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">⚠️</span>
@@ -1105,7 +1105,7 @@ const Calculator = ({ onAddJob }) => {
                   {results.profitabilityStatus === 'neutral' && (
                     <span className="flex items-center gap-2">
                       <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-5" />
-                      Great Job You're At Target!
+                      Great Job You are a Profitable Restorer!
                     </span>
                   )}
                   {results.profitabilityStatus === 'thin' && '⚠️ Warning! You\'re Cutting Into Profits'}
