@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import JobTemplates from './JobTemplates'
 
 const Calculator = ({ onAddJob }) => {
   const [formData, setFormData] = useState({
@@ -688,12 +687,6 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
-  const applyTemplate = (templateValues) => {
-    setFormData(prev => ({
-      ...prev,
-      ...templateValues
-    }))
-  }
 
   const resetForm = () => {
     setFormData({
@@ -1478,10 +1471,6 @@ const Calculator = ({ onAddJob }) => {
         </div>
       </div>
 
-      {/* Job Templates - Full Width Below Both Columns */}
-      <div className="mb-8">
-        <JobTemplates onApplyTemplate={applyTemplate} />
-      </div>
     </div>
   )
 }
