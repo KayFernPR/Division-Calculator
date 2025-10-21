@@ -1075,7 +1075,7 @@ const Calculator = ({ onAddJob }) => {
                   <span className="text-sm"><strong>You're Winning!</strong></span>
                   </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">✅</span>
+                  <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-6" />
                   <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1102,7 +1102,12 @@ const Calculator = ({ onAddJob }) => {
                 <span className="ml-2 text-lg font-semibold">
                   {results.profitabilityStatus === 'excellent' && '🏆 Jackpot! Above Target Profit'}
                   {results.profitabilityStatus === 'good' && '🎯 You\'re Winning!'}
-                  {results.profitabilityStatus === 'neutral' && '✅ Great Job You\'re At Target!'}
+                  {results.profitabilityStatus === 'neutral' && (
+                    <span className="flex items-center gap-2">
+                      <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-5" />
+                      Great Job You're At Target!
+                    </span>
+                  )}
                   {results.profitabilityStatus === 'thin' && '⚠️ Warning! You\'re Cutting Into Profits'}
                   {results.profitabilityStatus === 'poor' && '🚨 EXTREME WARNING! You\'re Almost Paying For The Job'}
                   {results.profitabilityStatus === 'loss' && '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
