@@ -114,7 +114,7 @@ function App() {
         {/* Main Title and Subtitle */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-neutral-900 mb-2">
-            Restoration Job: Profitability Calculator by Division
+            Profitability Calculator: Restoration Job by Division
           </h1>
           <p className="text-lg text-neutral-600">
             Calculate job profitability, track margins, and visualize trends for restoration contractors
