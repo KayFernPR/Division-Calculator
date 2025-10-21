@@ -116,7 +116,7 @@ const Calculator = ({ onAddJob }) => {
 
     // Break-even and target analysis - Updated formulas
     const yourProfitMargin = retailPrice > 0 ? ((retailPrice - jobCost) / retailPrice) * 100 : 0
-    const divisionTotalBreakEven = (jobCost / retailPrice) * 100 + divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate
+    const divisionTotalBreakEven = royaltyRate + divisionVariableExpenses + divisionOverheads + companyOverheads
     const breakEvenPrice = jobCost / (1 - (divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate) / 100)
     const requiredPrice = jobCost / (1 - (divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate + targetNetProfit) / 100)
     const requiredMargin = ((requiredPrice - jobCost) / requiredPrice) * 100
