@@ -1380,56 +1380,48 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Status Indicator */}
-                <div className="flex justify-between items-center p-2 border border-blue-500 bg-blue-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700">Status Indicator:</span>
-                    <div className="relative group">
-                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
-                        Your current profitability status based on target performance.
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
+                {isCalculated && (
+                  <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                    <div className="flex items-center gap-2">
+                      {results.profitabilityStatus === 'excellent' && (
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          <span className="text-2xl">🏆</span>
+                          Jackpot! Above Target Profit
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'good' && (
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          <span className="text-2xl">🎯</span>
+                          You're Winning!
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'neutral' && (
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
+                          Great Job You are a Profitable Restorer!
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'thin' && (
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          <span className="text-2xl">⚠️</span>
+                          Warning! You're Cutting Into Profits
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'poor' && (
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          <span className="text-2xl">🚨</span>
+                          EXTREME WARNING! You're Almost Paying For The Job
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'loss' && (
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          <span className="text-2xl">⛔</span>
+                          STOP! DON'T PAY TO DO THE WORK!
+                        </span>
+                      )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {results.profitabilityStatus === 'excellent' && (
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        <span className="text-2xl">🏆</span>
-                        Jackpot! Above Target Profit
-                      </span>
-                    )}
-                    {results.profitabilityStatus === 'good' && (
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        <span className="text-2xl">🎯</span>
-                        You're Winning!
-                      </span>
-                    )}
-                    {results.profitabilityStatus === 'neutral' && (
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
-                        Great Job You are a Profitable Restorer!
-                      </span>
-                    )}
-                    {results.profitabilityStatus === 'thin' && (
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        <span className="text-2xl">⚠️</span>
-                        Warning! You're Cutting Into Profits
-                      </span>
-                    )}
-                    {results.profitabilityStatus === 'poor' && (
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        <span className="text-2xl">🚨</span>
-                        EXTREME WARNING! You're Almost Paying For The Job
-                      </span>
-                    )}
-                    {results.profitabilityStatus === 'loss' && (
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        <span className="text-2xl">⛔</span>
-                        STOP! DON'T PAY TO DO THE WORK!
-                      </span>
-                    )}
-                  </div>
-                </div>
+                )}
 
                 {/* Your Price $ */}
                 <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
