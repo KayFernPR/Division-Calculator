@@ -757,7 +757,7 @@ const Calculator = ({ onAddJob }) => {
           
               <form onSubmit={handleSubmit} className="space-y-2">
                 {/* Section 1: JOB DETAILS */}
-            <div className="space-y-2">
+            <div className="space-y-2" style={{marginTop: '10px'}}>
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     JOB DETAILS
                   </h3>
