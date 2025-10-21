@@ -63,7 +63,7 @@ const Calculator = ({ onAddJob }) => {
     switch (status) {
       case 'excellent': return '🏆'
       case 'good': return '🎯'
-      case 'neutral': return '✅'
+      case 'neutral': return <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-5 inline-block" />
       case 'thin': return '⚠️'
       case 'poor': return '🚨'
       default: return '⚪'
