@@ -1335,7 +1335,11 @@ const Calculator = ({ onAddJob }) => {
             </div>
             
                 {/* Division Total Break-Even % */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  results.divisionTotalBreakEven > results.yourProfitMargin 
+                    ? 'border-red-500 bg-red-50' 
+                    : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Total Break-Even %:</span>
                 <div className="relative group">
@@ -1346,7 +1350,11 @@ const Calculator = ({ onAddJob }) => {
                   </div>
                 </div>
               </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.divisionTotalBreakEven)}</span>
+                  <span className={`font-mono text-sm ${
+                    results.divisionTotalBreakEven > results.yourProfitMargin 
+                      ? 'text-red-600 font-bold' 
+                      : ''
+                  }`}>{formatPercentage(results.divisionTotalBreakEven)}</span>
             </div>
 
                 {/* Required Price $ */}
