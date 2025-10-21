@@ -1030,7 +1030,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-2" style={{marginTop: '20px'}}>
+                <div className="flex gap-4 pt-2" style={{marginTop: '30px'}}>
               <button
                     type="button"
                     onClick={handleSaveJob}
