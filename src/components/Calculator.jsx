@@ -1380,7 +1380,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Status Indicator */}
-                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1" style={{borderWidth: '0.5px', minHeight: '48px'}}>
+                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1" style={{borderWidth: '0.5px', minHeight: '50px'}}>
                   {isCalculated && (
                     <div className="flex items-center gap-2">
                       {results.profitabilityStatus === 'excellent' && (
