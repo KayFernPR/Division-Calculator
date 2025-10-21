@@ -826,7 +826,7 @@ const Calculator = ({ onAddJob }) => {
                             ? 'border-red-500 focus:ring-red-500 bg-red-50' 
                             : 'border-neutral-300 focus:ring-blue-500'
                         }`}
-                placeholder="10,400.00"
+                placeholder="Enter your job Retail Price/Charge Out ($)"
                 />
                 {errors.retailPrice && (
                         <p className="mt-1 text-sm text-red-600">{errors.retailPrice}</p>
@@ -857,7 +857,7 @@ const Calculator = ({ onAddJob }) => {
                             ? 'border-red-500 focus:ring-red-500 bg-red-50' 
                             : 'border-neutral-300 focus:ring-blue-500'
                         }`}
-                placeholder="8,400.00"
+                placeholder="Enter your job Cost / COGS ($)"
                 />
                 {errors.jobCost && (
                         <p className="mt-1 text-sm text-red-600">{errors.jobCost}</p>
@@ -924,7 +924,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.divisionVariableExpenses ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="5"
+                        placeholder="Enter your Division Variable Expenses (%)"
                       />
                       {errors.divisionVariableExpenses && (
                         <p className="mt-1 text-sm text-red-600">{errors.divisionVariableExpenses}</p>
@@ -953,7 +953,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.divisionOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="5"
+                  placeholder="Enter your Division Fixed Expenses (%)"
                 />
                 {errors.divisionOverheads && (
                         <p className="mt-1 text-sm text-red-600">{errors.divisionOverheads}</p>
@@ -982,7 +982,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.companyOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="10"
+                  placeholder="Enter your Company Overhead Costs (%)"
                 />
                 {errors.companyOverheads && (
                         <p className="mt-1 text-sm text-red-600">{errors.companyOverheads}</p>
@@ -1020,7 +1020,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.targetNetProfit ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="30"
+                  placeholder="Enter a % that represents your Target Operating Profit"
                 />
               {errors.targetNetProfit && (
                         <p className="mt-1 text-sm text-red-600">{errors.targetNetProfit}</p>
