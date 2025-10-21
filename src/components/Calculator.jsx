@@ -1380,8 +1380,8 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Status Indicator */}
-                {isCalculated && (
-                  <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                  {isCalculated && (
                     <div className="flex items-center gap-2">
                       {results.profitabilityStatus === 'excellent' && (
                         <span className="flex items-center gap-2 text-sm font-semibold">
@@ -1420,8 +1420,8 @@ const Calculator = ({ onAddJob }) => {
                         </span>
                       )}
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
 
                 {/* Your Price $ */}
                 <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
