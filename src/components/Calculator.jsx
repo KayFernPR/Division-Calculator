@@ -1288,11 +1288,7 @@ const Calculator = () => {
               </div>
                 </div>
               </div>
-                  <span className={`font-mono text-sm ${
-                    results.breakEvenPrice < (parseFloat(formData.retailPrice) * results.divisionTotalBreakEven / 100)
-                      ? 'text-red-600 font-bold' 
-                      : ''
-                  }`}>{formatCurrency(results.breakEvenPrice)}</span>
+                  <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
             </div>
             
                 {/* Division Total Break-Even % */}
