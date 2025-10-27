@@ -299,7 +299,7 @@ const Calculator = () => {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>Job Report - ${jobName}</title>
+          <title>${jobName}</title>
           <style>
             body {
               font-family: Arial, sans-serif;
@@ -357,7 +357,7 @@ const Calculator = () => {
               display: flex;
               justify-content: space-between;
               margin: 3px 0; 
-              padding: 2px 0; 
+              padding: 2px 0;
             }
             .field-label { 
               font-weight: normal; 
@@ -435,7 +435,6 @@ const Calculator = () => {
           <div class="main-title">
             <div class="job-number">Job #: ${jobName || 'Unnamed Job'}</div>
             <div class="profitability-report">Profitability Report</div>
-            <div class="generated-date">Generated: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</div>
           </div>
 
           <div class="separator"></div>
@@ -449,7 +448,7 @@ const Calculator = () => {
             <div class="field">
               <span class="field-label">Insurance Carrier:</span>
               <span class="field-value">${clientName || 'N/A'}</span>
-            </div>
+          </div>
             <div class="field">
               <span class="field-label">Division:</span>
               <span class="field-value">${division || 'N/A'}</span>
@@ -484,6 +483,7 @@ const Calculator = () => {
             </div>
           </div>
 
+          ${isCalculated ? `
           <div class="section">
             <h2>Status Indicator</h2>
             <div class="status-indicator status-${results.profitabilityStatus || 'neutral'}">
@@ -494,7 +494,8 @@ const Calculator = () => {
                 results.profitabilityStatus === 'poor' ? '🚨 EXTREME WARNING! YOU\'RE ALMOST PAYING FOR THE JOB' :
                 '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
             </div>
-          </div>
+            </div>
+            ` : ''}
 
           <div class="section">
             <h2>Profit Results</h2>
@@ -577,7 +578,7 @@ const Calculator = () => {
             <div class="field">
               <span class="field-label">You are currently at:</span>
               <span class="field-value ${results.thisJobIs > 1 ? 'above-target' : results.thisJobIs < -1 ? 'below-target' : 'on-target'}">${formatPercentage(results.thisJobIs || 0)} (${results.thisJobIs > 1 ? 'above target' : results.thisJobIs < -1 ? 'below target' : 'on target'})</span>
-            </div>
+          </div>
             <div class="field">
               <span class="field-label">Which is:</span>
               <span class="field-value ${results.yourJob > 200 ? 'above-target' : results.yourJob < -200 ? 'below-target' : 'on-target'}">${formatCurrency(results.yourJob || 0)} (${results.yourJob > 200 ? 'above target' : results.yourJob < -200 ? 'below target' : 'on target'})</span>
