@@ -1132,7 +1132,7 @@ const Calculator = () => {
                   </div>
                 </div>
               </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
+                  <span className={`font-mono text-sm ${results.yourProfitMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.yourProfitMargin)}</span>
             </div>
             
                 {/* Actual Mark-up % */}
@@ -1147,7 +1147,7 @@ const Calculator = () => {
                   </div>
                 </div>
               </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.actualMarkup)}</span>
+                  <span className={`font-mono text-sm ${results.actualMarkup < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.actualMarkup)}</span>
             </div>
 
                 {/* Actual Gross Profit $ */}
@@ -1162,7 +1162,7 @@ const Calculator = () => {
               </div>
               </div>
               </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.grossProfit)}</span>
+                  <span className={`font-mono text-sm ${results.grossProfit < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.grossProfit)}</span>
               </div>
 
                 {/* Division Variable Expenses $ */}
@@ -1207,7 +1207,7 @@ const Calculator = () => {
                   </div>
                 </div>
               </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
+                  <span className={`font-mono text-sm ${results.contributionMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.contributionMargin)}</span>
             </div>
 
                 {/* Division Fixed Expenses $ */}
@@ -1237,7 +1237,7 @@ const Calculator = () => {
               </div>
                 </div>
               </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
+                  <span className={`font-mono text-sm ${results.controllableMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.controllableMargin)}</span>
             </div>
 
                 {/* Company Overhead Costs $ */}
@@ -1270,7 +1270,7 @@ const Calculator = () => {
                   </div>
                 </div>
               </div>
-                  <span className="font-mono text-sm" style={{fontWeight: 'bold'}}>{formatCurrency(results.actualNetProfit)}</span>
+                  <span className={`font-mono text-sm ${results.actualNetProfit < 0 ? 'text-red-600 font-bold' : ''}`} style={{fontWeight: 'bold'}}>{formatCurrency(results.actualNetProfit)}</span>
               </div>
             </div>
 
@@ -1415,7 +1415,7 @@ const Calculator = () => {
                 </div>
               </div>
                   </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
+                  <span className={`font-mono text-sm ${results.yourProfitMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.yourProfitMargin)}</span>
             </div>
 
                 {/* You are currently at */}
