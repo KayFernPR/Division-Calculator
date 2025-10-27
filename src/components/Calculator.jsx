@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-const Calculator = ({ onAddJob }) => {
+const Calculator = () => {
   const [formData, setFormData] = useState({
     retailPrice: '',
     jobCost: '',
@@ -280,52 +280,6 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
-  const handleSaveJob = () => {
-    // Check if calculation fields are valid and results are calculated
-    const isCalculationValid = validateForm()
-    console.log('Calculation validation result:', isCalculationValid)
-    console.log('Form data:', formData)
-    console.log('Is calculated:', isCalculated)
-    
-    if (!isCalculationValid) {
-      alert('Please fill in all required calculation fields and calculate results before saving.')
-      return
-    }
-
-    if (!isCalculated) {
-      alert('Please calculate results before saving the job.')
-      return
-    }
-
-    // Check if job name is provided (required for saving to history)
-    const jobNameInput = document.getElementById('jobName')
-    const jobName = jobNameInput ? jobNameInput.value.trim() : ''
-    
-    if (!jobName) {
-      alert('Please enter a Job Name or Number to save this job to history.')
-      return
-    }
-
-    // Get optional field values directly from DOM
-    const clientNameInput = document.getElementById('clientName')
-    const divisionInput = document.getElementById('division')
-    
-    // Prepare job data to save
-    const jobData = {
-      ...formData,
-      jobName: jobName,
-      clientName: clientNameInput ? clientNameInput.value : '',
-      division: divisionInput ? divisionInput.value : '',
-      results: results,
-      timestamp: new Date().toISOString()
-    }
-
-    // Call the onAddJob function passed from App component
-    if (onAddJob) {
-      onAddJob(jobData)
-      alert('Job saved successfully!')
-    }
-  }
 
   const handlePrint = () => {
     // Create a new window for printing
@@ -1037,15 +991,6 @@ const Calculator = ({ onAddJob }) => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-4 pt-2" style={{marginTop: '30px'}}>
-              <button
-                    type="button"
-                    onClick={handleSaveJob}
-                    className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
-                    style={{backgroundColor: '#63D43E', borderColor: '#63D43E', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
-              >
-                    <span>💾</span>
-                    Save Job
-              </button>
           <button
             type="button"
             onClick={handlePrint}
