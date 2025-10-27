@@ -304,73 +304,73 @@ const Calculator = () => {
             body {
               font-family: Arial, sans-serif;
               margin: 0; 
-              padding: 15px; 
-              line-height: 1.4;
+              padding: 8px; 
+              line-height: 1.2;
               color: #000;
-              font-size: 12px;
+              font-size: 10px;
               background: white;
             }
             .logo-section {
               text-align: center;
-              margin-bottom: 15px;
+              margin-bottom: 8px;
             }
             .logo-image {
-              height: 50px;
+              height: 35px;
               width: auto;
             }
             .main-title {
               text-align: center;
-              margin: 15px 0;
+              margin: 8px 0;
             }
             .job-number {
-              font-size: 20px;
+              font-size: 14px;
               font-weight: bold;
               color: #000;
-              margin-bottom: 5px;
+              margin-bottom: 3px;
             }
             .profitability-report {
-              font-size: 16px;
+              font-size: 12px;
               font-weight: bold;
               color: #000;
-              margin-bottom: 5px;
+              margin-bottom: 3px;
             }
             .generated-date {
-              font-size: 11px;
+              font-size: 9px;
               color: #000;
             }
             .separator {
               border-bottom: 1px solid #63D43E;
-              margin: 15px 0;
+              margin: 8px 0;
             }
             .section { 
-              margin-bottom: 15px;
+              margin-bottom: 8px;
             }
             .section h2 { 
               color: #63D43E; 
               border-bottom: 1px solid #63D43E; 
-              padding-bottom: 5px; 
-              margin-bottom: 8px;
-              font-size: 14px;
+              padding-bottom: 3px; 
+              margin-bottom: 5px;
+              font-size: 11px;
               font-weight: bold;
             }
             .field { 
               display: flex;
               justify-content: space-between;
-              margin: 6px 0; 
-              padding: 3px 0; 
+              margin: 3px 0; 
+              padding: 2px 0; 
             }
             .field-label { 
               font-weight: normal; 
               color: #000;
               flex: 1;
-              font-size: 11px;
+              font-size: 9px;
             }
             .field-value { 
               font-weight: normal;
               color: #000;
               text-align: right;
               flex: 1;
-              font-size: 11px;
+              font-size: 9px;
             }
             .status-excellent { color: #16a34a; }
             .status-good { color: #16a34a; }
@@ -392,32 +392,37 @@ const Calculator = () => {
             }
             .footer {
               text-align: center;
-              margin-top: 20px;
-              font-size: 10px;
+              margin-top: 10px;
+              font-size: 8px;
               color: #666;
             }
             .copyright {
-              font-size: 10px;
+              font-size: 8px;
               color: #666;
             }
             .status-indicator {
               text-align: center;
-              padding: 8px;
-              margin: 10px 0;
+              padding: 4px;
+              margin: 5px 0;
               border: 1px solid #3b82f6;
               background-color: #dbeafe;
               border-radius: 4px;
               font-weight: bold;
+              font-size: 9px;
             }
             .warning-break-even {
               color: #dc2626;
               font-weight: bold;
             }
             @media print { 
-              body { margin: 0; padding: 12px; font-size: 11px; }
-              .section { page-break-inside: avoid; margin-bottom: 12px; }
-              .field { margin: 4px 0; padding: 2px 0; }
-              .logo-image { height: 45px; }
+              body { margin: 0; padding: 6px; font-size: 9px; }
+              .section { page-break-inside: avoid; margin-bottom: 6px; }
+              .field { margin: 2px 0; padding: 1px 0; }
+              .logo-image { height: 30px; }
+              .logo-section { margin-bottom: 5px; }
+              .main-title { margin: 5px 0; }
+              .separator { margin: 5px 0; }
+              .status-indicator { padding: 3px; margin: 3px 0; font-size: 8px; }
             }
           </style>
         </head>
