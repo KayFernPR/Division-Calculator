@@ -299,7 +299,7 @@ const Calculator = () => {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>${jobName}</title>
+          <title>Profitability Report</title>
           <style>
             body {
               font-family: Arial, sans-serif;
