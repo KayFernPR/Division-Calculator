@@ -1057,11 +1057,11 @@ const Calculator = () => {
               <span className="text-blue-600">💲</span>
               Results
               {isCalculated && (
-                <span className="ml-2 text-lg font-semibold">
+                <span className="ml-2 text-lg font-semibold whitespace-nowrap">
                   {results.profitabilityStatus === 'excellent' && '🏆 Jackpot! Above Target Profit'}
                   {results.profitabilityStatus === 'good' && '🎯 You\'re Winning!'}
                   {results.profitabilityStatus === 'neutral' && (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2 whitespace-nowrap">
                       <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
                       Great Job You are a Profitable Restorer!
                     </span>
@@ -1346,9 +1346,9 @@ const Calculator = () => {
             </div>
 
                 {/* Status Indicator */}
-                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1" style={{borderWidth: '0.5px', minHeight: '59px'}}>
+                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1 whitespace-nowrap" style={{borderWidth: '0.5px', minHeight: '59px'}}>
                   {isCalculated && (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 whitespace-nowrap">
                       {results.profitabilityStatus === 'excellent' && (
                         <span className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
                           <span className="text-2xl">🏆</span>
