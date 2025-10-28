@@ -1057,12 +1057,12 @@ const Calculator = () => {
               <span className="text-blue-600">💲</span>
               Results
               {isCalculated && (
-                <span className="ml-2 text-lg font-semibold whitespace-nowrap">
+                <span className="ml-2 text-sm font-semibold whitespace-nowrap">
                   {results.profitabilityStatus === 'excellent' && '🏆 Jackpot! Above Target Profit'}
                   {results.profitabilityStatus === 'good' && '🎯 You\'re Winning!'}
                   {results.profitabilityStatus === 'neutral' && (
                     <span className="flex items-center gap-2 whitespace-nowrap">
-                      <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
+                      <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-4 h-5 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '2px'}} />
                       Great Job You are a Profitable Restorer!
                     </span>
                   )}
@@ -1350,38 +1350,38 @@ const Calculator = () => {
                   {isCalculated && (
                     <div className="flex items-center gap-2 whitespace-nowrap">
                       {results.profitabilityStatus === 'excellent' && (
-                        <span className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-                          <span className="text-2xl">🏆</span>
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🏆</span>
                           Jackpot! Above Target Profit
               </span>
                       )}
                       {results.profitabilityStatus === 'good' && (
-                        <span className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-                          <span className="text-2xl">🎯</span>
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🎯</span>
                           You're Winning!
                         </span>
                       )}
                       {results.profitabilityStatus === 'neutral' && (
-                        <span className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-                          <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-6 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
                           Great Job You are a Profitable Restorer!
                         </span>
                       )}
                       {results.profitabilityStatus === 'thin' && (
-                        <span className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-                          <span className="text-2xl">⚠️</span>
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">⚠️</span>
                           Warning! You're Cutting Into Profits
                         </span>
                       )}
                       {results.profitabilityStatus === 'poor' && (
-                        <span className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-                          <span className="text-2xl">🚨</span>
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🚨</span>
                           EXTREME WARNING! You're Almost Paying For The Job
                         </span>
                       )}
                       {results.profitabilityStatus === 'loss' && (
-                        <span className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
-                          <span className="text-2xl">⛔</span>
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">⛔</span>
                           STOP! DON'T PAY TO DO THE WORK!
                         </span>
                       )}
