@@ -1389,7 +1389,9 @@ const Calculator = () => {
             </div>
 
                 {/* Your Price $ */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  results.yourJob > 200 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Price $:</span>
                 <div className="relative group">
@@ -1404,7 +1406,9 @@ const Calculator = () => {
               </div>
 
                 {/* Your Profit Margin is % */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  results.thisJobIs > 1 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Profit Margin is %:</span>
                     <div className="relative group">
