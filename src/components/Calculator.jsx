@@ -709,10 +709,10 @@ const Calculator = () => {
             <li>• Set your company's break-even percentage first</li>
             <li>• Target margins should be above break-even</li>
             <li>• Use the reference table to convert margin to markup</li>
-            <li>• Save jobs to track trends over time</li>
             <li>• Print this page for your records</li>
               <li>• Review status indicators for job profitability</li>
           </ul>
+          <div className="mt-4"></div>
         </div>
         
           {/* Job Calculator */}
