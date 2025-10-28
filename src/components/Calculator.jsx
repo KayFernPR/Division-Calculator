@@ -700,7 +700,7 @@ const Calculator = () => {
           {/* Left Column */}
     <div className="space-y-6">
           {/* Quick Tips */}
-            <div className="border rounded-lg py-[34px] px-6" style={{backgroundColor: '#e0f5d9', borderColor: '#CCF5BC'}}>
+            <div className="border rounded-lg py-[31px] px-6" style={{backgroundColor: '#e0f5d9', borderColor: '#CCF5BC'}}>
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
               <span className="text-yellow-500">💡</span>
               Quick Tips
