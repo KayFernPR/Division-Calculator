@@ -91,7 +91,7 @@ function App() {
         {/* Footer */}
         <footer className="text-center mt-12 pt-8 border-t border-neutral-200">
           <p style={{color: '#1F1F1F'}}>
-            © 2024 Restoration Profitability Calculator
+            © 2025 Restoration Profitability Calculator
           </p>
           <p className="text-sm mt-2" style={{color: '#1F1F1F'}}>
             Designed specifically for restoration contractors
