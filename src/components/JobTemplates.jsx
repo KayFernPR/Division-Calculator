@@ -143,3 +143,9 @@ const JobTemplates = ({ onApplyTemplate }) => {
 }
 
 export default JobTemplates
+
+
+
+
+
+
