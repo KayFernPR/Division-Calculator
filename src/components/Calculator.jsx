@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import JobTemplates from './JobTemplates'
 
-const Calculator = ({ onAddJob }) => {
+const Calculator = () => {
   const [formData, setFormData] = useState({
     retailPrice: '',
     jobCost: '',
@@ -64,7 +63,7 @@ const Calculator = ({ onAddJob }) => {
     switch (status) {
       case 'excellent': return '🏆'
       case 'good': return '🎯'
-      case 'neutral': return '✅'
+      case 'neutral': return <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-5 inline-block" />
       case 'thin': return '⚠️'
       case 'poor': return '🚨'
       default: return '⚪'
@@ -117,7 +116,7 @@ const Calculator = ({ onAddJob }) => {
 
     // Break-even and target analysis - Updated formulas
     const yourProfitMargin = retailPrice > 0 ? ((retailPrice - jobCost) / retailPrice) * 100 : 0
-    const divisionTotalBreakEven = (jobCost / retailPrice) * 100 + divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate
+    const divisionTotalBreakEven = royaltyRate + divisionVariableExpenses + divisionOverheads + companyOverheads
     const breakEvenPrice = jobCost / (1 - (divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate) / 100)
     const requiredPrice = jobCost / (1 - (divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate + targetNetProfit) / 100)
     const requiredMargin = ((requiredPrice - jobCost) / requiredPrice) * 100
@@ -141,7 +140,7 @@ const Calculator = ({ onAddJob }) => {
       profitabilityStatus = 'thin' // ≥ -5% (1-5% below target) - Warning
     } else if (marginDifference >= -10) {
       profitabilityStatus = 'poor' // ≥ -10% (5-10% below target) - Extreme Warning
-    } else {
+        } else {
       profitabilityStatus = 'loss' // < -10% (10%+ below target) - Stop
     }
 
@@ -281,50 +280,328 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
-  const handleSaveJob = () => {
-    // Check if calculation fields are valid and results are calculated
-    const isCalculationValid = validateForm()
-    console.log('Calculation validation result:', isCalculationValid)
-    console.log('Form data:', formData)
-    console.log('Is calculated:', isCalculated)
+
+  const handlePrint = () => {
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank')
     
-    if (!isCalculationValid) {
-      alert('Please fill in all required calculation fields and calculate results before saving.')
-      return
-    }
-
-    if (!isCalculated) {
-      alert('Please calculate results before saving the job.')
-      return
-    }
-
-    // Check if job name is provided (required for saving to history)
+    // Get current form data and results
     const jobNameInput = document.getElementById('jobName')
-    const jobName = jobNameInput ? jobNameInput.value.trim() : ''
-    
-    if (!jobName) {
-      alert('Please enter a Job Name or Number to save this job to history.')
-      return
-    }
-
-    // Get optional field values directly from DOM
     const clientNameInput = document.getElementById('clientName')
     const divisionInput = document.getElementById('division')
     
-    // Prepare job data to save
-    const jobData = {
-      ...formData,
-      jobName: jobName,
-      clientName: clientNameInput ? clientNameInput.value : '',
-      division: divisionInput ? divisionInput.value : '',
-      results: results,
-      timestamp: new Date().toISOString()
-    }
+    const jobName = jobNameInput ? jobNameInput.value.trim() : 'Unnamed Job'
+    const clientName = clientNameInput ? clientNameInput.value.trim() : ''
+    const division = divisionInput ? divisionInput.value.trim() : ''
+    
+    // Create print content
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Profitability Report</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0; 
+              padding: 8px; 
+              line-height: 1.2;
+              color: #000;
+              font-size: 10px;
+              background: white;
+            }
+            .logo-section {
+              text-align: center;
+              margin-bottom: 8px;
+            }
+            .logo-image {
+              height: 35px;
+              width: auto;
+            }
+            .main-title {
+              text-align: center;
+              margin: 8px 0;
+            }
+            .job-number {
+              font-size: 14px;
+              font-weight: bold;
+              color: #000;
+              margin-bottom: 3px;
+            }
+            .profitability-report {
+              font-size: 12px;
+              font-weight: bold;
+              color: #000;
+              margin-bottom: 3px;
+            }
+            .generated-date {
+              font-size: 9px;
+              color: #000;
+            }
+            .separator {
+              border-bottom: 1px solid #63D43E;
+              margin: 8px 0;
+            }
+            .section { 
+              margin-bottom: 8px;
+            }
+            .section h2 { 
+              color: #63D43E; 
+              border-bottom: 1px solid #63D43E; 
+              padding-bottom: 3px; 
+              margin-bottom: 5px;
+              font-size: 11px;
+              font-weight: bold;
+            }
+            .field { 
+              display: flex;
+              justify-content: space-between;
+              margin: 3px 0; 
+              padding: 2px 0;
+            }
+            .field-label { 
+              font-weight: normal; 
+              color: #000;
+              flex: 1;
+              font-size: 9px;
+            }
+            .field-value { 
+              font-weight: normal;
+              color: #000;
+              text-align: right;
+              flex: 1;
+              font-size: 9px;
+            }
+            .status-excellent { color: #16a34a; }
+            .status-good { color: #16a34a; }
+            .status-neutral { color: #000; }
+            .status-thin { color: #dc2626; }
+            .status-poor { color: #dc2626; }
+            .status-loss { color: #dc2626; }
+            .negative-value {
+              color: #dc2626;
+            }
+            .below-target {
+              color: #dc2626;
+            }
+            .above-target {
+              color: #16a34a;
+            }
+            .on-target {
+              color: #000;
+            }
+            .footer {
+              text-align: center;
+              margin-top: 10px;
+              font-size: 8px;
+              color: #666;
+            }
+            .copyright {
+              font-size: 8px;
+              color: #666;
+            }
+                 .status-indicator {
+                   text-align: center;
+                   padding: 4px;
+                   margin: 5px 0;
+                   border: 1px solid #3b82f6;
+                   background-color: #dbeafe;
+                   border-radius: 4px;
+                   font-weight: bold;
+                   font-size: 9px;
+                   white-space: nowrap;
+                 }
+            .warning-break-even {
+              color: #dc2626;
+              font-weight: bold;
+            }
+            @media print { 
+              body { margin: 0; padding: 6px; font-size: 9px; }
+              .section { page-break-inside: avoid; margin-bottom: 6px; }
+              .field { margin: 2px 0; padding: 1px 0; }
+              .logo-image { height: 30px; }
+              .logo-section { margin-bottom: 5px; }
+              .main-title { margin: 5px 0; }
+              .separator { margin: 5px 0; }
+              .status-indicator { padding: 3px; margin: 3px 0; font-size: 8px; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="logo-section">
+            <img src="/logo.svg" alt="Company Logo" class="logo-image" 
+                 onerror="this.onerror=null; this.src='/logo.png.png'; this.style.display='none';" />
+            </div>
+            
+          <div class="main-title">
+            <div class="job-number">Job #: ${jobName || 'Unnamed Job'}</div>
+            <div class="profitability-report">Profitability Report</div>
+          </div>
 
-    // Call the onAddJob function passed from App component
-    if (onAddJob) {
-      onAddJob(jobData)
-      alert('Job saved successfully!')
+          <div class="separator"></div>
+          
+          <div class="section">
+            <h2>Job Details</h2>
+            <div class="field">
+              <span class="field-label">Job Name:</span>
+              <span class="field-value">${jobName || 'N/A'}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Insurance Carrier:</span>
+              <span class="field-value">${clientName || 'N/A'}</span>
+          </div>
+            <div class="field">
+              <span class="field-label">Division:</span>
+              <span class="field-value">${division || 'N/A'}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Retail Price / Charge Out $:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Job Cost / COGS $:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Royalty Rate %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.royaltyRate) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Variable Expenses %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.divisionVariableExpenses) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Fixed Expenses %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.divisionOverheads) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Company Overhead Costs %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.companyOverheads) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Target Operating Profit %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
+            </div>
+          </div>
+
+          ${isCalculated ? `
+          <div class="section">
+            <h2>Status Indicator</h2>
+            <div class="status-indicator status-${results.profitabilityStatus || 'neutral'}">
+              ${results.profitabilityStatus === 'excellent' ? '🏆 JACKPOT! ABOVE TARGET PROFIT' :
+                results.profitabilityStatus === 'good' ? '🎯 YOU\'RE WINNING!' :
+                results.profitabilityStatus === 'neutral' ? '✅ GREAT JOB YOU ARE A PROFITABLE RESTORER!' :
+                results.profitabilityStatus === 'thin' ? '⚠️ WARNING! YOU\'RE CUTTING INTO PROFITS' :
+                results.profitabilityStatus === 'poor' ? '🚨 EXTREME WARNING! YOU\'RE ALMOST PAYING FOR THE JOB' :
+                '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
+            </div>
+            </div>
+            ` : ''}
+
+          <div class="section">
+            <h2>Profit Results</h2>
+            <div class="field">
+              <span class="field-label">Sales $:</span>
+              <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">COGS $:</span>
+              <span class="field-value">${formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">COGS %:</span>
+              <span class="field-value">${formatPercentage(results.jobCostPercent || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Actual Gross Profit Margin %:</span>
+              <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Actual Mark-up %:</span>
+              <span class="field-value">${formatPercentage(results.actualMarkup || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Actual Gross Profit $:</span>
+              <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Variable Expenses $:</span>
+              <span class="field-value">${formatCurrency(results.divisionVariableExpensesDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Royalty $:</span>
+              <span class="field-value">${formatCurrency(results.royaltyDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Contribution Margin $:</span>
+              <span class="field-value">${formatCurrency(results.contributionMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Fixed Expenses $:</span>
+              <span class="field-value">${formatCurrency(results.divisionOverheadsDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Controllable Margin $:</span>
+              <span class="field-value">${formatCurrency(results.controllableMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Company Overhead Costs $:</span>
+              <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Operating Income $:</span>
+              <span class="field-value">${formatCurrency(results.operatingIncome || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Break Even Price $:</span>
+              <span class="field-value">${formatCurrency(results.breakEvenPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Division Total Break-Even %:</span>
+              <span class="field-value ${results.divisionTotalBreakEven > results.yourProfitMargin ? 'warning-break-even' : ''}">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Required Price $:</span>
+              <span class="field-value">${formatCurrency(results.requiredPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Required Margin %:</span>
+              <span class="field-value">${formatPercentage(results.requiredMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Your Price $:</span>
+              <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Your Profit Margin is %:</span>
+              <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">You are currently at:</span>
+              <span class="field-value ${results.thisJobIs > 1 ? 'above-target' : results.thisJobIs < -1 ? 'below-target' : 'on-target'}">${formatPercentage(results.thisJobIs || 0)} (${results.thisJobIs > 1 ? 'above target' : results.thisJobIs < -1 ? 'below target' : 'on target'})</span>
+          </div>
+            <div class="field">
+              <span class="field-label">Which is:</span>
+              <span class="field-value ${results.yourJob > 200 ? 'above-target' : results.yourJob < -200 ? 'below-target' : 'on-target'}">${formatCurrency(results.yourJob || 0)} (${results.yourJob > 200 ? 'above target' : results.yourJob < -200 ? 'below target' : 'on target'})</span>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div>Generated by Profitable Restorer</div>
+            <div class="copyright">© 2024 All rights reserved</div>
+          </div>
+        </body>
+      </html>
+    `
+    
+    // Write content to print window
+    printWindow.document.write(printContent)
+    printWindow.document.close()
+    
+    // Wait for content to load, then print
+    printWindow.onload = () => {
+    printWindow.print()
+      printWindow.close()
     }
   }
 
@@ -377,12 +654,6 @@ const Calculator = ({ onAddJob }) => {
     }
   }
 
-  const applyTemplate = (templateValues) => {
-    setFormData(prev => ({
-      ...prev,
-      ...templateValues
-    }))
-  }
 
   const resetForm = () => {
     setFormData({
@@ -427,9 +698,9 @@ const Calculator = ({ onAddJob }) => {
         {/* Main Layout - Two Column Structure */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Left Column */}
-          <div className="space-y-6">
+    <div className="space-y-6">
           {/* Quick Tips */}
-            <div className="border rounded-lg p-6" style={{backgroundColor: '#e0f5d9', borderColor: '#CCF5BC'}}>
+            <div className="border rounded-lg py-[31px] px-6" style={{backgroundColor: '#e0f5d9', borderColor: '#CCF5BC'}}>
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{color: '#1F1F1F'}}>
               <span className="text-yellow-500">💡</span>
               Quick Tips
@@ -438,22 +709,22 @@ const Calculator = ({ onAddJob }) => {
             <li>• Set your company's break-even percentage first</li>
             <li>• Target margins should be above break-even</li>
             <li>• Use the reference table to convert margin to markup</li>
-            <li>• Save jobs to track trends over time</li>
             <li>• Print this page for your records</li>
               <li>• Review status indicators for job profitability</li>
           </ul>
+          <div className="mt-4"></div>
         </div>
         
           {/* Job Calculator */}
             <div className="bg-white rounded-lg shadow-lg p-6" style={{borderColor: '#63D43E', borderWidth: '2px', borderStyle: 'solid'}} data-calculator-section>
               <h2 className="text-2xl font-bold text-neutral-900 mb-4 flex items-center gap-2">
                 <img src="/Calculator.png" alt="Calculator" className="w-6 h-6" />
-              Job Calculator
-            </h2>
+          Job Calculator
+          </h2>
           
-              <form onSubmit={handleSubmit} className="space-y-3">
+              <form onSubmit={handleSubmit} className="space-y-2">
                 {/* Section 1: JOB DETAILS */}
-            <div className="space-y-2">
+            <div className="space-y-2" style={{marginTop: '10px'}}>
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     JOB DETAILS
                   </h3>
@@ -522,7 +793,7 @@ const Calculator = ({ onAddJob }) => {
                             ? 'border-red-500 focus:ring-red-500 bg-red-50' 
                             : 'border-neutral-300 focus:ring-blue-500'
                         }`}
-                placeholder="10,400.00"
+                placeholder="Enter your job Retail Price/Charge Out ($)"
                 />
                 {errors.retailPrice && (
                         <p className="mt-1 text-sm text-red-600">{errors.retailPrice}</p>
@@ -553,7 +824,7 @@ const Calculator = ({ onAddJob }) => {
                             ? 'border-red-500 focus:ring-red-500 bg-red-50' 
                             : 'border-neutral-300 focus:ring-blue-500'
                         }`}
-                placeholder="8,400.00"
+                placeholder="Enter your job Cost / COGS ($)"
                 />
                 {errors.jobCost && (
                         <p className="mt-1 text-sm text-red-600">{errors.jobCost}</p>
@@ -563,7 +834,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 2: OVERHEAD COSTS */}
-            <div className="space-y-2">
+            <div className="space-y-2" style={{marginTop: '29.5px'}}>
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     OVERHEAD COSTS
                   </h3>
@@ -620,7 +891,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.divisionVariableExpenses ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                        placeholder="5"
+                        placeholder="Enter your Division Variable Expenses (%)"
                       />
                       {errors.divisionVariableExpenses && (
                         <p className="mt-1 text-sm text-red-600">{errors.divisionVariableExpenses}</p>
@@ -649,7 +920,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.divisionOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="5"
+                  placeholder="Enter your Division Fixed Expenses (%)"
                 />
                 {errors.divisionOverheads && (
                         <p className="mt-1 text-sm text-red-600">{errors.divisionOverheads}</p>
@@ -678,7 +949,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.companyOverheads ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="10"
+                  placeholder="Enter your Company Overhead Costs (%)"
                 />
                 {errors.companyOverheads && (
                         <p className="mt-1 text-sm text-red-600">{errors.companyOverheads}</p>
@@ -688,7 +959,7 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Section 3: TARGET PROFIT */}
-            <div className="space-y-2">
+            <div className="space-y-2" style={{marginTop: '29.5px'}}>
                   <h3 className="text-lg font-semibold text-neutral-900 ">
                     TARGET PROFIT
                   </h3>
@@ -716,7 +987,7 @@ const Calculator = ({ onAddJob }) => {
                         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500    ${
                           errors.targetNetProfit ? 'border-red-500' : 'border-neutral-300'
                         }`}
-                  placeholder="30"
+                  placeholder="Enter a % that represents your Target Operating Profit"
                 />
               {errors.targetNetProfit && (
                         <p className="mt-1 text-sm text-red-600">{errors.targetNetProfit}</p>
@@ -726,18 +997,10 @@ const Calculator = ({ onAddJob }) => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-4">
-              <button
-                    type="button"
-                    onClick={handleSaveJob}
-                    className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
-                    style={{backgroundColor: '#63D43E', borderColor: '#63D43E', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
-              >
-                    <span>💾</span>
-                    Save Job
-              </button>
+                <div className="flex gap-4 pt-2" style={{marginTop: '30px'}}>
           <button
             type="button"
+            onClick={handlePrint}
                     className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
                     style={{backgroundColor: '#EBE6E3', borderColor: '#EBE6E3', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
           >
@@ -750,7 +1013,7 @@ const Calculator = ({ onAddJob }) => {
           {/* Additional padding to match Results box height */}
           <div className="pt-8"></div>
             </div>
-          </div>
+        </div>
 
           {/* Right Column */}
           <div className="space-y-6">
@@ -764,14 +1027,14 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🏆</span>
                   <span className="text-sm"><strong>Jackpot! Above Target Profit</strong></span>
-                </div>
+                    </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🎯</span>
                   <span className="text-sm"><strong>You're Winning!</strong></span>
-                </div>
+                  </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">✅</span>
-                  <span className="text-sm"><strong>Great Job You're At Target!</strong></span>
+                  <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-6 h-8 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '6px'}} />
+                  <span className="text-sm"><strong>Great Job You are a Profitable Restorer!</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">⚠️</span>
@@ -780,11 +1043,11 @@ const Calculator = ({ onAddJob }) => {
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🚨</span>
                   <span className="text-sm"><strong>EXTREME WARNING! You're Almost Paying For The Job</strong></span>
-                </div>
+              </div>
                 <div className="flex items-center gap-2 -mb-2">
                   <span className="text-2xl">⛔</span>
                   <span className="text-sm"><strong>STOP! DON'T PAY TO DO THE WORK!</strong></span>
-                </div>
+              </div>
               </div>
         </div>
 
@@ -794,10 +1057,15 @@ const Calculator = ({ onAddJob }) => {
               <span className="text-blue-600">💲</span>
               Results
               {isCalculated && (
-                <span className="ml-2 text-lg font-semibold">
+                <span className="ml-2 text-sm font-semibold whitespace-nowrap">
                   {results.profitabilityStatus === 'excellent' && '🏆 Jackpot! Above Target Profit'}
                   {results.profitabilityStatus === 'good' && '🎯 You\'re Winning!'}
-                  {results.profitabilityStatus === 'neutral' && '✅ Great Job You\'re At Target!'}
+                  {results.profitabilityStatus === 'neutral' && (
+                    <span className="flex items-center gap-2 whitespace-nowrap">
+                      <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-4 h-5 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '2px'}} />
+                      Great Job You are a Profitable Restorer!
+                    </span>
+                  )}
                   {results.profitabilityStatus === 'thin' && '⚠️ Warning! You\'re Cutting Into Profits'}
                   {results.profitabilityStatus === 'poor' && '🚨 EXTREME WARNING! You\'re Almost Paying For The Job'}
                   {results.profitabilityStatus === 'loss' && '⛔ STOP! DON\'T PAY TO DO THE WORK!'}
@@ -809,182 +1077,182 @@ const Calculator = ({ onAddJob }) => {
                 {/* GROUP 1: Calculation Flow - with spacing */}
                 <div className="mt-4">
                 {/* Sales $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-400 bg-neutral-100  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-400 bg-neutral-100  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Sales $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Total revenue from this job - the amount you charge the customer.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
-                </div>
+              </div>
+              </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(parseFloat(formData.retailPrice) || 0)}</span>
               </div>
 
                 {/* COGS $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">COGS $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Cost of Goods Sold - direct costs to complete the job (materials, labor, equipment).
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
+                  </div>
+                </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(parseFloat(formData.jobCost) || 0)}</span>
-              </div>
+            </div>
 
                 {/* COGS % */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">COGS %:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         COGS as a percentage of sales. Lower is better for profitability.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
                   </div>
+                </div>
+              </div>
                   <span className="font-mono text-sm">{formatPercentage(results.jobCostPercent)}</span>
             </div>
 
                 {/* Actual Gross Profit Margin % */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit Margin %:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Your actual profit margin: (Sales - COGS) ÷ Sales × 100. Higher is better.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
                   </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
+                </div>
+              </div>
+                  <span className={`font-mono text-sm ${results.yourProfitMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.yourProfitMargin)}</span>
             </div>
-
+            
                 {/* Actual Mark-up % */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Mark-up %:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Mark-up percentage: (Sales - COGS) ÷ COGS × 100. Shows profit as % of cost.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
                   </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.actualMarkup)}</span>
+                </div>
+              </div>
+                  <span className={`font-mono text-sm ${results.actualMarkup < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.actualMarkup)}</span>
             </div>
-            
+
                 {/* Actual Gross Profit $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Gross profit amount: Sales minus COGS. This is your profit before overhead costs.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                  </div>
-                    </div>
-                  </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.grossProfit)}</span>
-            </div>
+              </div>
+              </div>
+              </div>
+                  <span className={`font-mono text-sm ${results.grossProfit < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.grossProfit)}</span>
+              </div>
 
                 {/* Division Variable Expenses $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Variable Expenses $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Variable expenses for this job: fuel, vehicle maintenance, job-specific supplies, temporary labor.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
+              </div>
+                </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionVariableExpensesDollars)}</span>
-              </div>
+            </div>
 
                 {/* Royalty $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Royalty $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Royalty or franchise fees paid on this job based on your royalty rate percentage.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
+                  </div>
+                </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
             </div>
 
                 {/* Division Contribution Margin $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Contribution Margin $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Gross profit minus variable expenses and royalties. Shows contribution to fixed costs.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
                   </div>
-                    </div>
-                  </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.contributionMargin)}</span>
+                </div>
+              </div>
+                  <span className={`font-mono text-sm ${results.contributionMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.contributionMargin)}</span>
             </div>
 
                 {/* Division Fixed Expenses $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Fixed Expenses $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Fixed division expenses allocated to this job: rent, utilities, insurance, equipment leases, permanent staff.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
                   </div>
+                </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
             </div>
 
                 {/* Division Controllable Margin $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Controllable Margin $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Profit after all division costs (variable, fixed, royalties). What division controls.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.controllableMargin)}</span>
+              </div>
+                </div>
+              </div>
+                  <span className={`font-mono text-sm ${results.controllableMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.controllableMargin)}</span>
             </div>
 
                 {/* Company Overhead Costs $ */}
-                <div className="flex justify-between items-center p-3 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Company Overhead Costs $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Corporate overhead allocated to this job: admin staff, office rent, accounting, legal, marketing.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+                </div>
+              </div>
                   <span className="font-mono text-sm">{formatCurrency(results.companyOverheadsDollars)}</span>
                 </div>
             </div>
@@ -992,126 +1260,182 @@ const Calculator = ({ onAddJob }) => {
                 {/* GROUP 2: Net Profit - with increased spacing */}
                 <div className="mt-6 mb-6">
                 {/* Operating Income $ */}
-                <div className="flex justify-between items-center p-3 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating Income $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Final profit after all costs: gross profit minus all expenses and overhead. Your net operating income.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-              </div>
-                    </div>
-              </div>
-                  <span className="font-mono text-sm" style={{fontWeight: 'bold'}}>{formatCurrency(results.actualNetProfit)}</span>
+                  </div>
                 </div>
+              </div>
+                  <span className={`font-mono text-sm ${results.actualNetProfit < 0 ? 'text-red-600 font-bold' : ''}`} style={{fontWeight: 'bold'}}>{formatCurrency(results.actualNetProfit)}</span>
+              </div>
             </div>
 
                 {/* GROUP 3: Break-Even and Target Analysis - with spacing */}
                 <div className="mt-4">
                 {/* Break Even Price $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Break Even Price $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Minimum price needed to cover all costs with zero profit. Break-even point.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
+              </div>
+                </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
             </div>
-
+            
                 {/* Division Total Break-Even % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  results.divisionTotalBreakEven > results.yourProfitMargin 
+                    ? 'border-red-500 bg-red-50' 
+                    : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Division Total Break-Even %:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Total percentage of sales needed to cover all division costs (COGS + variable + fixed + royalties).
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
                   </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.divisionTotalBreakEven)}</span>
+                </div>
+              </div>
+                  <span className={`font-mono text-sm ${
+                    results.divisionTotalBreakEven > results.yourProfitMargin 
+                      ? 'text-red-600 font-bold' 
+                      : ''
+                  }`}>{formatPercentage(results.divisionTotalBreakEven)}</span>
             </div>
 
                 {/* Required Price $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Required Price $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Price needed to achieve your target profit margin. Minimum price for target profitability.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
+              </div>
+                </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.requiredPrice)}</span>
             </div>
-            
+
                 {/* Required Margin % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Required Margin %:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Profit margin percentage needed to achieve your target profit. Based on required price.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
                   </div>
+                </div>
+              </div>
                   <span className="font-mono text-sm">{formatPercentage(results.requiredMargin)}</span>
             </div>
 
+                {/* Status Indicator */}
+                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1 whitespace-nowrap" style={{borderWidth: '0.5px', minHeight: '59px'}}>
+                  {isCalculated && (
+                    <div className="flex items-center gap-2 whitespace-nowrap">
+                      {results.profitabilityStatus === 'excellent' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🏆</span>
+                          Jackpot! Above Target Profit
+              </span>
+                      )}
+                      {results.profitabilityStatus === 'good' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🎯</span>
+                          You're Winning!
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'neutral' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-6 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
+                          Great Job You are a Profitable Restorer!
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'thin' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">⚠️</span>
+                          Warning! You're Cutting Into Profits
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'poor' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🚨</span>
+                          EXTREME WARNING! You're Almost Paying For The Job
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'loss' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">⛔</span>
+                          STOP! DON'T PAY TO DO THE WORK!
+                        </span>
+                      )}
+              </div>
+                  )}
+            </div>
+
                 {/* Your Price $ */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  results.yourJob > 200 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Price $:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Your actual selling price for this job (same as Retail Price).
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
+                  </div>
+                </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.yourPrice)}</span>
-            </div>
+              </div>
 
                 {/* Your Profit Margin is % */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
-                  <div className="flex items-center gap-2">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  results.thisJobIs > 1 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
+                <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Profit Margin is %:</span>
                     <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Your actual profit margin: (Sales - COGS) divided by Sales times 100. Your current performance.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                      </div>
-                    </div>
+                </div>
+              </div>
                   </div>
-                  <span className="font-mono text-sm">{formatPercentage(results.yourProfitMargin)}</span>
+                  <span className={`font-mono text-sm ${results.yourProfitMargin < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.yourProfitMargin)}</span>
             </div>
 
                 {/* You are currently at */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">You are currently at:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         How much above or below your target profit margin. Positive = above target, negative = below target.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                  </div>
                 </div>
-                    </div>
-                </div>
-                  <div className="flex items-center gap-2">
+              </div>
+                <div className="flex items-center gap-2">
                     <span className={`font-mono text-sm ${
                       results.thisJobIs > 1 ? 'text-green-600' : // Above target (positive means above)
                       results.thisJobIs < -1 ? 'text-red-600' : // Below target (negative means below)
@@ -1125,23 +1449,23 @@ const Calculator = ({ onAddJob }) => {
                       ({results.thisJobIs > 1 ? 'above target' : 
                         results.thisJobIs < -1 ? 'below target' : 
                         'on target'})
-                    </span>
-                  </div>
+                  </span>
+              </div>
             </div>
 
                 {/* Which is */}
-                <div className="flex justify-between items-center p-3 border border-neutral-300 bg-white  rounded-lg">
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Which is:</span>
-                    <div className="relative group">
+                <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
                         Dollar amount above or below your required price. Positive = above target, negative = below target.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
                   </div>
+                </div>
               </div>
-            </div>
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                     <span className={`font-mono text-sm ${
                       results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
                       results.yourJob < -200 ? 'text-red-600' : // Below target (negative means below)
@@ -1155,22 +1479,22 @@ const Calculator = ({ onAddJob }) => {
                       ({results.yourJob > 200 ? 'above target' : 
                         results.yourJob < -200 ? 'below target' : 
                         'on target'})
-                    </span>
-          </div>
+                  </span>
+                  </div>
+                </div>
+                </div>
+              </div>
             </div>
           </div>
-          </div>
-          </div>
-        </div>
 
-        {/* Job Templates */}
-        <div className="mb-8">
-          <JobTemplates onApplyTemplate={applyTemplate} />
         </div>
       </div>
-    </div>
+
     </div>
   )
 }
 
 export default Calculator
+
+
+

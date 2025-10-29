@@ -20,6 +20,25 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
     })
   }
 
+  const getStatusDisplay = (status) => {
+    switch (status) {
+      case 'excellent':
+        return '🏆 Jackpot!'
+      case 'good':
+        return '🎯 Winner!'
+      case 'neutral':
+        return '✅ On Target'
+      case 'thin':
+        return '⚠️ Warning'
+      case 'poor':
+        return '🚨 Extreme Warning'
+      case 'loss':
+        return '⛔ Stop!'
+      default:
+        return '✅ On Target'
+    }
+  }
+
   // Get unique carriers for filter
   const carriers = useMemo(() => {
     const uniqueCarriers = [...new Set(jobs.map(job => job.clientName).filter(Boolean))]
@@ -307,12 +326,13 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                 <div className="text-sm text-neutral-600 mb-1">Status</div>
                 <span className={`px-3 py-1 rounded-full text-sm font-bold ${
                   job.results?.profitabilityStatus === 'excellent' ? 'bg-green-100 text-green-800' :
-                  job.results?.profitabilityStatus === 'good' ? 'bg-blue-100 text-blue-800' :
+                  job.results?.profitabilityStatus === 'good' ? 'bg-green-100 text-green-800' :
                   job.results?.profitabilityStatus === 'neutral' ? 'bg-gray-100 text-gray-800' :
                   job.results?.profitabilityStatus === 'thin' ? 'bg-yellow-100 text-yellow-800' :
+                  job.results?.profitabilityStatus === 'poor' ? 'bg-red-100 text-red-800' :
                   'bg-red-100 text-red-800'
                 }`}>
-                  {(job.results?.profitabilityStatus || 'neutral').toUpperCase()}
+                  {getStatusDisplay(job.results?.profitabilityStatus)}
                 </span>
               </div>
               <div className="text-center">
@@ -383,7 +403,7 @@ const JobHistory = ({ jobs, onDeleteJob, onClearHistory }) => {
                           <h3>Profitability Results</h3>
                           <div class="row">
                             <span class="label">Status:</span>
-                            <span class="value status-${job.results?.profitabilityStatus || 'neutral'}">${(job.results?.profitabilityStatus || 'neutral').toUpperCase()}</span>
+                            <span class="value status-${job.results?.profitabilityStatus || 'neutral'}">${getStatusDisplay(job.results?.profitabilityStatus)}</span>
                           </div>
                           <div class="row">
                             <span class="label">Gross Profit:</span>

@@ -1,82 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Calculator from './components/Calculator'
-import JobHistory from './components/JobHistory'
 import MarginMarkupTable from './components/MarginMarkupTable'
-import ProfitChart from './components/ProfitChart'
 import MobileEnhancements from './components/MobileEnhancements'
 
 function App() {
-  const [jobs, setJobs] = useState([])
   const [activeTab, setActiveTab] = useState('calculator')
   const [error, setError] = useState(null)
 
-
-  // Load jobs from localStorage
-  useEffect(() => {
-    try {
-      const savedJobs = localStorage.getItem('profitabilityJobs')
-      if (savedJobs) {
-        setJobs(JSON.parse(savedJobs))
-      }
-    } catch (err) {
-      console.error('Error loading jobs:', err)
-    }
-  }, [])
-
-
-  // Save jobs to localStorage whenever jobs change
-  useEffect(() => {
-    try {
-      localStorage.setItem('profitabilityJobs', JSON.stringify(jobs))
-    } catch (err) {
-      console.error('Error saving jobs:', err)
-    }
-  }, [jobs])
-
-  const addJob = (jobData) => {
-    try {
-      console.log('addJob function called with:', jobData)
-      const newJob = {
-        id: Date.now(),
-        ...jobData,
-        timestamp: new Date().toISOString()
-      }
-      console.log('Created new job:', newJob)
-      setJobs(prevJobs => [newJob, ...prevJobs])
-      
-      // Auto-scroll to results after saving
-      setTimeout(() => {
-        console.log('Switching to history tab')
-        setActiveTab('history')
-      }, 500)
-    } catch (error) {
-      console.error('Error in addJob function:', error)
-      setError('Failed to save job. Please try again.')
-    }
-  }
-
-  const deleteJob = (jobId) => {
-    try {
-      setJobs(prevJobs => prevJobs.filter(job => job.id !== jobId))
-    } catch (error) {
-      console.error('Error deleting job:', error)
-      setError('Failed to delete job. Please try again.')
-    }
-  }
-
-  const clearHistory = () => {
-    try {
-      setJobs([])
-    } catch (error) {
-      console.error('Error clearing history:', error)
-      setError('Failed to clear history. Please try again.')
-    }
-  }
-
   const tabs = [
     { id: 'calculator', label: 'Calculator', icon: '🔢' },
-    { id: 'history', label: 'History', icon: '📋' },
-    { id: 'chart', label: 'Charts', icon: '📊' },
     { id: 'reference', label: 'Reference', icon: '📈' }
   ]
 
@@ -114,7 +46,7 @@ function App() {
         {/* Main Title and Subtitle */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-neutral-900 mb-2">
-            Restoration Division: Profitability Calculator
+            Profitability Calculator: Restoration Job by Division
           </h1>
           <p className="text-lg text-neutral-600">
             Calculate job profitability, track margins, and visualize trends for restoration contractors
@@ -147,21 +79,7 @@ function App() {
         <div className="space-y-8">
           {/* Calculator Tab */}
           {activeTab === 'calculator' && (
-            <Calculator onAddJob={addJob} />
-          )}
-
-          {/* History Tab */}
-          {activeTab === 'history' && (
-            <JobHistory 
-              jobs={jobs} 
-              onDeleteJob={deleteJob} 
-              onClearHistory={clearHistory}
-            />
-          )}
-
-          {/* Chart Tab */}
-          {activeTab === 'chart' && (
-            <ProfitChart jobs={jobs} />
+            <Calculator />
           )}
 
           {/* Reference Tab */}
