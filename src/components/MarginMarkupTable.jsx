@@ -34,7 +34,7 @@ const MarginMarkupTable = () => {
   }
 
   return (
-    <div className="card">
+    <div className="card px-5">
       <h2 className="text-2xl font-bold mb-6" style={{color: '#1F1F1F'}}>
         📊 Margin vs. Markup Reference
       </h2>

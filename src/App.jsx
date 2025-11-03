@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      <div className="w-full px-4 py-8">
+      <div className="w-full px-5 py-8">
         {/* Header */}
         <header className="mb-8">
           <div className="text-center mb-4">

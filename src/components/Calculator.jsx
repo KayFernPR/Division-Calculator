@@ -694,7 +694,7 @@ const Calculator = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50 py-8">
-      <div className="w-full px-4">
+      <div className="w-full px-5">
         {/* Main Layout - Two Column Structure */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Left Column */}
