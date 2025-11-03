@@ -37,8 +37,8 @@ function App() {
       <div className="w-full px-4 py-8">
         {/* Header */}
         <header className="mb-8">
-          <div className="flex justify-between items-start mb-4">
-            <img src="/logo.svg" alt="Brand Logo" className="h-16 w-auto"
+          <div className="text-center mb-4">
+            <img src="/logo.svg" alt="Brand Logo" className="h-16 w-auto mx-auto"
                  onError={(e) => { if (e.currentTarget.getAttribute('data-fallback') !== 'png') { e.currentTarget.setAttribute('data-fallback','png'); e.currentTarget.src = '/logo.png'; } else { e.currentTarget.style.display='none'; } }} />
           </div>
         </header>
