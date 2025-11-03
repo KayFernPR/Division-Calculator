@@ -333,7 +333,6 @@ const Calculator = () => {
               font-weight: bold;
               color: #000;
               margin-bottom: 3px;
-              text-align: right;
             }
             .generated-date {
               font-size: 9px;
