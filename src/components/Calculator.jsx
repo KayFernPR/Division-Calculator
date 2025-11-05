@@ -1360,8 +1360,8 @@ const Calculator = () => {
                 {/* Calculate margin difference for conditional highlighting */}
                 {(() => {
                   const marginDifference = results.yourProfitMargin - results.divisionTotalBreakEven;
-                  const isRed = marginDifference <= -0.001;
-                  const isGreen = marginDifference >= 0;
+                  const isRed = marginDifference < 0.001 || results.actualNetProfit < 0;
+                  const isGreen = marginDifference >= 0.001 && results.actualNetProfit >= 0;
                   
                   return (
                     <>
