@@ -587,7 +587,7 @@ const Calculator = () => {
           ` : ''}
 
           <div class="section">
-            <h2>Target Analysis</h2>
+            <h2>Job Profit Analysis</h2>
             <div class="field">
               <span class="field-label">Your Price $:</span>
               <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
