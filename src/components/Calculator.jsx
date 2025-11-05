@@ -1559,9 +1559,15 @@ const Calculator = () => {
                 </div>
 
                 {/* Break-Even Price $ */}
-                <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
-                }`}>
+                {(() => {
+                  const grossProfitMinusBreakEven = results.grossProfit - results.breakEvenPrice;
+                  const shouldBeWhite = grossProfitMinusBreakEven >= 0;
+                  return (
+                    <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                      shouldBeWhite ? 'border-neutral-300 bg-white' : (isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
+                    }`}>
+                  );
+                })()}
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Break-Even Price $:</span>
                 <div className="relative group">
@@ -1573,12 +1579,19 @@ const Calculator = () => {
                 </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
-            </div>
+                    </div>
+                  );
+                })()}
             
                 {/* Break-Even % */}
-                <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white')
-                }`}>
+                {(() => {
+                  const shouldBeWhite = marginDifference >= 0;
+                  return (
+                    <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                      shouldBeWhite ? 'border-neutral-300 bg-white' : (isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
+                    }`}>
+                  );
+                })()}
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
                 <div className="relative group">
@@ -1594,7 +1607,9 @@ const Calculator = () => {
                       ? 'text-red-600 font-bold' 
                       : ''
                   }`}>{formatPercentage(results.divisionTotalBreakEven)}</span>
-            </div>
+                    </div>
+                  );
+                })()}
                 </div>
                     </>
                   );
