@@ -1378,10 +1378,10 @@ const Calculator = () => {
                 {/* Calculate margin difference for conditional highlighting */}
                 {(() => {
                   const marginDifference = results.yourProfitMargin - results.divisionTotalBreakEven;
-                  const isRed = marginDifference < 0.001 || results.actualNetProfit < 0;
-                  const isYellow = results.profitabilityStatus === 'thin';
-                  const isOrange = results.profitabilityStatus === 'poor';
-                  const isGreen = marginDifference >= 0.001 && results.actualNetProfit >= 0 && !isYellow && !isOrange;
+                  const isRed = isCalculated && (marginDifference < 0.001 || results.actualNetProfit < 0);
+                  const isYellow = isCalculated && results.profitabilityStatus === 'thin';
+                  const isOrange = isCalculated && results.profitabilityStatus === 'poor';
+                  const isGreen = isCalculated && marginDifference >= 0.001 && results.actualNetProfit >= 0 && !isYellow && !isOrange;
                   
                   return (
                     <>
@@ -1538,18 +1538,18 @@ const Calculator = () => {
               </div>
                 <div className="flex items-center gap-2">
                     <span className={`font-mono text-sm ${
-                      results.thisJobIs > 1 ? 'text-green-600' : // Above target (positive means above)
-                      results.thisJobIs < -1 ? 'text-red-600' : // Below target (negative means below)
+                      isCalculated && results.thisJobIs > 1 ? 'text-green-600' : // Above target (positive means above)
+                      isCalculated && results.thisJobIs < -1 ? 'text-red-600' : // Below target (negative means below)
                       'text-neutral-800' // On target (within 1%) or default black
                     }`}>{formatPercentage(results.thisJobIs)}</span>
                     <span className={`text-xs font-medium ${
-                      results.thisJobIs > 1 ? 'text-green-600' : // Above target (positive means above)
-                      results.thisJobIs < -1 ? 'text-red-600' : // Below target (negative means below)
+                      isCalculated && results.thisJobIs > 1 ? 'text-green-600' : // Above target (positive means above)
+                      isCalculated && results.thisJobIs < -1 ? 'text-red-600' : // Below target (negative means below)
                       'text-neutral-800' // On target (within 1%)
                     }`}>
-                      ({results.thisJobIs > 1 ? 'above target' : 
+                      ({isCalculated ? (results.thisJobIs > 1 ? 'above target' : 
                         results.thisJobIs < -1 ? 'below target' : 
-                        'on target'})
+                        'on target') : 'on target'})
                   </span>
               </div>
             </div>
@@ -1570,18 +1570,18 @@ const Calculator = () => {
               </div>
                 <div className="flex items-center gap-2">
                     <span className={`font-mono text-sm ${
-                      results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
-                      results.yourJob < -200 ? 'text-red-600' : // Below target (negative means below)
+                      isCalculated && results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
+                      isCalculated && results.yourJob < -200 ? 'text-red-600' : // Below target (negative means below)
                       'text-neutral-800' // On target (within $200) or default black
                     }`}>{formatCurrency(results.yourJob)}</span>
                     <span className={`text-xs font-medium ${
-                      results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
-                      results.yourJob < -200 ? 'text-red-600' : // Below target (negative means below)
+                      isCalculated && results.yourJob > 200 ? 'text-green-600' : // Above target (positive means above)
+                      isCalculated && results.yourJob < -200 ? 'text-red-600' : // Below target (negative means below)
                       'text-neutral-800' // On target (within $200)
                     }`}>
-                      ({results.yourJob > 200 ? 'above target' : 
+                      ({isCalculated ? (results.yourJob > 200 ? 'above target' : 
                         results.yourJob < -200 ? 'below target' : 
-                        'on target'})
+                        'on target') : 'on target'})
                   </span>
                   </div>
             </div>
@@ -1591,10 +1591,10 @@ const Calculator = () => {
                   const yourPriceMinusBreakEven = results.yourPrice - results.breakEvenPrice;
                   const shouldBeWhite = yourPriceMinusBreakEven >= 0;
                   const marginDiff = results.yourProfitMargin - results.divisionTotalBreakEven;
-                  const breakEvenPriceIsRed = marginDiff <= -0.001 || results.actualNetProfit < 0;
-                  const breakEvenPriceIsYellow = results.profitabilityStatus === 'thin';
-                  const breakEvenPriceIsOrange = results.profitabilityStatus === 'poor';
-                  const breakEvenPriceIsGreen = marginDiff >= 0.001 && results.actualNetProfit >= 0 && !breakEvenPriceIsYellow && !breakEvenPriceIsOrange;
+                  const breakEvenPriceIsRed = isCalculated && (marginDiff <= -0.001 || results.actualNetProfit < 0);
+                  const breakEvenPriceIsYellow = isCalculated && results.profitabilityStatus === 'thin';
+                  const breakEvenPriceIsOrange = isCalculated && results.profitabilityStatus === 'poor';
+                  const breakEvenPriceIsGreen = isCalculated && marginDiff >= 0.001 && results.actualNetProfit >= 0 && !breakEvenPriceIsYellow && !breakEvenPriceIsOrange;
                   return (
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
                       shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenPriceIsRed ? 'border-red-500 bg-red-50' : breakEvenPriceIsYellow ? 'border-yellow-500 bg-yellow-50' : breakEvenPriceIsOrange ? 'border-orange-500 bg-orange-50' : breakEvenPriceIsGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
@@ -1618,13 +1618,13 @@ const Calculator = () => {
                 {(() => {
                   const marginDiff = results.yourProfitMargin - results.divisionTotalBreakEven;
                   const shouldBeWhite = marginDiff >= 0;
-                  const breakEvenIsRed = marginDiff <= -0.001 || results.actualNetProfit < 0;
-                  const breakEvenIsYellow = results.profitabilityStatus === 'thin';
-                  const breakEvenIsOrange = results.profitabilityStatus === 'poor';
-                  const breakEvenIsGreen = marginDiff >= 0.001 && results.actualNetProfit >= 0 && !breakEvenIsYellow && !breakEvenIsOrange;
+                  const breakEvenIsRed = isCalculated && (marginDiff <= -0.001 || results.actualNetProfit < 0);
+                  const breakEvenIsYellow = isCalculated && results.profitabilityStatus === 'thin';
+                  const breakEvenIsOrange = isCalculated && results.profitabilityStatus === 'poor';
+                  const breakEvenIsGreen = isCalculated && marginDiff >= 0.001 && results.actualNetProfit >= 0 && !breakEvenIsYellow && !breakEvenIsOrange;
                   return (
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenIsRed ? 'border-red-500 bg-red-50' : breakEvenIsYellow ? 'border-yellow-500 bg-yellow-50' : breakEvenIsOrange ? 'border-orange-500 bg-orange-50' : breakEvenIsGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
+                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenIsRed ? 'border-red-500 bg-red-50' : breakEvenIsYellow ? 'border-yellow-500 bg-yellow-50' : breakEvenIsOrange ? 'border-orange-500 bg-orange-50' : breakEvenIsGreen ? 'border-green-500 bg-green-50' : (isCalculated && results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
                     }`}>
                 <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
