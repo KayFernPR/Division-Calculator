@@ -1037,7 +1037,7 @@ const Calculator = () => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-2" style={{marginTop: '30px'}}>
+                <div className="flex gap-4 pt-2" style={{marginTop: '130px'}}>
               <button
                     type="button"
             onClick={handlePrint}
