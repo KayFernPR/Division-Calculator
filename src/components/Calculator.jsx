@@ -121,7 +121,9 @@ const Calculator = () => {
     const requiredPrice = jobCost / (1 - (divisionVariableExpenses + divisionOverheads + companyOverheads + royaltyRate + targetNetProfit) / 100)
     const requiredMargin = ((requiredPrice - jobCost) / requiredPrice) * 100
     const yourPrice = retailPrice
-    const thisJobIs = yourProfitMargin - requiredMargin
+    // Calculate actual operating profit % and compare to target
+    const actualOperatingProfit = yourProfitMargin - divisionTotalBreakEven
+    const thisJobIs = actualOperatingProfit - targetNetProfit
       const yourJob = retailPrice - requiredPrice
 
     // Profitability status - Based on break-even analysis (yourProfitMargin - divisionTotalBreakEven)
@@ -1501,7 +1503,7 @@ const Calculator = () => {
                 <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
-                        How much above or below your target profit margin. Positive = above target, negative = below target.
+                        How much your actual operating profit % is above or below your target operating profit %. Positive = above target, negative = below target. At break-even, you have 0% operating profit, so you'll be below your target.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
                   </div>
                 </div>
