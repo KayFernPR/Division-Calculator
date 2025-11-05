@@ -529,8 +529,16 @@ const Calculator = () => {
               <span class="field-value">${formatCurrency(results.divisionVariableExpensesDollars || 0)}</span>
             </div>
             <div class="field">
+              <span class="field-label">Division Variable Expenses %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.divisionVariableExpenses) || 0)}</span>
+            </div>
+            <div class="field">
               <span class="field-label">Royalty $:</span>
               <span class="field-value">${formatCurrency(results.royaltyDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Royalty Rate %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.royaltyRate) || 0)}</span>
             </div>
             <div class="field">
               <span class="field-label">Division Contribution Margin $:</span>
@@ -541,12 +549,20 @@ const Calculator = () => {
               <span class="field-value">${formatCurrency(results.divisionOverheadsDollars || 0)}</span>
             </div>
             <div class="field">
+              <span class="field-label">Division Fixed Expenses %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.divisionOverheads) || 0)}</span>
+            </div>
+            <div class="field">
               <span class="field-label">Division Controllable Margin $:</span>
               <span class="field-value">${formatCurrency(results.controllableMargin || 0)}</span>
             </div>
             <div class="field">
               <span class="field-label">Company Overhead Costs $:</span>
               <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Company Overhead Costs %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.companyOverheads) || 0)}</span>
             </div>
             <div class="field">
               <span class="field-label">Operating Profit $:</span>
@@ -1185,6 +1201,21 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.divisionVariableExpensesDollars)}</span>
             </div>
 
+                {/* Division Variable Expenses % */}
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Division Variable Expenses %:</span>
+                <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Variable costs that change with job volume: fuel, vehicle maintenance, job-specific supplies, temporary labor.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+              </div>
+                </div>
+              </div>
+                  <span className="font-mono text-sm">{formatPercentage(parseFloat(formData.divisionVariableExpenses) || 0)}</span>
+            </div>
+
                 {/* Royalty $ */}
                 <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
@@ -1198,6 +1229,21 @@ const Calculator = () => {
                 </div>
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.royaltyDollars)}</span>
+            </div>
+
+                {/* Royalty Rate % */}
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Royalty Rate %:</span>
+                <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Percentage of revenue paid to franchisor, brand, or licensing fees.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+              </div>
+                </div>
+              </div>
+                  <span className="font-mono text-sm">{formatPercentage(parseFloat(formData.royaltyRate) || 0)}</span>
             </div>
 
                 {/* Division Contribution Margin $ */}
@@ -1230,6 +1276,21 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.divisionOverheadsDollars)}</span>
             </div>
 
+                {/* Division Fixed Expenses % */}
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Division Fixed Expenses %:</span>
+                <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Fixed costs for your division: rent, utilities, insurance, equipment leases, permanent staff salaries.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+              </div>
+                </div>
+              </div>
+                  <span className="font-mono text-sm">{formatPercentage(parseFloat(formData.divisionOverheads) || 0)}</span>
+            </div>
+
                 {/* Division Controllable Margin $ */}
                 <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
@@ -1259,6 +1320,21 @@ const Calculator = () => {
               </div>
                   <span className="font-mono text-sm">{formatCurrency(results.companyOverheadsDollars)}</span>
                 </div>
+            </div>
+
+                {/* Company Overhead Costs % */}
+                <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Company Overhead Costs %:</span>
+                <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Corporate overhead costs: administrative staff, office rent, accounting, legal, marketing, executive salaries.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+              </div>
+                </div>
+              </div>
+                  <span className="font-mono text-sm">{formatPercentage(parseFloat(formData.companyOverheads) || 0)}</span>
             </div>
 
                 {/* GROUP 2: Net Profit - with increased spacing */}
