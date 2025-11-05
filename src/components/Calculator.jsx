@@ -549,7 +549,7 @@ const Calculator = () => {
               <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Operating profit $:</span>
+              <span class="field-label">Operating Profit $:</span>
               <span class="field-value">${formatCurrency(results.operatingIncome || 0)}</span>
             </div>
             <div class="field">
@@ -1259,10 +1259,10 @@ const Calculator = () => {
 
                 {/* GROUP 2: Net Profit - with increased spacing */}
                 <div className="mt-6 mb-6">
-                {/* Operating profit $ */}
+                {/* Operating Profit $ */}
                 <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating profit $:</span>
+                    <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating Profit $:</span>
                 <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
