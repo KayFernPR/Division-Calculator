@@ -112,8 +112,11 @@ const MarginMarkupTable = () => {
         <h4 className="font-semibold mb-2" style={{color: '#1F1F1F'}}>
           📐 Formula
         </h4>
-        <p className="text-sm" style={{color: '#1F1F1F'}}>
+        <p className="text-sm mb-2" style={{color: '#1F1F1F'}}>
           <strong>Mark-up = (Margin / (1 - Margin)) × 100</strong>
+        </p>
+        <p className="text-sm mb-2" style={{color: '#1F1F1F'}}>
+          <strong>Margin = (Mark-up / (100 + Mark-up)) × 100</strong>
         </p>
         <p className="text-xs mt-1" style={{color: '#1F1F1F'}}>
           This table helps you quickly convert between margin and markup percentages for pricing decisions.
