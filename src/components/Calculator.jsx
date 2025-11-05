@@ -549,7 +549,7 @@ const Calculator = () => {
               <span class="field-value">${formatCurrency(results.companyOverheadsDollars || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Operating Income $:</span>
+              <span class="field-label">Operating profit $:</span>
               <span class="field-value">${formatCurrency(results.operatingIncome || 0)}</span>
             </div>
             <div class="field">
@@ -561,11 +561,11 @@ const Calculator = () => {
               <span class="field-value ${results.divisionTotalBreakEven > results.yourProfitMargin ? 'warning-break-even' : ''}">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Required Price $:</span>
+              <span class="field-label">Target Price $:</span>
               <span class="field-value">${formatCurrency(results.requiredPrice || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Required Margin %:</span>
+              <span class="field-label">Target Margin %:</span>
               <span class="field-value">${formatPercentage(results.requiredMargin || 0)}</span>
             </div>
             <div class="field">
@@ -1259,10 +1259,10 @@ const Calculator = () => {
 
                 {/* GROUP 2: Net Profit - with increased spacing */}
                 <div className="mt-6 mb-6">
-                {/* Operating Income $ */}
+                {/* Operating profit $ */}
                 <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating Income $:</span>
+                    <span className="text-sm font-medium text-neutral-700" style={{fontWeight: 'bold'}}>Operating profit $:</span>
                 <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
@@ -1315,10 +1315,10 @@ const Calculator = () => {
                   }`}>{formatPercentage(results.divisionTotalBreakEven)}</span>
             </div>
 
-                {/* Required Price $ */}
+                {/* Target Price $ */}
                 <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Required Price $:</span>
+                    <span className="text-sm font-medium text-neutral-700 ">Target Price $:</span>
                 <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
@@ -1330,14 +1330,14 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.requiredPrice)}</span>
             </div>
 
-                {/* Required Margin % */}
+                {/* Target Margin % */}
                 <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Required Margin %:</span>
+                    <span className="text-sm font-medium text-neutral-700 ">Target Margin %:</span>
                 <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
-                        Profit margin percentage needed to achieve your target profit. Based on required price.
+                        Profit margin percentage needed to achieve your target profit. Based on target price.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
                   </div>
                 </div>
