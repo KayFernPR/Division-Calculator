@@ -355,17 +355,6 @@ const Calculator = () => {
               font-size: 11px;
               font-weight: bold;
             }
-            .profit-analysis-box {
-              border: 2px solid #63D43E;
-              border-radius: 4px;
-              padding: 8px;
-              margin-top: 10px;
-              margin-bottom: 10px;
-              background-color: #f9fafb;
-            }
-            .profit-analysis-box h2 {
-              margin-top: 0;
-            }
             .field { 
               display: flex;
               justify-content: space-between;
@@ -597,7 +586,7 @@ const Calculator = () => {
           </div>
           ` : ''}
 
-          <div class="profit-analysis-box">
+          <div class="section">
             <h2>Job Profit Analysis</h2>
             <div class="field">
               <span class="field-label">Your Price $:</span>
