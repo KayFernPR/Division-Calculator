@@ -561,20 +561,24 @@ const Calculator = () => {
               <span class="field-value ${results.divisionTotalBreakEven > results.yourProfitMargin ? 'warning-break-even' : ''}">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Target Price $:</span>
-              <span class="field-value">${formatCurrency(results.requiredPrice || 0)}</span>
-            </div>
-            <div class="field">
-              <span class="field-label">Target Margin %:</span>
-              <span class="field-value">${formatPercentage(results.requiredMargin || 0)}</span>
-            </div>
-            <div class="field">
               <span class="field-label">Your Price $:</span>
               <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
             </div>
             <div class="field">
               <span class="field-label">Your Operating Profit %:</span>
               <span class="field-value">${formatPercentage((results.yourProfitMargin || 0) - (results.divisionTotalBreakEven || 0))}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Target Operating Profit %:</span>
+              <span class="field-value">${formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Target Price $:</span>
+              <span class="field-value">${formatCurrency(results.requiredPrice || 0)}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Target Margin %:</span>
+              <span class="field-value">${formatPercentage(results.requiredMargin || 0)}</span>
             </div>
             <div class="field">
               <span class="field-label">You are currently at:</span>
@@ -1353,6 +1357,21 @@ const Calculator = () => {
               </div>
                   </div>
                   <span className={`font-mono text-sm ${(results.yourProfitMargin - results.divisionTotalBreakEven) < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.yourProfitMargin - results.divisionTotalBreakEven)}</span>
+            </div>
+
+                {/* Target Operating Profit % */}
+                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Target Operating Profit %:</span>
+                <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Your desired profit margin percentage. This is the minimum profit you want to achieve on each job to meet business goals.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+              </div>
+                </div>
+              </div>
+                  <span className="font-mono text-sm">{formatPercentage(parseFloat(formData.targetNetProfit) || 0)}</span>
             </div>
 
                 {/* Target Price $ */}
