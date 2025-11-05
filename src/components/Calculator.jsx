@@ -1355,55 +1355,63 @@ const Calculator = () => {
               </div>
             </div>
 
-                {/* Status Indicator */}
-                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1 whitespace-nowrap" style={{borderWidth: '0.5px', minHeight: '59px'}}>
-                  {isCalculated && (
-                    <div className="flex items-center gap-2 whitespace-nowrap">
-                      {results.profitabilityStatus === 'excellent' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">🏆</span>
-                          Jackpot! Above Target Profit
-              </span>
-                      )}
-                      {results.profitabilityStatus === 'good' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">🎯</span>
-                          You're Winning!
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'neutral' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-6 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
-                          Great Job You are a Profitable Restorer!
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'thin' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">⚠️</span>
-                          Warning! You're Cutting Into Profits
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'poor' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">🚨</span>
-                          EXTREME WARNING! You're Almost Paying For The Job
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'loss' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">⛔</span>
-                          STOP! DON'T PAY TO DO THE WORK!
-                        </span>
-                      )}
-              </div>
-                  )}
-            </div>
+                {/* Calculate margin difference for conditional highlighting */}
+                {(() => {
+                  const marginDifference = results.yourProfitMargin - results.divisionTotalBreakEven;
+                  const isRed = marginDifference <= -0.001;
+                  const isGreen = marginDifference >= 0;
+                  
+                  return (
+                    <>
+                      {/* Status Indicator */}
+                      <div className={`flex justify-center items-center p-3 border rounded-lg mb-1 whitespace-nowrap ${isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-blue-500 bg-blue-50'}`} style={{borderWidth: '0.5px', minHeight: '59px'}}>
+                        {isCalculated && (
+                          <div className="flex items-center gap-2 whitespace-nowrap">
+                            {results.profitabilityStatus === 'excellent' && (
+                              <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                                <span className="text-xl">🏆</span>
+                                Jackpot! Above Target Profit
+                              </span>
+                            )}
+                            {results.profitabilityStatus === 'good' && (
+                              <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                                <span className="text-xl">🎯</span>
+                                You're Winning!
+                              </span>
+                            )}
+                            {results.profitabilityStatus === 'neutral' && (
+                              <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                                <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-6 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
+                                Great Job You are a Profitable Restorer!
+                              </span>
+                            )}
+                            {results.profitabilityStatus === 'thin' && (
+                              <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                                <span className="text-xl">⚠️</span>
+                                Warning! You're Cutting Into Profits
+                              </span>
+                            )}
+                            {results.profitabilityStatus === 'poor' && (
+                              <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                                <span className="text-xl">🚨</span>
+                                EXTREME WARNING! You're Almost Paying For The Job
+                              </span>
+                            )}
+                            {results.profitabilityStatus === 'loss' && (
+                              <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                                <span className="text-xl">⛔</span>
+                                STOP! DON'T PAY TO DO THE WORK!
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
 
                 {/* GROUP 3: Your Price and Target Analysis - with spacing */}
                 <div className="mt-4">
                 {/* Your Price $ */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  results.yourJob > 200 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.yourJob > 200 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
                 }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Price $:</span>
@@ -1420,7 +1428,7 @@ const Calculator = () => {
 
                 {/* Your Operating Profit % */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  results.thisJobIs > 1 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.thisJobIs > 1 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
                 }`}>
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Operating Profit %:</span>
@@ -1436,7 +1444,9 @@ const Calculator = () => {
             </div>
 
                 {/* Target Operating Profit % */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Target Operating Profit %:</span>
                 <div className="relative group">
@@ -1451,7 +1461,9 @@ const Calculator = () => {
             </div>
 
                 {/* Target Price $ */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Target Price $:</span>
                 <div className="relative group">
@@ -1466,7 +1478,9 @@ const Calculator = () => {
             </div>
 
                 {/* Target Margin % */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Target Margin %:</span>
                 <div className="relative group">
@@ -1481,7 +1495,9 @@ const Calculator = () => {
             </div>
 
                 {/* You are currently at */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">You are currently at:</span>
                 <div className="relative group">
@@ -1511,7 +1527,9 @@ const Calculator = () => {
             </div>
 
                 {/* Which is */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Which is:</span>
                 <div className="relative group">
@@ -1541,7 +1559,9 @@ const Calculator = () => {
                 </div>
 
                 {/* Break-Even Price $ */}
-                <div className="flex justify-between items-center p-2 border border-neutral-300 bg-white  rounded-lg">
+                <div className={`flex justify-between items-center p-2 border rounded-lg ${
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Break-Even Price $:</span>
                 <div className="relative group">
@@ -1557,9 +1577,7 @@ const Calculator = () => {
             
                 {/* Break-Even % */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  results.divisionTotalBreakEven > results.yourProfitMargin 
-                    ? 'border-red-500 bg-red-50' 
-                    : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white')
                 }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
@@ -1578,6 +1596,9 @@ const Calculator = () => {
                   }`}>{formatPercentage(results.divisionTotalBreakEven)}</span>
             </div>
                 </div>
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </div>
