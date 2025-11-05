@@ -1566,19 +1566,17 @@ const Calculator = () => {
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
                       shouldBeWhite ? 'border-neutral-300 bg-white' : (isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
                     }`}>
-                  );
-                })()}
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Break-Even Price $:</span>
-                <div className="relative group">
-                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
-                        Minimum price needed to cover all costs with zero profit. Break-even point.
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-              </div>
-                </div>
-              </div>
-                  <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-neutral-700 ">Break-Even Price $:</span>
+                        <div className="relative group">
+                          <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                            Minimum price needed to cover all costs with zero profit. Break-even point.
+                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
                     </div>
                   );
                 })()}
@@ -1590,23 +1588,21 @@ const Calculator = () => {
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
                       shouldBeWhite ? 'border-neutral-300 bg-white' : (isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
                     }`}>
-                  );
-                })()}
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
-                <div className="relative group">
-                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
-                        Total percentage of sales needed to cover all division costs (COGS + variable + fixed + royalties).
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-                  </div>
-                </div>
-              </div>
-                  <span className={`font-mono text-sm ${
-                    results.divisionTotalBreakEven > results.yourProfitMargin 
-                      ? 'text-red-600 font-bold' 
-                      : ''
-                  }`}>{formatPercentage(results.divisionTotalBreakEven)}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
+                        <div className="relative group">
+                          <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                            Total percentage of sales needed to cover all division costs (COGS + variable + fixed + royalties).
+                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <span className={`font-mono text-sm ${
+                        results.divisionTotalBreakEven > results.yourProfitMargin 
+                          ? 'text-red-600 font-bold' 
+                          : ''
+                      }`}>{formatPercentage(results.divisionTotalBreakEven)}</span>
                     </div>
                   );
                 })()}
