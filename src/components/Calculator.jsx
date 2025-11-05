@@ -513,16 +513,16 @@ const Calculator = () => {
               <span class="field-value">${formatPercentage(results.jobCostPercent || 0)}</span>
             </div>
             <div class="field">
+              <span class="field-label">Actual Gross Profit $:</span>
+              <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
+            </div>
+            <div class="field">
               <span class="field-label">Actual Gross Profit Margin %:</span>
               <span class="field-value">${formatPercentage(results.yourProfitMargin || 0)}</span>
             </div>
             <div class="field">
               <span class="field-label">Actual Mark-up %:</span>
               <span class="field-value">${formatPercentage(results.actualMarkup || 0)}</span>
-            </div>
-            <div class="field">
-              <span class="field-label">Actual Gross Profit $:</span>
-              <span class="field-value">${formatCurrency(results.grossProfit || 0)}</span>
             </div>
             <div class="field">
               <span class="field-label">Division Variable Expenses $:</span>
@@ -1141,6 +1141,20 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatPercentage(results.jobCostPercent)}</span>
             </div>
 
+                {/* Actual Gross Profit $ */}
+                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit $:</span>
+                <div className="relative group">
+                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
+                        Gross profit amount: Sales minus COGS. This is your profit before overhead costs.
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+              </div>
+              </div>
+                  <span className={`font-mono text-sm ${results.grossProfit < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.grossProfit)}</span>
+              </div>
+
                 {/* Actual Gross Profit Margin % */}
                 <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
                   <div className="flex items-center gap-2">
@@ -1170,21 +1184,6 @@ const Calculator = () => {
               </div>
                   <span className={`font-mono text-sm ${results.actualMarkup < 0 ? 'text-red-600 font-bold' : ''}`}>{formatPercentage(results.actualMarkup)}</span>
             </div>
-
-                {/* Actual Gross Profit $ */}
-                <div className="flex justify-between items-center p-2 border border-green-500 bg-green-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Actual Gross Profit $:</span>
-                <div className="relative group">
-                      <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
-                        Gross profit amount: Sales minus COGS. This is your profit before overhead costs.
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
-              </div>
-              </div>
-              </div>
-                  <span className={`font-mono text-sm ${results.grossProfit < 0 ? 'text-red-600 font-bold' : ''}`}>{formatCurrency(results.grossProfit)}</span>
-              </div>
 
                 {/* Division Variable Expenses $ */}
                 <div className="flex justify-between items-center p-2 border border-red-500 bg-red-50 rounded-lg mb-1" style={{borderWidth: '0.5px'}}>
