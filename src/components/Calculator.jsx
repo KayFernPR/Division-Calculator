@@ -1051,7 +1051,7 @@ const Calculator = () => {
           </form>
           
           {/* Additional padding to match Results box height */}
-          <div className="pt-[50px]"></div>
+          <div className="pt-[200px]"></div>
             </div>
         </div>
 
