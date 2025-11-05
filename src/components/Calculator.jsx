@@ -573,7 +573,7 @@ const Calculator = () => {
               <span class="field-value">${formatCurrency(results.yourPrice || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Your operating profit is %:</span>
+              <span class="field-label">Your Operating Profit %:</span>
               <span class="field-value">${formatPercentage((results.yourProfitMargin || 0) - (results.divisionTotalBreakEven || 0))}</span>
             </div>
             <div class="field">
@@ -1406,12 +1406,12 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.yourPrice)}</span>
               </div>
 
-                {/* Your operating profit is % */}
+                {/* Your Operating Profit % */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
                   results.thisJobIs > 1 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
                 }`}>
                 <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Your operating profit is %:</span>
+                    <span className="text-sm font-medium text-neutral-700 ">Your Operating Profit %:</span>
                     <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
