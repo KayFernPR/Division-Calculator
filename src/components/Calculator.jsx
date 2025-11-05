@@ -124,24 +124,22 @@ const Calculator = () => {
     const thisJobIs = yourProfitMargin - requiredMargin
       const yourJob = retailPrice - requiredPrice
 
-    // Profitability status - Balanced thresholds using marginDifference (yourProfitMargin - requiredMargin)
+    // Profitability status - Based on break-even analysis (yourProfitMargin - divisionTotalBreakEven)
       let profitabilityStatus = 'neutral'
-    const marginDifference = yourProfitMargin - requiredMargin
+    const breakEvenMarginDifference = yourProfitMargin - divisionTotalBreakEven
     
-    if (actualNetProfit < 0) {
-      profitabilityStatus = 'loss' // Special case for negative profit
-    } else if (marginDifference >= 5) {
-      profitabilityStatus = 'excellent' // ≥ 5% (5%+ above target)
-    } else if (marginDifference >= 1) {
-      profitabilityStatus = 'good' // ≥ 1% (1-5% above target)
-    } else if (marginDifference >= -1) {
-      profitabilityStatus = 'neutral' // ≥ -1% (within 1% of target)
-    } else if (marginDifference >= -5) {
-      profitabilityStatus = 'thin' // ≥ -5% (1-5% below target) - Warning
-    } else if (marginDifference >= -10) {
-      profitabilityStatus = 'poor' // ≥ -10% (5-10% below target) - Extreme Warning
-        } else {
-      profitabilityStatus = 'loss' // < -10% (10%+ below target) - Stop
+    if (breakEvenMarginDifference <= -0.001 || actualNetProfit < 0) {
+      profitabilityStatus = 'loss' // Below break-even or negative profit - Stop
+    } else if (breakEvenMarginDifference >= 5) {
+      profitabilityStatus = 'excellent' // ≥ 5% above break-even (5%+ above break-even)
+    } else if (breakEvenMarginDifference >= 1) {
+      profitabilityStatus = 'good' // ≥ 1% above break-even (1-5% above break-even)
+    } else if (breakEvenMarginDifference >= -0.001) {
+      profitabilityStatus = 'neutral' // ≥ -0.001% (at or just above break-even)
+    } else if (breakEvenMarginDifference >= -5) {
+      profitabilityStatus = 'thin' // ≥ -5% (1-5% below break-even) - Warning
+    } else {
+      profitabilityStatus = 'poor' // < -5% (5%+ below break-even) - Extreme Warning
     }
 
     const coversOverhead = grossProfit >= companyOverheadsDollars
@@ -1562,9 +1560,12 @@ const Calculator = () => {
                 {(() => {
                   const grossProfitMinusBreakEven = results.grossProfit - results.breakEvenPrice;
                   const shouldBeWhite = grossProfitMinusBreakEven >= 0;
+                  const marginDiff = results.yourProfitMargin - results.divisionTotalBreakEven;
+                  const breakEvenPriceIsRed = marginDiff <= -0.001;
+                  const breakEvenPriceIsGreen = marginDiff >= 0;
                   return (
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                      shouldBeWhite ? 'border-neutral-300 bg-white' : (isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
+                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenPriceIsRed ? 'border-red-500 bg-red-50' : breakEvenPriceIsGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
                     }`}>
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-neutral-700 ">Break-Even Price $:</span>
@@ -1583,10 +1584,13 @@ const Calculator = () => {
             
                 {/* Break-Even % */}
                 {(() => {
-                  const shouldBeWhite = marginDifference >= 0;
+                  const marginDiff = results.yourProfitMargin - results.divisionTotalBreakEven;
+                  const shouldBeWhite = marginDiff >= 0;
+                  const breakEvenIsRed = marginDiff <= -0.001;
+                  const breakEvenIsGreen = marginDiff >= 0;
                   return (
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                      shouldBeWhite ? 'border-neutral-300 bg-white' : (isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
+                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenIsRed ? 'border-red-500 bg-red-50' : breakEvenIsGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
                     }`}>
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
