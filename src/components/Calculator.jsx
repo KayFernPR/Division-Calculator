@@ -1275,6 +1275,50 @@ const Calculator = () => {
               </div>
             </div>
 
+                {/* Status Indicator */}
+                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1 whitespace-nowrap" style={{borderWidth: '0.5px', minHeight: '59px'}}>
+                  {isCalculated && (
+                    <div className="flex items-center gap-2 whitespace-nowrap">
+                      {results.profitabilityStatus === 'excellent' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🏆</span>
+                          Jackpot! Above Target Profit
+              </span>
+                      )}
+                      {results.profitabilityStatus === 'good' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🎯</span>
+                          You're Winning!
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'neutral' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-6 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
+                          Great Job You are a Profitable Restorer!
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'thin' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">⚠️</span>
+                          Warning! You're Cutting Into Profits
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'poor' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">🚨</span>
+                          EXTREME WARNING! You're Almost Paying For The Job
+                        </span>
+                      )}
+                      {results.profitabilityStatus === 'loss' && (
+                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
+                          <span className="text-xl">⛔</span>
+                          STOP! DON'T PAY TO DO THE WORK!
+                        </span>
+                      )}
+              </div>
+                  )}
+            </div>
+
                 {/* GROUP 3: Break-Even and Target Analysis - with spacing */}
                 <div className="mt-4">
                 {/* Break-Even Price $ */}
@@ -1343,50 +1387,6 @@ const Calculator = () => {
                 </div>
               </div>
                   <span className="font-mono text-sm">{formatPercentage(results.requiredMargin)}</span>
-            </div>
-
-                {/* Status Indicator */}
-                <div className="flex justify-center items-center p-3 border border-blue-500 bg-blue-50 rounded-lg mb-1 whitespace-nowrap" style={{borderWidth: '0.5px', minHeight: '59px'}}>
-                  {isCalculated && (
-                    <div className="flex items-center gap-2 whitespace-nowrap">
-                      {results.profitabilityStatus === 'excellent' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">🏆</span>
-                          Jackpot! Above Target Profit
-              </span>
-                      )}
-                      {results.profitabilityStatus === 'good' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">🎯</span>
-                          You're Winning!
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'neutral' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <img src="/profitable-restorer-emblem.png.png" alt="Profitable Restorer" className="w-5 h-6 flex-shrink-0" style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: '4px'}} />
-                          Great Job You are a Profitable Restorer!
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'thin' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">⚠️</span>
-                          Warning! You're Cutting Into Profits
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'poor' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">🚨</span>
-                          EXTREME WARNING! You're Almost Paying For The Job
-                        </span>
-                      )}
-                      {results.profitabilityStatus === 'loss' && (
-                        <span className="flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                          <span className="text-xl">⛔</span>
-                          STOP! DON'T PAY TO DO THE WORK!
-                        </span>
-                      )}
-              </div>
-                  )}
             </div>
 
                 {/* Your Price $ */}
