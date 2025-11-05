@@ -1562,8 +1562,8 @@ const Calculator = () => {
 
                 {/* Break-Even Price $ */}
                 {(() => {
-                  const grossProfitMinusBreakEven = results.grossProfit - results.breakEvenPrice;
-                  const shouldBeWhite = grossProfitMinusBreakEven >= 0;
+                  const yourPriceMinusBreakEven = results.yourPrice - results.breakEvenPrice;
+                  const shouldBeWhite = yourPriceMinusBreakEven >= 0;
                   const marginDiff = results.yourProfitMargin - results.divisionTotalBreakEven;
                   const breakEvenPriceIsRed = marginDiff <= -0.001;
                   const breakEvenPriceIsGreen = marginDiff >= 0;
