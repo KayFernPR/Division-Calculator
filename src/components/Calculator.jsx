@@ -557,7 +557,7 @@ const Calculator = () => {
               <span class="field-value">${formatCurrency(results.breakEvenPrice || 0)}</span>
             </div>
             <div class="field">
-              <span class="field-label">Division Total Break-Even %:</span>
+              <span class="field-label">Break-Even %:</span>
               <span class="field-value ${results.divisionTotalBreakEven > results.yourProfitMargin ? 'warning-break-even' : ''}">${formatPercentage(results.divisionTotalBreakEven || 0)}</span>
             </div>
             <div class="field">
@@ -1292,14 +1292,14 @@ const Calculator = () => {
                   <span className="font-mono text-sm">{formatCurrency(results.breakEvenPrice)}</span>
             </div>
             
-                {/* Division Total Break-Even % */}
+                {/* Break-Even % */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
                   results.divisionTotalBreakEven > results.yourProfitMargin 
                     ? 'border-red-500 bg-red-50' 
                     : 'border-neutral-300 bg-white'
                 }`}>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-neutral-700 ">Division Total Break-Even %:</span>
+                    <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
                 <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
@@ -1415,7 +1415,7 @@ const Calculator = () => {
                     <div className="relative group">
                       <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-neutral-200 text-neutral-600 text-xs cursor-help">i</span>
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs">
-                        Your profit margin after subtracting division break-even costs: Actual Gross Profit Margin % minus Division Total Break-Even %.
+                        Your profit margin after subtracting division break-even costs: Actual Gross Profit Margin % minus Break-Even %.
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
                 </div>
               </div>
