@@ -1361,12 +1361,20 @@ const Calculator = () => {
                 {(() => {
                   const marginDifference = results.yourProfitMargin - results.divisionTotalBreakEven;
                   const isRed = marginDifference < 0.001 || results.actualNetProfit < 0;
-                  const isGreen = marginDifference >= 0.001 && results.actualNetProfit >= 0;
+                  const isYellow = results.profitabilityStatus === 'thin';
+                  const isOrange = results.profitabilityStatus === 'poor';
+                  const isGreen = marginDifference >= 0.001 && results.actualNetProfit >= 0 && !isYellow && !isOrange;
                   
                   return (
                     <>
                       {/* Status Indicator */}
-                      <div className={`flex justify-center items-center p-3 border rounded-lg mb-1 whitespace-nowrap ${isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-blue-500 bg-blue-50'}`} style={{borderWidth: '0.5px', minHeight: '59px'}}>
+                      <div className={`flex justify-center items-center p-3 border rounded-lg mb-1 whitespace-nowrap ${
+                        isRed ? 'border-red-500 bg-red-50' : 
+                        isYellow ? 'border-yellow-500 bg-yellow-50' : 
+                        isOrange ? 'border-orange-500 bg-orange-50' : 
+                        isGreen ? 'border-green-500 bg-green-50' : 
+                        'border-blue-500 bg-blue-50'
+                      }`} style={{borderWidth: '0.5px', minHeight: '59px'}}>
                         {isCalculated && (
                           <div className="flex items-center gap-2 whitespace-nowrap">
                             {results.profitabilityStatus === 'excellent' && (
@@ -1413,7 +1421,7 @@ const Calculator = () => {
                 <div className="mt-4">
                 {/* Your Price $ */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.yourJob > 200 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
+                  isRed ? 'border-red-500 bg-red-50' : isYellow ? 'border-yellow-500 bg-yellow-50' : isOrange ? 'border-orange-500 bg-orange-50' : isGreen ? 'border-green-500 bg-green-50' : (results.yourJob > 200 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
                 }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Price $:</span>
@@ -1430,7 +1438,7 @@ const Calculator = () => {
 
                 {/* Your Operating Profit % */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : (results.thisJobIs > 1 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
+                  isRed ? 'border-red-500 bg-red-50' : isYellow ? 'border-yellow-500 bg-yellow-50' : isOrange ? 'border-orange-500 bg-orange-50' : isGreen ? 'border-green-500 bg-green-50' : (results.thisJobIs > 1 ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
                 }`}>
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Your Operating Profit %:</span>
@@ -1447,7 +1455,7 @@ const Calculator = () => {
 
                 {/* Target Operating Profit % */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isYellow ? 'border-yellow-500 bg-yellow-50' : isOrange ? 'border-orange-500 bg-orange-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
                 }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Target Operating Profit %:</span>
@@ -1464,7 +1472,7 @@ const Calculator = () => {
 
                 {/* Target Price $ */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isYellow ? 'border-yellow-500 bg-yellow-50' : isOrange ? 'border-orange-500 bg-orange-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
                 }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Target Price $:</span>
@@ -1481,7 +1489,7 @@ const Calculator = () => {
 
                 {/* Target Margin % */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isYellow ? 'border-yellow-500 bg-yellow-50' : isOrange ? 'border-orange-500 bg-orange-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
                 }`}>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Target Margin %:</span>
@@ -1498,7 +1506,7 @@ const Calculator = () => {
 
                 {/* You are currently at */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isYellow ? 'border-yellow-500 bg-yellow-50' : isOrange ? 'border-orange-500 bg-orange-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
                 }`}>
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">You are currently at:</span>
@@ -1530,7 +1538,7 @@ const Calculator = () => {
 
                 {/* Which is */}
                 <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                  isRed ? 'border-red-500 bg-red-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
+                  isRed ? 'border-red-500 bg-red-50' : isYellow ? 'border-yellow-500 bg-yellow-50' : isOrange ? 'border-orange-500 bg-orange-50' : isGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white'
                 }`}>
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-neutral-700 ">Which is:</span>
@@ -1565,11 +1573,13 @@ const Calculator = () => {
                   const yourPriceMinusBreakEven = results.yourPrice - results.breakEvenPrice;
                   const shouldBeWhite = yourPriceMinusBreakEven >= 0;
                   const marginDiff = results.yourProfitMargin - results.divisionTotalBreakEven;
-                  const breakEvenPriceIsRed = marginDiff <= -0.001;
-                  const breakEvenPriceIsGreen = marginDiff >= 0;
+                  const breakEvenPriceIsRed = marginDiff <= -0.001 || results.actualNetProfit < 0;
+                  const breakEvenPriceIsYellow = results.profitabilityStatus === 'thin';
+                  const breakEvenPriceIsOrange = results.profitabilityStatus === 'poor';
+                  const breakEvenPriceIsGreen = marginDiff >= 0.001 && results.actualNetProfit >= 0 && !breakEvenPriceIsYellow && !breakEvenPriceIsOrange;
                   return (
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenPriceIsRed ? 'border-red-500 bg-red-50' : breakEvenPriceIsGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
+                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenPriceIsRed ? 'border-red-500 bg-red-50' : breakEvenPriceIsYellow ? 'border-yellow-500 bg-yellow-50' : breakEvenPriceIsOrange ? 'border-orange-500 bg-orange-50' : breakEvenPriceIsGreen ? 'border-green-500 bg-green-50' : 'border-neutral-300 bg-white')
                     }`}>
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-neutral-700 ">Break-Even Price $:</span>
@@ -1590,11 +1600,13 @@ const Calculator = () => {
                 {(() => {
                   const marginDiff = results.yourProfitMargin - results.divisionTotalBreakEven;
                   const shouldBeWhite = marginDiff >= 0;
-                  const breakEvenIsRed = marginDiff <= -0.001;
-                  const breakEvenIsGreen = marginDiff >= 0;
+                  const breakEvenIsRed = marginDiff <= -0.001 || results.actualNetProfit < 0;
+                  const breakEvenIsYellow = results.profitabilityStatus === 'thin';
+                  const breakEvenIsOrange = results.profitabilityStatus === 'poor';
+                  const breakEvenIsGreen = marginDiff >= 0.001 && results.actualNetProfit >= 0 && !breakEvenIsYellow && !breakEvenIsOrange;
                   return (
                     <div className={`flex justify-between items-center p-2 border rounded-lg ${
-                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenIsRed ? 'border-red-500 bg-red-50' : breakEvenIsGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
+                      shouldBeWhite ? 'border-neutral-300 bg-white' : (breakEvenIsRed ? 'border-red-500 bg-red-50' : breakEvenIsYellow ? 'border-yellow-500 bg-yellow-50' : breakEvenIsOrange ? 'border-orange-500 bg-orange-50' : breakEvenIsGreen ? 'border-green-500 bg-green-50' : (results.divisionTotalBreakEven > results.yourProfitMargin ? 'border-red-500 bg-red-50' : 'border-neutral-300 bg-white'))
                     }`}>
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-neutral-700 ">Break-Even %:</span>
