@@ -122,26 +122,28 @@ const Calculator = () => {
     const requiredMargin = ((requiredPrice - jobCost) / requiredPrice) * 100
     const yourPrice = retailPrice
     // Calculate actual operating profit % and compare to target
-    const actualOperatingProfit = yourProfitMargin - divisionTotalBreakEven
+    const breakEvenMarginDifference = yourProfitMargin - divisionTotalBreakEven
+    const actualOperatingProfit = breakEvenMarginDifference
     const thisJobIs = actualOperatingProfit - targetNetProfit
       const yourJob = retailPrice - requiredPrice
 
-    // Profitability status - Based on break-even analysis (yourProfitMargin - divisionTotalBreakEven)
+    // Profitability status - Based on actual operating profit vs target operating profit
       let profitabilityStatus = 'neutral'
-    const breakEvenMarginDifference = yourProfitMargin - divisionTotalBreakEven
+    const targetOperatingProfit = targetNetProfit
+    const operatingProfitDifference = actualOperatingProfit - targetOperatingProfit
     
     if (breakEvenMarginDifference <= -0.001 || actualNetProfit < 0) {
       profitabilityStatus = 'loss' // Below break-even or negative profit - Stop
-    } else if (breakEvenMarginDifference >= 5) {
-      profitabilityStatus = 'excellent' // ≥ 5% above break-even (5%+ above break-even)
-    } else if (breakEvenMarginDifference >= 1) {
-      profitabilityStatus = 'good' // ≥ 1% above break-even (1-5% above break-even)
-    } else if (breakEvenMarginDifference >= -0.001) {
-      profitabilityStatus = 'neutral' // ≥ -0.001% (at or just above break-even)
-    } else if (breakEvenMarginDifference >= -5) {
-      profitabilityStatus = 'thin' // ≥ -5% (1-5% below break-even) - Warning
+    } else if (operatingProfitDifference >= 5) {
+      profitabilityStatus = 'excellent' // ≥ 5% above target (5%+ above target) - Jackpot!
+    } else if (operatingProfitDifference >= 1) {
+      profitabilityStatus = 'good' // ≥ 1% above target (1-5% above target) - You're Winning!
+    } else if (operatingProfitDifference >= -1) {
+      profitabilityStatus = 'neutral' // Within 1% of target (at or near target) - Great Job!
+    } else if (operatingProfitDifference >= -5) {
+      profitabilityStatus = 'thin' // 1-5% below target - Warning
     } else {
-      profitabilityStatus = 'poor' // < -5% (5%+ below break-even) - Extreme Warning
+      profitabilityStatus = 'poor' // 5%+ below target - Extreme Warning
     }
 
     const coversOverhead = grossProfit >= companyOverheadsDollars
