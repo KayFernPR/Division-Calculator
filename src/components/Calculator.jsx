@@ -701,9 +701,9 @@ const Calculator = () => {
       jobCost: '',
       royaltyRate: '',
       divisionVariableExpenses: '',
-      divisionOverheads: '5.00',
-      companyOverheads: '10.00',
-      targetNetProfit: '30.00'
+      divisionOverheads: '',
+      companyOverheads: '',
+      targetNetProfit: ''
     })
     setResults({
       grossProfit: 0,
