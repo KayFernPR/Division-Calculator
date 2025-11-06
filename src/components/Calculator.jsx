@@ -1042,10 +1042,10 @@ const Calculator = () => {
                     type="button"
                     onClick={resetForm}
                     className="w-full py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
-                    style={{backgroundColor: '#f3f4f6', borderColor: '#d1d5db', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
+                    style={{backgroundColor: '#FF0000', borderColor: '#B53737', color: '#FFFFFF', borderWidth: '1px', borderStyle: 'solid'}}
                   >
                     <span>🗑️</span>
-                    Clear Results
+                    Clear Calculator
                   </button>
                   <button
                     type="button"
