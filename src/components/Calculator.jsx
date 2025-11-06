@@ -1037,7 +1037,7 @@ const Calculator = () => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col gap-3 pt-2" style={{marginTop: '130px'}}>
+                <div className="flex flex-col gap-3 pt-2 mx-auto w-1/2" style={{marginTop: '130px'}}>
                   <button
                     type="button"
                     onClick={resetForm}
