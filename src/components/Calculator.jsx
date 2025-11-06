@@ -1037,17 +1037,26 @@ const Calculator = () => {
             </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 pt-2" style={{marginTop: '130px'}}>
-              <button
+                <div className="flex flex-col gap-3 pt-2" style={{marginTop: '130px'}}>
+                  <button
                     type="button"
-            onClick={handlePrint}
-                    className="flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+                    onClick={resetForm}
+                    className="w-full py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+                    style={{backgroundColor: '#f3f4f6', borderColor: '#d1d5db', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
+                  >
+                    <span>🗑️</span>
+                    Clear Results
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handlePrint}
+                    className="w-full py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
                     style={{backgroundColor: '#EBE6E3', borderColor: '#EBE6E3', color: '#1F1F1F', borderWidth: '1px', borderStyle: 'solid'}}
-          >
+                  >
                     <span>🖨️</span>
                     Print
-          </button>
-            </div>
+                  </button>
+                </div>
           </form>
           
           {/* Additional padding to match Results box height */}

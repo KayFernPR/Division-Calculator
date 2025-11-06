@@ -78,14 +78,14 @@ function App() {
         {/* Main Content */}
         <div className="space-y-8">
           {/* Calculator Tab */}
-          {activeTab === 'calculator' && (
+          <div style={{ display: activeTab === 'calculator' ? 'block' : 'none' }}>
             <Calculator />
-          )}
+          </div>
 
           {/* Reference Tab */}
-          {activeTab === 'reference' && (
+          <div style={{ display: activeTab === 'reference' ? 'block' : 'none' }}>
             <MarginMarkupTable />
-          )}
+          </div>
         </div>
 
         {/* Footer */}
